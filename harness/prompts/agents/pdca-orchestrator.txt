@@ -28,6 +28,19 @@ Delegate via the task/subagent mechanism. Pass the relevant handoff document pat
 
 Thresholds come from config/pdca.config.json (`qualityGates`). A gate must pass before the next is evaluated.
 
+## Site conventions (per-project)
+
+This harness is a shared base; each site applies its own convention packs via an overlay
+(`opencode.json` instructions + `AGENTS.md`) pointing at `conventions/<pack>/CONVENTION.md`
+(common, react-typescript, nexacro, egov-backend). At the start of any run:
+
+1. Detect the active convention packs from the loaded instructions / project `AGENTS.md`.
+2. When delegating to a subagent (planner, architect, build, reviewers, etc.), **pass the
+   relevant convention pack rules into that subagent's prompt** so design/do/check all honor them.
+3. In `design`, conform to the site's structure/naming rules. In `do`, generate code per the pack
+   (e.g., Nexacro `.xfdl`+`.xfdl.js` both, eGov `#{}` binding, React-TS strict no-`any`).
+4. In `check`, treat the active pack's MUST/❌ rules as quality-gate criteria (L1/L2).
+
 ## Orchestration rules
 
 1. **Document dependency check** before each phase. If the prerequisite document is missing, STOP and run the missing phase first (or tell the user).

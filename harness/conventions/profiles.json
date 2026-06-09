@@ -1,0 +1,17 @@
+{
+  "$comment": "사이트 → 컨벤션 팩 매핑. common은 항상 포함되므로 생략 가능(생성기가 자동 포함). /apply-convention --profile <name> 으로 사용.",
+  "profiles": {
+    "react-site": {
+      "description": "TypeScript React 프론트엔드 사이트",
+      "packs": ["react-typescript"]
+    },
+    "nexacro-egov": {
+      "description": "Nexacro 프론트엔드 + 전자정부 백엔드 사이트",
+      "packs": ["nexacro", "egov-backend"]
+    },
+    "egov-only": {
+      "description": "전자정부 백엔드 전용 사이트",
+      "packs": ["egov-backend"]
+    }
+  }
+}

@@ -7,6 +7,7 @@
     "AGENTS.md",
     "CONTRIBUTING.md",
     "instructions/INSTRUCTIONS.md",
+    "conventions/common/CONVENTION.md",
     "skills/tdd-workflow/SKILL.md",
     "skills/security-review/SKILL.md",
     "skills/coding-standards/SKILL.md",
@@ -555,6 +556,10 @@
     "pdca-next": {
       "description": "다음 권장 PDCA 단계 안내",
       "template": "{file:commands/pdca-next.md}\n\n$ARGUMENTS"
+    },
+    "apply-convention": {
+      "description": "사이트 레포에 컨벤션 overlay 생성",
+      "template": "{file:commands/apply-convention.md}\n\n$ARGUMENTS"
     }
   },
   "permission": {
