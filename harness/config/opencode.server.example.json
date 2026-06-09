@@ -1,0 +1,61 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "$comment": "폐쇄망 GPU 서버 모드 예시. 이 파일의 provider/model/small_model/agent.*.model 키를 harness/opencode.json에 병합하세요. SERVER_IP와 API 키는 환경에 맞게 교체합니다. baseURL은 vLLM 인스턴스(또는 LiteLLM 게이트웨이) 주소입니다.",
+
+  "model": "vllm-code/qwen2.5-coder-32b",
+  "small_model": "vllm-code/qwen2.5-coder-7b",
+
+  "provider": {
+    "vllm-code": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "vLLM Code (server)",
+      "options": {
+        "baseURL": "http://SERVER_IP:8001/v1",
+        "apiKey": "{env:VLLM_API_KEY}"
+      },
+      "models": {
+        "qwen2.5-coder-32b": { "name": "Qwen2.5 Coder 32B (server)" },
+        "qwen2.5-coder-7b": { "name": "Qwen2.5 Coder 7B (server, fast)" }
+      }
+    },
+    "vllm-vision": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "vLLM Vision (server)",
+      "options": {
+        "baseURL": "http://SERVER_IP:8002/v1",
+        "apiKey": "{env:VLLM_API_KEY}"
+      },
+      "models": {
+        "qwen2.5-vl-7b": { "name": "Qwen2.5-VL 7B (vision)" }
+      }
+    },
+    "vllm-writing": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "vLLM Writing (server)",
+      "options": {
+        "baseURL": "http://SERVER_IP:8003/v1",
+        "apiKey": "{env:VLLM_API_KEY}"
+      },
+      "models": {
+        "qwen2.5-72b-instruct": { "name": "Qwen2.5 72B Instruct (writing)" }
+      }
+    },
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local fallback)",
+      "options": { "baseURL": "http://localhost:11434/v1" },
+      "models": { "qwen2.5-coder:7b": { "name": "Qwen2.5 Coder 7B (local fallback)" } }
+    }
+  },
+
+  "agent": {
+    "build":              { "model": "vllm-code/qwen2.5-coder-32b" },
+    "planner":            { "model": "vllm-code/qwen2.5-coder-32b" },
+    "architect":          { "model": "vllm-code/qwen2.5-coder-32b" },
+    "code-reviewer":      { "model": "vllm-code/qwen2.5-coder-32b" },
+    "security-reviewer":  { "model": "vllm-code/qwen2.5-coder-32b" },
+    "tdd-guide":          { "model": "vllm-code/qwen2.5-coder-32b" },
+    "doc-updater":        { "model": "vllm-writing/qwen2.5-72b-instruct" },
+    "pdca-orchestrator":  { "model": "vllm-code/qwen2.5-coder-32b" }
+  }
+}
