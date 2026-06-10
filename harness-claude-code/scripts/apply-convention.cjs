@@ -1,17 +1,19 @@
 #!/usr/bin/env node
 /**
- * apply-convention.js
+ * apply-convention.cjs  (Claude Code 버전)
  *
- * 사이트 레포에 컨벤션 overlay(opencode.json + AGENTS.md)를 생성한다.
- * 하네스의 conventions/<pack>/CONVENTION.md 들을 instructions로 가리키게 한다.
+ * 사이트 레포에 컨벤션 overlay(CLAUDE.md)를 생성한다.
+ * 하네스의 conventions/<pack>/CONVENTION.md 들을 Claude Code의 @import 로 가리킨다.
+ * (OpenCode 버전은 opencode.json + AGENTS.md 를 생성 — 여기서는 CLAUDE.md 단일 파일.)
  *
  * 사용법:
- *   node scripts/apply-convention.js <site-repo-path> <pack...> [--force]
- *   node scripts/apply-convention.js <site-repo-path> --profile <name> [--force]
+ *   node scripts/apply-convention.cjs <site-repo-path> <pack...> [--force]
+ *   node scripts/apply-convention.cjs <site-repo-path> --profile <name> [--force]
  *
  * 예:
- *   node scripts/apply-convention.js ../sites/portal react-typescript
- *   node scripts/apply-convention.js ../sites/erp --profile nexacro-egov
+ *   node scripts/apply-convention.cjs ../sites/portal react-typescript
+ *   node scripts/apply-convention.cjs ../sites/api spring-boot
+ *   node scripts/apply-convention.cjs ../sites/app --profile react-spring
  */
 
 "use strict"
@@ -49,7 +51,7 @@ function parseArgs(argv) {
   const args = argv.slice(2)
   if (args.length < 2) {
     fail(
-      "사용법: node scripts/apply-convention.js <site-repo-path> <pack...|--profile name> [--force]"
+      "사용법: node scripts/apply-convention.cjs <site-repo-path> <pack...|--profile name> [--force]"
     )
   }
   const sitePath = path.resolve(args[0])
@@ -71,7 +73,7 @@ function parseArgs(argv) {
 }
 
 function relFromSite(sitePath, target) {
-  // overlay가 다른 머신/경로에서도 읽히도록 상대경로 우선, 불가하면 절대경로
+  // overlay가 다른 경로에서도 읽히도록 상대경로 우선
   const rel = path.relative(sitePath, target)
   return rel.split(path.sep).join("/")
 }
@@ -92,46 +94,33 @@ function main() {
   }
   const finalPacks = [ALWAYS, ...requested]
 
-  const instructions = finalPacks.map((p) =>
+  const imports = finalPacks.map((p) =>
     relFromSite(sitePath, path.join(CONVENTIONS_DIR, p, "CONVENTION.md"))
   )
 
-  const opencodePath = path.join(sitePath, "opencode.json")
-  const agentsPath = path.join(sitePath, "AGENTS.md")
-
-  if ((fs.existsSync(opencodePath) || fs.existsSync(agentsPath)) && !force) {
-    fail(
-      `이미 opencode.json/AGENTS.md 가 존재합니다. 덮어쓰려면 --force 를 붙이세요.\n  ${opencodePath}`
-    )
+  const claudePath = path.join(sitePath, "CLAUDE.md")
+  if (fs.existsSync(claudePath) && !force) {
+    fail(`이미 CLAUDE.md 가 존재합니다. 덮어쓰려면 --force 를 붙이세요.\n  ${claudePath}`)
   }
 
-  // 1) opencode.json overlay
-  const overlay = {
-    $schema: "https://opencode.ai/config.json",
-    instructions,
-  }
-  fs.writeFileSync(opencodePath, JSON.stringify(overlay, null, 2) + "\n")
-
-  // 2) AGENTS.md 요약
-  const agents = [
-    "# 사이트 컨벤션 (ai-edu 하네스)",
+  const body = [
+    "# 사이트 컨벤션 (ai-edu Claude Code 하네스)",
     "",
     `이 레포에는 다음 컨벤션 팩이 적용됩니다: **${finalPacks.join(", ")}**`,
     "",
-    "상세 규칙은 `opencode.json`의 `instructions`가 가리키는 하네스 컨벤션 팩을 따릅니다:",
+    "코드 생성·리뷰·PDCA 전 단계에서 아래 팩의 규칙을 우선 적용하세요.",
+    "아래 `@import` 로 하네스의 컨벤션 팩을 이 컨텍스트에 로드합니다:",
     "",
-    ...instructions.map((i) => `- ${i}`),
-    "",
-    "코드 생성·리뷰·PDCA 전 단계에서 위 팩의 규칙을 우선 적용하세요.",
+    ...imports.map((i) => `@${i}`),
     "",
   ].join("\n")
-  fs.writeFileSync(agentsPath, agents)
+  fs.writeFileSync(claudePath, body)
 
   console.log("[apply-convention] 생성 완료")
   console.log(`  site:   ${sitePath}`)
   console.log(`  packs:  ${finalPacks.join(", ")}`)
-  console.log(`  files:  opencode.json, AGENTS.md`)
-  console.log(`  → 해당 레포에서 'opencode' 실행 시 적용됩니다.`)
+  console.log(`  files:  CLAUDE.md`)
+  console.log(`  → 해당 레포에서 'claude' 실행 시 컨벤션이 로드됩니다.`)
 }
 
 main()

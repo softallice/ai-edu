@@ -51,7 +51,7 @@ cd ai-edu
 
 # 폴더 구조 확인
 ls
-# docs/  harness/  README.md
+# README.md  backend  docs  frontend  harness
 ```
 
 > 이미 받아둔 경우 최신화: `cd ~/work/ai-edu && git pull`
@@ -82,11 +82,36 @@ npx tsc --noEmit && echo OK # 하네스 타입 점검(선택)
 ## 5. 실행 및 사용 방법
 
 ### 5-1. 실행
-하네스 폴더에서 OpenCode를 실행합니다(설정이 자동 로드됩니다).
+
+> ⚠️ **OpenCode는 "실행한 폴더(cwd)"를 작업 디렉터리로 삼습니다.** 따라서 실행 위치에 따라 용도가 다릅니다.
+
+**(A) 하네스 체험 — 하네스 폴더에서 실행**
+처음 커맨드를 익히거나 일회성 연습을 할 때. 생성되는 파일은 `harness/` 안에 생깁니다.
 ```bash
 cd ~/work/ai-edu/harness
 opencode
 ```
+
+**(B) 실제 프로젝트 개발 — `frontend/`·`backend/`에서 실행** (권장)
+실제 소스는 `frontend/`·`backend/`에 있으므로, 그 폴더에서 실행해야 코드가 올바른 위치에 생성됩니다.
+에이전트·커맨드·PDCA는 하네스에만 정의되어 있으므로 **하네스를 글로벌 베이스로 설치**한 뒤, 각 프로젝트에 **컨벤션 overlay**를 적용합니다.
+```bash
+# 1) 하네스를 글로벌 베이스로 링크 (모든 폴더에서 에이전트/커맨드/PDCA 사용 가능)
+#    ⚠️ ~/.config/opencode 가 이미 있으면 ln 이 그 안에 중첩되므로, 먼저 백업 후 교체합니다.
+[ -e ~/.config/opencode ] && mv ~/.config/opencode ~/.config/opencode.bak
+ln -s ~/work/ai-edu/harness ~/.config/opencode
+# 확인: 아래가 harness/opencode.json 을 가리켜야 함 (agent/command 가 보임)
+node -e "const j=require(process.env.HOME+'/.config/opencode/opencode.json');console.log('agents',Object.keys(j.agent).length,'commands',Object.keys(j.command).length)"
+
+# 2) 실제 소스 폴더에 컨벤션 overlay 생성 (최초 1회)
+node ~/.config/opencode/scripts/apply-convention.cjs ~/work/ai-edu/frontend react-typescript
+node ~/.config/opencode/scripts/apply-convention.cjs ~/work/ai-edu/backend  spring-boot
+
+# 3) 소스 폴더에서 실행 → 그 폴더가 작업 디렉터리 + 하네스 전체 + 해당 컨벤션
+cd ~/work/ai-edu/frontend && opencode      # 또는  cd ~/work/ai-edu/backend && opencode
+```
+OpenCode가 글로벌 베이스(`~/.config/opencode/`)와 cwd의 overlay를 **머지**합니다. 자세한 모델은 [`docs/4.사이트별-컨벤션.md`](docs/4.사이트별-컨벤션.md) 2장 참고.
+
 - 기본 모델: `ollama/qwen2.5-coder:7b` · 기본 에이전트: `build`
 - 도움말: `/help` · 종료: `/exit` (또는 `Ctrl+C`)
 - 에이전트 전환: `Tab` (`build` ↔ `pdca-orchestrator`)
@@ -171,7 +196,9 @@ ai-edu/
 |------|------|
 | 모델 응답 없음 / `connection refused` | Ollama 실행 확인: `curl http://localhost:11434/api/tags` |
 | `model not found` | `ollama pull qwen2.5-coder:7b` 재실행 |
-| 커맨드가 안 보임 | `harness/` 폴더에서 `opencode` 실행했는지 확인 |
+| 커맨드가 안 보임 | `harness/`에서 실행했는지, 또는 하네스를 글로벌 베이스(`~/.config/opencode/`)로 링크했는지 확인(5-1 B) |
+| `apply-convention.cjs` `Cannot find module .../.config/opencode/scripts/...` | `~/.config/opencode` 가 이미 있어 `ln` 이 중첩됨. 5-1 B대로 **백업 후 교체**하거나, 하네스 실제 경로로 실행: `node ~/work/ai-edu/harness/scripts/apply-convention.cjs <폴더> <팩>` |
+| `opencode` 시작 시 `ConfigInvalidError` / `Unrecognized key: $comment` | overlay `opencode.json`의 비표준 키를 최신 OpenCode가 거부. 해당 폴더에서 `... apply-convention.cjs <폴더> <팩> --force`로 재생성(또는 `$comment` 줄 삭제) |
 | 플러그인/도구 오류 | `cd harness && npm install` |
 | 응답이 장황/부정확 | 7B 모델 한계 — 작업을 작게 쪼개고 PDCA 단계별 진행 |
 
@@ -191,3 +218,5 @@ npm install
 opencode
 # 실행 후:  /pdca-full my-first-feature
 ```
+
+> 위는 **하네스 체험**(cwd=harness) 흐름입니다. 실제 `frontend/`·`backend/` 코드를 개발할 때는 **5-1 (B)** 를 따르세요 — 하네스를 글로벌 베이스로 설치하고 해당 소스 폴더에서 `opencode`를 실행합니다.
