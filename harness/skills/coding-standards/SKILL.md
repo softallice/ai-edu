@@ -355,11 +355,13 @@ src/
 
 ### File Naming
 
+ai-edu React/TS는 **kebab-case 파일명 + named export**를 따릅니다(권위 출처: `@conventions/react-typescript`).
+
 ```
-components/Button.tsx          # PascalCase for components
-hooks/useAuth.ts              # camelCase with 'use' prefix
-lib/formatDate.ts             # camelCase for utilities
-types/market.types.ts         # camelCase with .types suffix
+components/data-table.tsx      # kebab-case, named export: export function DataTable()
+hooks/use-auth.ts              # kebab-case, 'use' prefix → useAuth
+lib/format-date.ts             # kebab-case for utilities
+features/tasks/data/schema.ts  # zod 스키마(SSOT) + z.infer 로 타입 파생
 ```
 
 ## Comments & Documentation

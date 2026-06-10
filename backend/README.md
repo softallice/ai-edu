@@ -99,5 +99,13 @@ src/main/java/com/aiedu/backend/
 
 ## 하네스 연동
 
-ai-edu 하네스와 함께 쓰면 `egov-backend`/`backend-patterns` 컨벤션과 PDCA 루프를 이 템플릿에 적용할 수 있습니다.
+ai-edu 하네스와 함께 쓰면 `spring-boot` 컨벤션 팩(`@skills/backend-patterns` 연계)과 PDCA 루프를 이 템플릿에 적용할 수 있습니다.
+
+```bash
+# backend 레포에 spring-boot 컨벤션 overlay 생성 (common 자동 포함)
+node ../harness/scripts/apply-convention.cjs ./ spring-boot
+# 또는 풀스택 프로파일
+node ../harness/scripts/apply-convention.cjs ./ --profile react-spring
+```
+
 자세한 내용은 `../docs/6.프론트엔드-템플릿-구조.md` 5장(백엔드)과 `../docs/2.PDCA-방법론.md`를 참고하세요.

@@ -5,6 +5,14 @@
       "description": "TypeScript React 프론트엔드 사이트",
       "packs": ["react-typescript"]
     },
+    "spring-boot": {
+      "description": "모던 Spring Boot REST 백엔드 사이트 (JPA)",
+      "packs": ["spring-boot"]
+    },
+    "react-spring": {
+      "description": "React 프론트엔드 + Spring Boot REST 백엔드 풀스택 사이트",
+      "packs": ["react-typescript", "spring-boot"]
+    },
     "nexacro-egov": {
       "description": "Nexacro 프론트엔드 + 전자정부 백엔드 사이트",
       "packs": ["nexacro", "egov-backend"]

@@ -7,7 +7,8 @@
 ```
 conventions/
   common/CONVENTION.md            # 전 사이트 공통 (항상 로드)
-  react-typescript/CONVENTION.md  # TS + React
+  react-typescript/CONVENTION.md  # TS + React (TanStack/shadcn 스택)
+  spring-boot/CONVENTION.md       # 모던 Spring Boot REST + JPA
   nexacro/CONVENTION.md           # Nexacro N
   egov-backend/CONVENTION.md      # 전자정부(EgovFramework) + MyBatis
   profiles.json                   # 사이트 → 팩 매핑
