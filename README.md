@@ -140,13 +140,16 @@ ai-edu/
 │  ├─ 2.PDCA-방법론.md
 │  ├─ 3.폐쇄망-GPU서버-아키텍처.md
 │  ├─ 4.사이트별-컨벤션.md
-│  └─ 5.로컬교육-설치-활용.md
-└─ harness/                   # OpenCode 하네스 (설정 본체)
-   ├─ opencode.json           # 모델/에이전트/커맨드/MCP/스킬 설정
-   ├─ commands/  prompts/  skills/  tools/  plugins/
-   ├─ conventions/            # 사이트별 컨벤션 팩 + 생성기
-   ├─ config/                 # PDCA·서버 모드 설정 예시
-   └─ examples/               # 컨벤션 overlay 예시
+│  ├─ 5.로컬교육-설치-활용.md
+│  └─ 6.프론트엔드-템플릿-구조.md
+├─ harness/                   # OpenCode 하네스 (설정 본체)
+│  ├─ opencode.json           # 모델/에이전트/커맨드/MCP/스킬 설정
+│  ├─ commands/  prompts/  skills/  tools/  plugins/
+│  ├─ conventions/            # 사이트별 컨벤션 팩 + 생성기
+│  ├─ config/                 # PDCA·서버 모드 설정 예시
+│  └─ examples/               # 컨벤션 overlay 예시
+├─ frontend/                  # React-TS 실습 템플릿 (shadcn-admin 기반)
+└─ backend/                   # Spring Boot REST 실습 템플릿 (Boot 4 + Gradle)
 ```
 
 ---
@@ -157,7 +160,8 @@ ai-edu/
 2. [`docs/5.로컬교육-설치-활용.md`](docs/5.로컬교육-설치-활용.md) — **설치·실행·활용 핵심 가이드**
 3. [`docs/2.PDCA-방법론.md`](docs/2.PDCA-방법론.md) — 개발 방법론
 4. [`docs/4.사이트별-컨벤션.md`](docs/4.사이트별-컨벤션.md) — 컨벤션 적용
-5. [`docs/3.폐쇄망-GPU서버-아키텍처.md`](docs/3.폐쇄망-GPU서버-아키텍처.md) — (심화) 서버·폐쇄망 확장
+5. [`docs/6.프론트엔드-템플릿-구조.md`](docs/6.프론트엔드-템플릿-구조.md) — 프론트엔드 실습 템플릿 구조
+6. [`docs/3.폐쇄망-GPU서버-아키텍처.md`](docs/3.폐쇄망-GPU서버-아키텍처.md) — (심화) 서버·폐쇄망 확장
 
 ---
 
