@@ -167,7 +167,8 @@ ai-edu/
 │  ├─ 4.사이트별-컨벤션.md
 │  ├─ 5.로컬교육-설치-활용.md
 │  ├─ 6.프론트엔드-템플릿-구조.md
-│  └─ 7.로컬-실행-하드웨어-사양.md
+│  ├─ 7.로컬-실행-하드웨어-사양.md
+│  └─ 8.nkit-claude-code-프레임워크-분석.md
 ├─ harness/                   # OpenCode 하네스 (설정 본체)
 │  ├─ opencode.json           # 모델/에이전트/커맨드/MCP/스킬 설정
 │  ├─ commands/  prompts/  skills/  tools/  plugins/
@@ -189,6 +190,7 @@ ai-edu/
 5. [`docs/6.프론트엔드-템플릿-구조.md`](docs/6.프론트엔드-템플릿-구조.md) — 프론트엔드 실습 템플릿 구조
 6. [`docs/7.로컬-실행-하드웨어-사양.md`](docs/7.로컬-실행-하드웨어-사양.md) — 로컬 실행에 필요한 하드웨어 사양
 7. [`docs/3.폐쇄망-GPU서버-아키텍처.md`](docs/3.폐쇄망-GPU서버-아키텍처.md) — (심화) 서버·폐쇄망 확장
+8. [`docs/8.nkit-claude-code-프레임워크-분석.md`](docs/8.nkit-claude-code-프레임워크-분석.md) — (심화) 실무 AI 프레임워크 사례 연구
 
 ---
 
