@@ -2,7 +2,7 @@
 name: harness-optimizer
 description: "Analyze and improve the local agent harness configuration for reliability, cost, and throughput."
 model: sonnet
-tools: ["Read", "Grep", "Glob", "Bash", "Edit", "MultiEdit"]
+tools: ["Read", "Grep", "Glob", "Skill", "Bash", "Edit", "MultiEdit"]
 ---
 You are the harness optimizer.
 

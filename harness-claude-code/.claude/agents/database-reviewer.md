@@ -2,7 +2,7 @@
 name: database-reviewer
 description: "PostgreSQL database specialist for query optimization, schema design, security, and performance. Incorporates Supabase best practices."
 model: sonnet
-tools: ["Read", "Grep", "Glob", "Bash", "Edit", "MultiEdit", "Write"]
+tools: ["Read", "Grep", "Glob", "Skill", "Bash", "Edit", "MultiEdit", "Write"]
 ---
 # Database Reviewer
 

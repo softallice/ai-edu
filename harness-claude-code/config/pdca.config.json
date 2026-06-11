@@ -1,7 +1,14 @@
 {
-  "$comment": "PDCA 방법론 설정 (nkit-claude-code의 PDCA 엔진을 마이그레이션 비특화 제네릭 버전으로 이식). 모델은 하네스 정책상 로컬 Ollama 단일 모델로 통일.",
+  "$comment": "PDCA 방법론 설정 (nkit-claude-code의 PDCA 엔진을 마이그레이션 비특화 제네릭 버전으로 이식). Claude Code판: 단계별 모델은 별도 라우팅 없이 담당 에이전트 frontmatter(model: opus/sonnet/haiku)를 따른다.",
   "pdca": {
-    "phases": ["plan", "design", "do", "check", "iterate", "report"],
+    "phases": [
+      "plan",
+      "design",
+      "do",
+      "check",
+      "iterate",
+      "report"
+    ],
     "phaseAliases": {
       "analyze": "plan",
       "implement": "do",
@@ -11,20 +18,42 @@
     "statusFile": ".pdca-status.json",
     "docRoot": "docs/pdca",
     "docPaths": {
-      "plan": ["docs/pdca/01-plan/{feature}.plan.md"],
-      "design": ["docs/pdca/02-design/{feature}.design.md"],
+      "plan": [
+        "docs/pdca/01-plan/{feature}.plan.md"
+      ],
+      "design": [
+        "docs/pdca/02-design/{feature}.design.md"
+      ],
       "check": [
         "docs/pdca/03-check/{feature}-quality.md",
         "docs/pdca/03-check/{feature}-gap.md",
         "docs/pdca/03-check/{feature}-test.md"
       ],
-      "report": ["docs/pdca/04-report/{feature}.report.md"]
+      "report": [
+        "docs/pdca/04-report/{feature}.report.md"
+      ]
     },
     "qualityGates": {
-      "L1_codeQuality": { "threshold": 80, "critical": false, "desc": "린트/복잡도/가독성/보안 정적 점검 점수" },
-      "L2_designMatch": { "threshold": 90, "critical": false, "desc": "구현이 plan/design 문서와 일치하는 비율(%)" },
-      "L3_testMatch": { "threshold": 90, "critical": true, "desc": "테스트 통과 및 동작 일치율(%) — 반드시 통과" },
-      "L4_runtime": { "threshold": 90, "critical": false, "desc": "빌드/실행/E2E 스모크 성공률(%)" }
+      "L1_codeQuality": {
+        "threshold": 80,
+        "critical": false,
+        "desc": "린트/복잡도/가독성/보안 정적 점검 점수"
+      },
+      "L2_designMatch": {
+        "threshold": 90,
+        "critical": false,
+        "desc": "구현이 plan/design 문서와 일치하는 비율(%)"
+      },
+      "L3_testMatch": {
+        "threshold": 90,
+        "critical": true,
+        "desc": "테스트 통과 및 동작 일치율(%) — 반드시 통과"
+      },
+      "L4_runtime": {
+        "threshold": 90,
+        "critical": false,
+        "desc": "빌드/실행/E2E 스모크 성공률(%)"
+      }
     },
     "autoIterate": true,
     "maxIterations": 3,
@@ -35,21 +64,25 @@
     "plan": "planner",
     "design": "architect",
     "do": "build",
-    "check": ["code-reviewer", "security-reviewer", "tdd-guide"],
-    "iterate": ["build-error-resolver", "refactor-cleaner", "tdd-guide"],
-    "report": "doc-updater"
-  },
-  "modelRouting": {
-    "$comment": "nkit은 opus/sonnet/haiku로 단계별 라우팅했으나, 본 하네스는 로컬 Ollama 단일 모델 정책에 따라 전 단계 동일.",
-    "plan": "ollama/qwen2.5-coder:7b",
-    "design": "ollama/qwen2.5-coder:7b",
-    "do": "ollama/qwen2.5-coder:7b",
-    "check": "ollama/qwen2.5-coder:7b",
-    "iterate": "ollama/qwen2.5-coder:7b",
-    "report": "ollama/qwen2.5-coder:7b"
+    "check": [
+      "code-reviewer",
+      "security-reviewer",
+      "tdd-guide"
+    ],
+    "iterate": [
+      "build-error-resolver",
+      "refactor-cleaner",
+      "tdd-guide"
+    ],
+    "report": "doc-updater",
+    "$comment": "\"build\"는 서브에이전트가 아니라 메인 에이전트(현재 세션) 자신을 뜻한다. 나머지는 .claude/agents/<name>.md 서브에이전트."
   },
   "taskClassification": {
-    "thresholds": { "simple": 5, "standard": 15, "complex": 30 },
+    "thresholds": {
+      "simple": 5,
+      "standard": 15,
+      "complex": 30
+    },
     "labels": {
       "simple": "Simple (< 5 작업단위)",
       "standard": "Standard (5-15)",

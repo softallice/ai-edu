@@ -1,8 +1,6 @@
 ---
 description: Generate skills from git history analysis
 ---
-> 이 작업은 **build** 서브에이전트에 위임하세요(Task 도구로 `build` 호출).
-
 # Skill Create Command
 
 Analyze git history to generate Claude Code skills: $ARGUMENTS

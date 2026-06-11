@@ -2,7 +2,7 @@
 
 > TypeScript + React 프론트엔드 사이트용 컨벤션.
 > **기준 템플릿**: `ai-edu/frontend` (shadcn-admin 기반 — Vite + TanStack + shadcn/ui).
-> 상세 패턴: `@skills/frontend-patterns`, `@skills/coding-standards` 참조.
+> 상세 패턴: `@.claude/skills/frontend-patterns`, `@.claude/skills/coding-standards` 참조.
 
 ## 기준 스택
 

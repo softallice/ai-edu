@@ -1,8 +1,6 @@
 ---
 description: Save verification state and progress checkpoint
 ---
-> 이 작업은 **build** 서브에이전트에 위임하세요(Task 도구로 `build` 호출).
-
 # Checkpoint Command
 
 Save current verification state and create progress checkpoint: $ARGUMENTS

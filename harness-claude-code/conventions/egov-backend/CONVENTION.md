@@ -1,7 +1,7 @@
 # 컨벤션 팩: egov-backend (전자정부 프레임워크)
 
 > 전자정부 표준프레임워크(EgovFramework, Spring MVC 기반) 백엔드 + MyBatis 사이트용 컨벤션.
-> 상세 패턴: `@skills/spring-mvc-patterns`, `@skills/mybatis-guide`, `@skills/backend-patterns`.
+> 상세 패턴: `@.claude/skills/spring-mvc-patterns`, `@.claude/skills/mybatis-guide`, `@.claude/skills/backend-patterns`.
 > NDSERP 등 특정 사이트의 구체 규칙은 하단 "사이트 오버라이드 예시" 또는 사이트 전용 팩으로 분리하세요.
 
 ## 계층 구조 (일반 표준)

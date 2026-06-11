@@ -1,36 +1,24 @@
 ---
-description: Analyze instincts and suggest or generate evolved structures
+description: 인스팅트 클러스터링 분석 — 성숙한 패턴을 스킬/커맨드 초안으로 진화
+argument-hint: "[--generate]"
 ---
-> 이 작업은 **build** 서브에이전트에 위임하세요(Task 도구로 `build` 호출).
 
-# Evolve Command
+# Evolve Instincts
 
-Analyze and evolve instincts in continuous-learning-v2: $ARGUMENTS
+축적된 인스팅트를 클러스터링해 스킬/커맨드로 진화시킬 후보를 찾습니다.
 
-## Your Task
-
-Run:
+## Implementation
 
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/skills/continuous-learning-v2/scripts/instinct-cli.py" evolve $ARGUMENTS
+CLI="${CLAUDE_PROJECT_DIR:-.}/.claude/skills/continuous-learning-v2/scripts/instinct-cli.py"
+[ -f "$CLI" ] || CLI="$HOME/.claude/skills/continuous-learning-v2/scripts/instinct-cli.py"  # 전역 설치 fallback
+python3 "$CLI" evolve $ARGUMENTS
 ```
 
-If `CLAUDE_PLUGIN_ROOT` is unavailable, use:
+## What to Do
 
-```bash
-python3 ~/.claude/skills/continuous-learning-v2/scripts/instinct-cli.py evolve $ARGUMENTS
-```
-
-## Supported Args (v2.1)
-
-- no args: analysis only
-- `--generate`: also generate files under `evolved/{skills,commands,agents}`
-
-## Behavior Notes
-
-- Uses project + global instincts for analysis.
-- Shows skill/command/agent candidates from trigger and domain clustering.
-- Shows project -> global promotion candidates.
-- With `--generate`, output path is:
-  - project context: `~/.claude/homunculus/projects/<project-id>/evolved/`
-  - global fallback: `~/.claude/homunculus/evolved/`
+1. CLI가 출력한 클러스터(같은 도메인, 유사 트리거의 인스팅트 묶음)를 검토합니다.
+2. confidence 평균 0.7 이상이고 인스팅트 3개 이상인 클러스터는 스킬로 만들 가치가 있습니다.
+3. `--generate` 가 주어졌으면 `~/.local/share/ecc-homunculus/evolved/` 의 초안을 읽고,
+   사용자 확인 후 `.claude/skills/<name>/SKILL.md` 로 정식 승격합니다.
+4. 결과 요약: 클러스터 수, 승격 후보, 다음 단계 제안.

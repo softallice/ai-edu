@@ -1,28 +1,21 @@
 ---
-description: Show learned instincts (project + global) with confidence
+description: 학습된 인스팅트 현황을 도메인별 confidence 막대로 표시
 ---
-> 이 작업은 **build** 서브에이전트에 위임하세요(Task 도구로 `build` 호출).
 
-# Instinct Status Command
+# Instinct Status
 
-Show instinct status from continuous-learning-v2: $ARGUMENTS
+Continuous Learning v2 의 인스팅트 현황을 보여줍니다.
 
-## Your Task
-
-Resolve the active ECC plugin root with the same walker `hooks/hooks.json`
-uses (env var → standard install → known plugin roots → plugin cache →
-fallback), then run the instinct CLI. This avoids reading a stale legacy
-`~/.claude/skills/continuous-learning-v2/` install when the plugin is
-active under `~/.claude/plugins/cache/...` (#2037).
+## Implementation
 
 ```bash
-ECC_ROOT="${CLAUDE_PLUGIN_ROOT:-$(node -e "var r=(()=>{var e=process.env.CLAUDE_PLUGIN_ROOT;if(e&&e.trim())return e.trim();var p=require('path'),f=require('fs'),h=require('os').homedir(),d=p.join(h,'.claude'),q=p.join('scripts','lib','utils.js');if(f.existsSync(p.join(d,q)))return d;for(var s of [['ecc'],['ecc@ecc'],['marketplaces','ecc'],['everything-claude-code'],['everything-claude-code@everything-claude-code'],['marketplaces','everything-claude-code']]){var l=p.join(d,'plugins',...s);if(f.existsSync(p.join(l,q)))return l}try{for(var g of ['ecc','everything-claude-code']){var b=p.join(d,'plugins','cache',g);for(var o of f.readdirSync(b,{withFileTypes:true})){if(!o.isDirectory())continue;for(var v of f.readdirSync(p.join(b,o.name),{withFileTypes:true})){if(!v.isDirectory())continue;var c=p.join(b,o.name,v.name);if(f.existsSync(p.join(c,q)))return c}}}}catch(x){}return d})();console.log(r)")}"
-python3 "$ECC_ROOT/skills/continuous-learning-v2/scripts/instinct-cli.py" status
+CLI="${CLAUDE_PROJECT_DIR:-.}/.claude/skills/continuous-learning-v2/scripts/instinct-cli.py"
+[ -f "$CLI" ] || CLI="$HOME/.claude/skills/continuous-learning-v2/scripts/instinct-cli.py"  # 전역 설치 fallback
+python3 "$CLI" status
 ```
 
-## Behavior Notes
+CLI 출력(도메인별 그룹, confidence 막대, 관측 통계)을 그대로 보여주고,
+승격 후보(confidence 0.8 이상)가 있으면 `/evolve` 실행을 제안하세요.
 
-- Output includes both project-scoped and global instincts.
-- Project instincts override global instincts when IDs conflict.
-- Output is grouped by domain with confidence bars.
-- This command does not support extra filters in v2.1.
+인스팅트가 0개라면: observe 훅이 관측을 쌓는 중이며, `/learn` 으로 수동 저장하거나
+`observer` 에이전트(Task 도구)로 관측 데이터를 분석할 수 있다고 안내하세요.

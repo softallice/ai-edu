@@ -15,7 +15,7 @@ description: Show PDCA phase-by-phase status for all tracked features
 
 ## 실행 내용
 
-1. `pdca-status` 도구를 `action=show`로 호출해 `.pdca-status.json`을 읽는다.
+1. `.pdca-status.json` 을 Read 로 읽는다.
 2. 각 기능의 단계 진행과 품질 게이트 점수를 표로 정리한다.
 
 ### 단계 완료 기준
@@ -49,4 +49,4 @@ description: Show PDCA phase-by-phase status for all tracked features
 
 ✅ 완료 · 🔄 진행중 · ⚠️ 완료(기준미달) · ❌ 미실행 · `-` 해당없음
 
-상세 기준은 `@skills/pdca/SKILL.md` 참조.
+상세 기준은 `@.claude/skills/pdca/SKILL.md` 참조.

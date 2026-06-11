@@ -1,8 +1,6 @@
 ---
 description: Run verification loop to validate implementation
 ---
-> 이 작업은 **build** 서브에이전트에 위임하세요(Task 도구로 `build` 호출).
-
 # Verify Command
 
 Run verification loop to validate the implementation: $ARGUMENTS

@@ -15,7 +15,7 @@ description: Recommend the next PDCA action based on current status and prioriti
 
 ## 실행 내용
 
-1. `pdca-status` 도구(`action=show`)로 각 기능의 현재 단계와 게이트 점수를 읽는다.
+1. `.pdca-status.json` 에서 각 기능의 현재 단계와 게이트 점수를 읽는다.
 2. 아래 우선순위로 다음 명령을 제안한다.
 
 ## 우선순위 결정 기준
@@ -39,4 +39,4 @@ description: Recommend the next PDCA action based on current status and prioriti
    → /pdca plan report-page
 ```
 
-상세 기준은 `@skills/pdca/SKILL.md` 참조.
+상세 기준은 `@.claude/skills/pdca/SKILL.md` 참조.

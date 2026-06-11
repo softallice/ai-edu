@@ -1,61 +1,44 @@
 ---
-description: Extract patterns and learnings from current session
+description: 현재 세션에서 재사용 가능한 패턴을 추출해 인스팅트로 저장
+argument-hint: "[패턴 한 줄 요약]"
 ---
-> 이 작업은 **build** 서브에이전트에 위임하세요(Task 도구로 `build` 호출).
 
-# Learn Command
+# /learn — 세션 패턴을 인스팅트로 저장
 
-Extract patterns, learnings, and reusable insights from the current session: $ARGUMENTS
+지금 세션에서 해결한 비자명한 문제·발견한 관례를 Continuous Learning v2 인스팅트로 저장합니다.
 
-## Your Task
+## What to Extract
 
-Analyze the conversation and code changes to extract:
+1. **오류 해결 패턴** — 어떤 오류였고, 근본 원인과 해결책은 무엇이었나
+2. **디버깅 기법** — 효과 있었던 비자명한 진단 단계·도구 조합
+3. **워크어라운드** — 라이브러리 특이점, API 제약, 버전 이슈
+4. **프로젝트 관례** — 코드베이스에서 발견한 규칙, 아키텍처 결정
 
-1. **Patterns discovered** - Recurring solutions or approaches
-2. **Best practices applied** - Techniques that worked well
-3. **Mistakes to avoid** - Issues encountered and solutions
-4. **Reusable snippets** - Code patterns worth saving
+인자가 주어지면(`/learn "Grid는 mask 필수"`) 그 내용을 바로 인스팅트로 만듭니다.
 
-## Output Format
+## Output
 
-### Patterns Discovered
+`~/.local/share/ecc-homunculus/instincts/personal/<kebab-case-id>.md` 에 저장:
 
-**Pattern: [Name]**
-- Context: When to use this pattern
-- Implementation: How to apply it
-- Example: Code snippet
+```yaml
+---
+id: <kebab-case-id>
+trigger: "when <적용 상황>"
+confidence: 0.5
+domain: code-style | workflow | testing | debugging | architecture
+source: "manual-learn"
+created: <오늘 ISO 날짜>
+---
+## Action
+<한 문장의 행동 지침>
 
-### Best Practices Applied
-
-1. [Practice name]
-   - Why it works
-   - When to apply
-
-### Mistakes to Avoid
-
-1. [Mistake description]
-   - What went wrong
-   - How to prevent it
-
-### Suggested Skill Updates
-
-If patterns are significant, suggest updates to:
-- `skills/coding-standards/SKILL.md`
-- `skills/[domain]/SKILL.md`
-- `rules/[category].md`
-
-## Instinct Format (for continuous-learning-v2)
-
-```json
-{
-  "trigger": "[situation that triggers this learning]",
-  "action": "[what to do]",
-  "confidence": 0.7,
-  "source": "session-extraction",
-  "timestamp": "[ISO timestamp]"
-}
+## Evidence
+- <오늘 날짜>: <이 세션에서의 근거>
 ```
 
----
+## Rules
 
-**TIP**: Run `/learn` periodically during long sessions to capture insights before context compaction.
+- 인스팅트는 원자적으로(행동 1개), 트리거는 구체적으로.
+- 이미 같은 id가 있으면 confidence +0.05 하고 Evidence 줄을 추가.
+- 저장 후 `/instinct-status` 로 확인 가능함을 안내.
+- 관측 데이터를 일괄 분석하려면 `observer` 에이전트(Task 도구)를 제안.

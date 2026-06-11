@@ -1,8 +1,6 @@
 ---
 description: Run evaluation against acceptance criteria
 ---
-> 이 작업은 **build** 서브에이전트에 위임하세요(Task 도구로 `build` 호출).
-
 # Eval Command
 
 Evaluate implementation against acceptance criteria: $ARGUMENTS

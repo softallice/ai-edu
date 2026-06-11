@@ -2,7 +2,7 @@
 name: build-error-resolver
 description: "Build and TypeScript error resolution specialist. Use when build fails or type errors occur. Fixes build/type errors only with minimal diffs."
 model: sonnet
-tools: ["Read", "Grep", "Glob", "Bash", "Edit", "MultiEdit", "Write"]
+tools: ["Read", "Grep", "Glob", "Skill", "Bash", "Edit", "MultiEdit", "Write"]
 ---
 # Build Error Resolver
 

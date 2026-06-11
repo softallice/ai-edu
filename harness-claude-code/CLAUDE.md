@@ -25,22 +25,33 @@
 - 빌드/타입 오류 → 언어별 `*-build-resolver`
 - 보안 민감 코드 → `security-reviewer`
 
+> **위임 규칙**: 서브에이전트는 메인 컨텍스트의 스킬·컨벤션을 자동 상속하지 않습니다.
+> Task 로 위임할 때 아래 [에이전트↔스킬 매핑](#에이전트스킬-매핑)의 관련 스킬 핵심 규칙(또는
+> 활성 컨벤션 팩 요점)을 프롬프트에 요약해 전달하세요.
+
 ## 서브에이전트 (모델 티어)
 
 | 에이전트 | 모델 | 용도 |
 |----------|------|------|
 | planner · architect · security-reviewer · pdca-orchestrator | **opus** | 계획·설계·보안·오케스트레이션 |
-| code-reviewer · tdd-guide · *-reviewer · *-build-resolver · e2e-runner · refactor-cleaner · database-reviewer · harness-optimizer · loop-operator | **sonnet** | 구현·리뷰·수정 |
-| doc-updater · docs-lookup | **haiku** | 문서·조회(경량) |
+| code-reviewer · tdd-guide · java-reviewer · java-build-resolver · build-error-resolver · e2e-runner · refactor-cleaner · database-reviewer · harness-optimizer · loop-operator | **sonnet** | 구현·리뷰·수정 |
+| doc-updater · docs-lookup · observer | **haiku** | 문서·조회·관측 분석(경량) |
 
-언어별 reviewer/resolver: go · cpp · java · kotlin · php · python · rust. 전체 정의는 `.claude/agents/*.md`.
+언어별 reviewer/resolver는 교육 스택(React-TS + Spring Boot)에 맞춰 **java**만 유지합니다(범용 코드는 code-reviewer/build-error-resolver 담당). 전체 정의는 `.claude/agents/*.md`.
 
 ## 슬래시 커맨드
 
 `/plan` `/tdd` `/code-review` `/security` `/build-fix` `/e2e` `/refactor-clean` `/orchestrate`
 `/verify` `/checkpoint` `/learn` `/eval` `/quality-gate` `/update-docs` `/test-coverage`
 `/pdca-full` `/pdca` `/pdca-status` `/pdca-next` · `/apply-convention`
-언어별: `/go-*` `/rust-*` · 전체는 `/help` 또는 `.claude/commands/` 참고.
+학습: `/learn` `/instinct-status` `/evolve` `/instinct-export` `/instinct-import`
+전체는 `/help` 또는 `.claude/commands/` 참고.
+
+## 학습 (Continuous Learning v2 — ECC 이식)
+
+도구 사용은 observe 훅이 자동 관측합니다. 비자명한 문제를 해결했으면 `/learn` 으로
+인스팅트를 저장하고, 관측이 쌓이면 `observer` 에이전트로 일괄 분석하세요.
+`/instinct-status` 로 현황 확인, 한 도메인에 인스팅트가 모이면 `/evolve` 로 스킬 초안을 만듭니다.
 
 ## PDCA 방법론
 
@@ -68,7 +79,23 @@ node scripts/apply-convention.cjs <레포> --profile react-spring # 풀스택
 
 ## 스킬
 
-`.claude/skills/` 의 스킬이 작업 맥락에 따라 자동 활성화됩니다: tdd-workflow · security-review · coding-standards · frontend-patterns · backend-patterns · api-design · e2e-testing · verification-loop · strategic-compact · eval-harness · pdca · frontend-slides.
+`.claude/skills/` 의 스킬이 작업 맥락에 따라 자동 활성화됩니다: tdd-workflow · security-review · coding-standards · frontend-patterns · backend-patterns · api-design · e2e-testing · verification-loop · strategic-compact · eval-harness · pdca · frontend-slides · continuous-learning-v2.
+
+### 에이전트↔스킬 매핑
+
+서브에이전트 위임 시 함께 전달할(또는 에이전트가 Skill 도구·Read 로 참조할) 스킬:
+
+| 에이전트 | 관련 스킬 |
+|----------|----------|
+| pdca-orchestrator · planner | pdca (단계·게이트·상태 스키마) |
+| architect | api-design · backend-patterns/frontend-patterns |
+| code-reviewer · refactor-cleaner | coding-standards · security-review |
+| security-reviewer | security-review |
+| tdd-guide | tdd-workflow · verification-loop |
+| e2e-runner | e2e-testing |
+| java-reviewer · java-build-resolver | backend-patterns (Spring Boot) |
+| observer | continuous-learning-v2 (인스팅트 형식·저장 경로) |
+| doc-updater · docs-lookup | coding-standards |
 
 ## 보안·품질 게이트 (커밋 전 필수)
 

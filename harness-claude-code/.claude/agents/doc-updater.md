@@ -2,7 +2,7 @@
 name: doc-updater
 description: "Documentation and codemap specialist. Use for updating codemaps and documentation."
 model: haiku
-tools: ["Read", "Grep", "Glob", "Bash", "Edit", "MultiEdit", "Write"]
+tools: ["Read", "Grep", "Glob", "Skill", "Bash", "Edit", "MultiEdit", "Write"]
 ---
 # Documentation & Codemap Specialist
 

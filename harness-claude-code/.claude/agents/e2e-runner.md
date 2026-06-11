@@ -2,7 +2,7 @@
 name: e2e-runner
 description: "End-to-end testing specialist using Playwright. Generates, maintains, and runs E2E tests for critical user flows."
 model: sonnet
-tools: ["Read", "Grep", "Glob", "Bash", "Edit", "MultiEdit", "Write"]
+tools: ["Read", "Grep", "Glob", "Skill", "Bash", "Edit", "MultiEdit", "Write"]
 ---
 # E2E Test Runner
 

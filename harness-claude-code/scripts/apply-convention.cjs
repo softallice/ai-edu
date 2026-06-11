@@ -7,8 +7,11 @@
  * (OpenCode 버전은 opencode.json + AGENTS.md 를 생성 — 여기서는 CLAUDE.md 단일 파일.)
  *
  * 사용법:
- *   node scripts/apply-convention.cjs <site-repo-path> <pack...> [--force]
- *   node scripts/apply-convention.cjs <site-repo-path> --profile <name> [--force]
+ *   node scripts/apply-convention.cjs <site-repo-path> <pack...> [--force] [--from-home]
+ *   node scripts/apply-convention.cjs <site-repo-path> --profile <name> [--force] [--from-home]
+ *
+ *   --from-home: import 경로를 하네스 clone 위치 대신 ~/.claude/conventions/ 로 생성.
+ *                (install.sh 전역 설치 후 사용 — 하네스 레포를 옮기거나 지워도 overlay 가 깨지지 않음)
  *
  * 예:
  *   node scripts/apply-convention.cjs ../sites/portal react-typescript
@@ -56,6 +59,7 @@ function parseArgs(argv) {
   }
   const sitePath = path.resolve(args[0])
   const force = args.includes("--force")
+  const fromHome = args.includes("--from-home")
   let packs = []
 
   const profIdx = args.indexOf("--profile")
@@ -69,7 +73,7 @@ function parseArgs(argv) {
     packs = args.slice(1).filter((a) => !a.startsWith("--"))
   }
 
-  return { sitePath, packs, force }
+  return { sitePath, packs, force, fromHome }
 }
 
 function relFromSite(sitePath, target) {
@@ -79,7 +83,7 @@ function relFromSite(sitePath, target) {
 }
 
 function main() {
-  const { sitePath, packs, force } = parseArgs(process.argv)
+  const { sitePath, packs, force, fromHome } = parseArgs(process.argv)
 
   if (!fs.existsSync(sitePath) || !fs.statSync(sitePath).isDirectory()) {
     fail(`사이트 경로가 디렉터리가 아닙니다: ${sitePath}`)
@@ -94,8 +98,11 @@ function main() {
   }
   const finalPacks = [ALWAYS, ...requested]
 
+  // --from-home: 전역 설치본(~/.claude/conventions) 참조 — 하네스 clone 위치와 무관
   const imports = finalPacks.map((p) =>
-    relFromSite(sitePath, path.join(CONVENTIONS_DIR, p, "CONVENTION.md"))
+    fromHome
+      ? `~/.claude/conventions/${p}/CONVENTION.md`
+      : relFromSite(sitePath, path.join(CONVENTIONS_DIR, p, "CONVENTION.md"))
   )
 
   const claudePath = path.join(sitePath, "CLAUDE.md")

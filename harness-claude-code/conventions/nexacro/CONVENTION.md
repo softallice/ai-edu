@@ -1,7 +1,7 @@
 # 컨벤션 팩: nexacro
 
 > Nexacro N(17+) 프론트엔드 사이트용 컨벤션.
-> 출처: nkit `rules/nexacro/*`. 상세 패턴: `@skills/nexacro-components-guide`, `@skills/nexacro-grid-design`, `@skills/nexacro-transaction-guide`, `@skills/nexacro-design-guide`.
+> 출처: nkit `rules/nexacro/*`. 상세 패턴: `@.claude/skills/nexacro-components-guide`, `@.claude/skills/nexacro-grid-design`, `@.claude/skills/nexacro-transaction-guide`, `@.claude/skills/nexacro-design-guide`.
 
 ## 필수 원칙
 

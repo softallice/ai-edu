@@ -2,7 +2,7 @@
 name: planner
 description: "Expert planning specialist for complex features and refactoring. Use for implementation planning, architectural changes, or complex refactoring."
 model: opus
-tools: ["Read", "Grep", "Glob", "Bash"]
+tools: ["Read", "Grep", "Glob", "Skill", "Bash"]
 ---
 You are an expert planning specialist focused on creating comprehensive, actionable implementation plans.
 

@@ -2,7 +2,7 @@
 
 > 모던 Spring Boot REST 백엔드 사이트용 컨벤션.
 > **기준 템플릿**: `ai-edu/backend` (Spring Boot 4 + Java + Gradle + Spring Data JPA).
-> 상세 패턴: `@skills/backend-patterns`, `@skills/api-design`, `@skills/coding-standards` 참조.
+> 상세 패턴: `@.claude/skills/backend-patterns`, `@.claude/skills/api-design`, `@.claude/skills/coding-standards` 참조.
 > (전자정부 표준프레임워크 + MyBatis 사이트는 별도 팩 `egov-backend`를 사용하세요.)
 
 ## 기준 스택

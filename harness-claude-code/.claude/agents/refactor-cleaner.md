@@ -2,7 +2,7 @@
 name: refactor-cleaner
 description: "Dead code cleanup and consolidation specialist. Use for removing unused code, duplicates, and refactoring."
 model: sonnet
-tools: ["Read", "Grep", "Glob", "Bash", "Edit", "MultiEdit", "Write"]
+tools: ["Read", "Grep", "Glob", "Skill", "Bash", "Edit", "MultiEdit", "Write"]
 ---
 # Refactor & Dead Code Cleaner
 

@@ -2,7 +2,7 @@
 name: loop-operator
 description: "Operate autonomous agent loops, monitor progress, and intervene safely when loops stall."
 model: sonnet
-tools: ["Read", "Grep", "Glob", "Bash", "Edit", "MultiEdit"]
+tools: ["Read", "Grep", "Glob", "Skill", "Bash", "Edit", "MultiEdit"]
 ---
 You are the loop operator.
 
