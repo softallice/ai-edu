@@ -168,13 +168,19 @@ ai-edu/
 │  ├─ 5.로컬교육-설치-활용.md
 │  ├─ 6.프론트엔드-템플릿-구조.md
 │  ├─ 7.로컬-실행-하드웨어-사양.md
-│  └─ 8.nkit-claude-code-프레임워크-분석.md
-├─ harness/                   # OpenCode 하네스 (설정 본체)
+│  ├─ 8.nkit-claude-code-프레임워크-분석.md
+│  ├─ 9.AI-교육-커리큘럼.md
+│  └─ 10.NotebookLM-교육자료-제작.md
+├─ harness/                   # OpenCode 하네스 (설정 본체, 로컬 Ollama)
 │  ├─ opencode.json           # 모델/에이전트/커맨드/MCP/스킬 설정
 │  ├─ commands/  prompts/  skills/  tools/  plugins/
 │  ├─ conventions/            # 사이트별 컨벤션 팩 + 생성기
 │  ├─ config/                 # PDCA·서버 모드 설정 예시
 │  └─ examples/               # 컨벤션 overlay 예시
+├─ harness-claude-code/       # Claude Code 하네스 (클라우드 Claude 티어링, 실무 설치 지원)
+│  ├─ install.sh              # 전역(~/.claude)/프로젝트 설치 + 제거
+│  ├─ .claude/                # agents(17)·commands(29)·skills(13)·hooks(8)·settings
+│  └─ conventions/  config/  scripts/
 ├─ frontend/                  # React-TS 실습 템플릿 (shadcn-admin 기반)
 └─ backend/                   # Spring Boot REST 실습 템플릿 (Boot 4 + Gradle)
 ```
@@ -191,6 +197,10 @@ ai-edu/
 6. [`docs/7.로컬-실행-하드웨어-사양.md`](docs/7.로컬-실행-하드웨어-사양.md) — 로컬 실행에 필요한 하드웨어 사양
 7. [`docs/3.폐쇄망-GPU서버-아키텍처.md`](docs/3.폐쇄망-GPU서버-아키텍처.md) — (심화) 서버·폐쇄망 확장
 8. [`docs/8.nkit-claude-code-프레임워크-분석.md`](docs/8.nkit-claude-code-프레임워크-분석.md) — (심화) 실무 AI 프레임워크 사례 연구
+9. [`harness-claude-code/README.md`](harness-claude-code/README.md) — (실무) Claude Code 하네스: 설치 준비사항·설치(교육/전역/프로젝트)·사용법·문제 해결
+
+> **강사·교육 운영자**: 8차시 과정 설계(차시별 목표·실습·평가·운영 가이드)는 [`docs/9.AI-교육-커리큘럼.md`](docs/9.AI-교육-커리큘럼.md),
+> 슬라이드·퀴즈·팟캐스트 등 교육자료 자동 생성은 [`docs/10.NotebookLM-교육자료-제작.md`](docs/10.NotebookLM-교육자료-제작.md) 참고.
 
 ---
 

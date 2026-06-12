@@ -62,11 +62,6 @@ export const sidebarData: SidebarData = {
           icon: ListTodo,
         },
         {
-          title: 'Apps',
-          url: '/apps',
-          icon: Package,
-        },
-        {
           title: 'Chats',
           url: '/chats',
           badge: '3',

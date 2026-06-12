@@ -21,3 +21,7 @@ Thumbs.db
 .idea/
 .vscode/*
 !.vscode/extensions.json
+
+# NotebookLM 교육자료 파이프라인
+edu-materials/
+.nblm-notebook-id
