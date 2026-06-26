@@ -2,20 +2,25 @@ spring:
   application:
     name: ai-edu-backend
 
-  # 교육용 인메모리 DB (H2). 애플리케이션 종료 시 데이터는 사라집니다.
+  # 로컬 개발 DB: docker-compose 로 띄운 PostgreSQL (aiedu-postgres 컨테이너).
+  #   docker compose up -d  로 먼저 기동한 뒤 애플리케이션을 실행하세요.
+  # 주의(교육용): 자격증명을 소스에 하드코딩했습니다. 실제 배포 시에는 환경변수
+  #   (SPRING_DATASOURCE_USERNAME/PASSWORD) 나 시크릿 매니저로 외부화하세요.
   datasource:
-    url: jdbc:h2:mem:aiedu;DB_CLOSE_DELAY=-1
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: ""
+    url: jdbc:postgresql://localhost:5432/aiedu
+    username: ${SPRING_DATASOURCE_USERNAME:aiedu}
+    password: ${SPRING_DATASOURCE_PASSWORD:aiedu}
+    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      # 시작 시 스키마 자동 생성(교육용). 운영에서는 Flyway/Liquibase 권장.
+      # 교육용: 기동 시 스키마를 새로 생성하고 종료 시 삭제해 재현 가능한 상태를 유지합니다.
+      # 운영에서는 Flyway/Liquibase 로 스키마를 관리하세요.
       ddl-auto: create-drop
     properties:
       hibernate:
         format_sql: true
+        # PostgreSQL 방언은 드라이버로 자동 감지됩니다.
     open-in-view: false
     # data.sql 시드를 스키마 생성 이후에 실행
     defer-datasource-initialization: true
@@ -24,14 +29,16 @@ spring:
     init:
       mode: always
 
-  # H2 웹 콘솔: http://localhost:8080/h2-console (JDBC URL = jdbc:h2:mem:aiedu)
-  h2:
-    console:
-      enabled: true
-
 server:
   port: 8080
 
 logging:
   level:
     org.hibernate.SQL: debug
+
+# JWT 설정 (HS256). validity-ms 기본 24시간.
+app:
+  # 주의(교육용): 운영에서는 APP_JWT_SECRET 를 충분히 긴 무작위 값으로 외부 주입하세요.
+  jwt:
+    secret: ${APP_JWT_SECRET:dev-only-secret-please-change-0123456789abcdef}
+    validity-ms: 86400000

@@ -3,11 +3,13 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Link, useNavigate } from '@tanstack/react-router'
+import { AxiosError } from 'axios'
 import { Loader2, LogIn } from 'lucide-react'
 import { toast } from 'sonner'
 import { IconFacebook, IconGithub } from '@/assets/brand-icons'
+import { login } from '@/features/auth/api'
 import { useAuthStore } from '@/stores/auth-store'
-import { sleep, cn } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -54,30 +56,32 @@ export function UserAuthForm({
   function onSubmit(data: z.infer<typeof formSchema>) {
     setIsLoading(true)
 
-    toast.promise(sleep(2000), {
+    toast.promise(login(data), {
       loading: 'Signing in...',
-      success: () => {
+      success: (res) => {
         setIsLoading(false)
 
-        // Mock successful authentication with expiry computed at success time
-        const mockUser = {
-          accountNo: 'ACC001',
-          email: data.email,
-          role: ['user'],
-          exp: Date.now() + 24 * 60 * 60 * 1000, // 24 hours from now
-        }
+        // 백엔드가 발급한 토큰과 사용자 정보를 저장 (auth-store AuthUser 형태로 정렬)
+        auth.setUser({
+          accountNo: res.user.accountNo,
+          email: res.user.email,
+          role: res.user.role,
+          exp: res.user.exp,
+        })
+        auth.setAccessToken(res.accessToken)
 
-        // Set user and access token
-        auth.setUser(mockUser)
-        auth.setAccessToken('mock-access-token')
-
-        // Redirect to the stored location or default to dashboard
         const targetPath = redirectTo || '/'
         navigate({ to: targetPath, replace: true })
 
-        return `Welcome back, ${data.email}!`
+        return `Welcome back, ${res.user.name || res.user.email}!`
       },
-      error: 'Error',
+      error: (error) => {
+        setIsLoading(false)
+        if (error instanceof AxiosError && error.response?.status === 401) {
+          return '이메일 또는 비밀번호가 올바르지 않습니다.'
+        }
+        return '로그인에 실패했습니다. 잠시 후 다시 시도해 주세요.'
+      },
     })
   }
 
