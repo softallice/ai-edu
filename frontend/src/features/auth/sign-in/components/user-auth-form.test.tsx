@@ -44,9 +44,19 @@ vi.mock('@tanstack/react-router', async (importOriginal) => {
   }
 })
 
-vi.mock('@/lib/utils', async (orig) => ({
-  ...(await orig()),
-  sleep: vi.fn(() => Promise.resolve()),
+vi.mock('@/features/auth/api', () => ({
+  login: vi.fn((body: { email: string; password: string }) =>
+    Promise.resolve({
+      accessToken: 'test-token',
+      user: {
+        accountNo: 'ACC001',
+        email: body.email,
+        name: 'Tester',
+        role: ['USER'],
+        exp: Date.now() + 86400000,
+      },
+    })
+  ),
 }))
 
 describe('UserAuthForm', () => {
@@ -100,7 +110,7 @@ describe('UserAuthForm', () => {
         })
       )
       expect(setAccessTokenMock).toHaveBeenCalledOnce()
-      expect(setAccessTokenMock).toHaveBeenCalledWith('mock-access-token')
+      expect(setAccessTokenMock).toHaveBeenCalledWith('test-token')
 
       await vi.waitFor(() =>
         expect(navigate).toHaveBeenCalledWith({ to: '/', replace: true })
