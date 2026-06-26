@@ -1,0 +1,30 @@
+# 교육용 로컬 PostgreSQL.
+#
+#   docker compose up -d      # 기동 (백그라운드)
+#   docker compose ps         # 상태 확인
+#   docker compose down       # 중지
+#   docker compose down -v    # 중지 + 데이터 볼륨 삭제
+#
+# 애플리케이션은 application.yml 의 datasource 설정으로 이 컨테이너에 접속합니다
+# (jdbc:postgresql://localhost:5432/aiedu, user/pass = aiedu/aiedu).
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: aiedu-postgres
+    environment:
+      POSTGRES_DB: aiedu
+      POSTGRES_USER: aiedu
+      POSTGRES_PASSWORD: aiedu
+      TZ: Asia/Seoul
+    ports:
+      - "5432:5432"
+    volumes:
+      - aiedu-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aiedu -d aiedu"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  aiedu-pgdata:

@@ -22,7 +22,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    runtimeOnly 'com.h2database:h2'
+    // 비밀번호 BCrypt 해시 (전체 Security 필터 체인 없이 crypto 유틸만 사용)
+    implementation 'org.springframework.security:spring-security-crypto:7.0.4'
+    // 로컬/운영 DB: PostgreSQL (docker-compose 의 aiedu-postgres 컨테이너에 접속)
+    runtimeOnly 'org.postgresql:postgresql'
+    // 테스트 전용 인메모리 DB: H2 (Docker 없이도 테스트가 동작하도록 test 스코프로 한정)
+    testRuntimeOnly 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     // Spring Boot 4: MockMvc 테스트 자동구성(@AutoConfigureMockMvc)이 별도 모듈로 분리됨
     testImplementation 'org.springframework.boot:spring-boot-webmvc-test'

@@ -1,0 +1,23 @@
+# 테스트 전용 설정: Docker/PostgreSQL 없이도 동작하도록 인메모리 H2 를 사용합니다.
+# (운영/로컬 실행은 src/main/resources/application.yml 의 PostgreSQL 설정을 사용)
+spring:
+  datasource:
+    url: jdbc:h2:mem:aiedu;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: always
+
+# JWT 설정 (HS256). validity-ms 기본 24시간.
+app:
+  jwt:
+    secret: ${APP_JWT_SECRET:dev-only-secret-please-change-0123456789abcdef}
+    validity-ms: 86400000
