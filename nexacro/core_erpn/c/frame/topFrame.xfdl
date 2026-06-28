@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.0">
+  <Form id="topFrame" left="0" top="0" width="1280" height="44" titletext="상단" onload="topFrame_onload" background="#111827">
+    <Static id="sta_Title" left="16" top="8" width="300" height="28" text="ai-edu ERP" font="bold 16px" color="#ffffff"/>
+    <Static id="sta_User" left="900" top="10" width="240" height="24" text="" color="#d1d5db"/>
+    <Button id="btn_Logout" left="1150" top="8" width="110" height="28" taborder="0" text="로그아웃" onclick="btn_Logout_onclick"/>
+    <Script type="xscript5.0"><![CDATA[
+include "script::lib_script_common.xjs";
+this.sPACKAGENAME = "topFrame";
+this.topFrame_onload = function(obj, e) {
+    var app = nexacro.getApplication();
+    this.sta_User.set_text((app.gv_userNm || "") + " (" + (app.gv_userId || "") + ")");
+};
+this.btn_Logout_onclick = function(obj, e) { nexacro.getApplication().gfn_logout(); };
+    ]]></Script>
+  </Form>
+</FDL>

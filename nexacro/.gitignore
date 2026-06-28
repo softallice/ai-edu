@@ -1,0 +1,5 @@
+# Nexacro N 상용 런타임/리소스 — 라이선스 자산, 저장소에 커밋하지 않음.
+# (사용자 환경에서 ndserp 등 라이선스 보유본으로부터 배치)
+core_erpn/nexacro17lib/
+core_erpn/_resource_/
+core_erpn/_extlib_/

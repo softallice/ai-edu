@@ -16,12 +16,20 @@ public class WebCorsConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        String[] devOrigins = {
+                "http://localhost:5173", // Vite dev
+                "http://localhost:3000", // 대체 dev 포트 / Nexacro 로컬 서버
+                "http://localhost:4173", // Vite preview
+                "http://localhost:8080" // 동일 오리진 서빙
+        };
         registry.addMapping("/api/**")
-                .allowedOrigins(
-                        "http://localhost:5173", // Vite dev
-                        "http://localhost:3000", // 대체 dev 포트
-                        "http://localhost:4173") // Vite preview
+                .allowedOrigins(devOrigins)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
+                .allowedHeaders("*");
+        // Nexacro 연동 어댑터(.do 트랜잭션)도 동일 dev 오리진 허용
+        registry.addMapping("/nexacro/**")
+                .allowedOrigins(devOrigins)
+                .allowedMethods("POST", "OPTIONS")
                 .allowedHeaders("*");
     }
 }

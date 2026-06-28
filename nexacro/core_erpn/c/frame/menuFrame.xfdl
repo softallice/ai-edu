@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.0">
+  <Form id="menuFrame" left="0" top="0" width="220" height="756" titletext="메뉴" onload="menuFrame_onload" background="#f3f4f6">
+    <Objects>
+      <Dataset id="ds_Menu">
+        <ColumnInfo>
+          <Column id="MENU_IDXX" type="STRING" size="20"/>
+          <Column id="MENU_NAME" type="STRING" size="100"/>
+          <Column id="UPME_IDXX" type="STRING" size="20"/>
+          <Column id="PROG_PATH" type="STRING" size="200"/>
+          <Column id="MENU_LEVL" type="STRING" size="2"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Static id="sta_Hd" left="0" top="0" width="220" height="36" text="메뉴" font="bold 14px"/>
+    <Grid id="grd_Menu" left="0" top="36" width="220" height="720" taborder="0"
+          binddataset="ds_Menu" oncellclick="grd_Menu_oncellclick"/>
+    <Script type="xscript5.0"><![CDATA[
+include "script::lib_script_common.xjs";
+this.sPACKAGENAME = "menuFrame";
+this.menuFrame_onload = function(obj, e) { this.fn_LoadMenu(); };
+this.fn_LoadMenu = function() {
+    this.grd_Menu.set_format('<Format id="default"><Columns><Column size="220"/></Columns>'
+      + '<Head><Band id="head"><Cell text="메뉴"/></Band></Head>'
+      + '<Body><Band id="body"><Cell text="bind:MENU_NAME"/></Band></Body></Format>');
+    this.fnc_TransactionCall("Menu", "com/ComLogin_Menu.do", "", "ds_Menu=ds_Menu", "", "fn_MenuCallback");
+};
+this.fn_MenuCallback = function(svcID, errCode, errMsg) {
+    if (errCode < 0) { alert("메뉴 조회 실패: " + errMsg); }
+};
+this.grd_Menu_oncellclick = function(obj, e) {
+    var path = this.ds_Menu.getColumn(e.row, "PROG_PATH");
+    if (path != null && path != "") { nexacro.getApplication().gfn_openWork(path); }
+};
+    ]]></Script>
+  </Form>
+</FDL>

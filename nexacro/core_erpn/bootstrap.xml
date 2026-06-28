@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nexacro 부트스트랩(스캐폴드). 상용 런타임 배치 후 Studio 에서 보정하세요. -->
+<Bootstrap version="2.0">
+  <TypeDefinition src="typedefinition.xml"/>
+  <Environment src="environment.xml"/>
+  <Application src="core_erpn.xadl"/>
+</Bootstrap>

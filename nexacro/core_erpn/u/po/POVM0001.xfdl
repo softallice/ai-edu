@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.0">
+  <!--
+    POVM0001 — 거래처등록 (레거시 ndserp 이관 / 백엔드 Nexacro 어댑터 연동)
+    컨벤션: sPACKAGENAME, on_initEvent, lib_script_common include, fnc_TransactionCall, ds_ 네이밍
+  -->
+  <Form id="POVM0001" left="0" top="0" width="1024" height="680"
+        titletext="거래처등록" onload="POVM0001_onload">
+    <Objects>
+      <Dataset id="ds_Search">
+        <ColumnInfo>
+          <Column id="CUST_CD_AND_NM" type="STRING" size="256"/>
+          <Column id="BUY_SALE_GB"    type="STRING" size="10"/>
+          <Column id="TRAN_EN_YN"     type="STRING" size="1"/>
+          <Column id="ID"             type="STRING" size="32"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_List">
+        <ColumnInfo>
+          <Column id="ID"          type="STRING" size="32"/>
+          <Column id="CUST_CODE"   type="STRING" size="20"/>
+          <Column id="CUST_NM"     type="STRING" size="200"/>
+          <Column id="BUY_SALE_GB" type="STRING" size="10"/>
+          <Column id="REPRESENT_NM" type="STRING" size="100"/>
+          <Column id="SAUP_NO"     type="STRING" size="20"/>
+          <Column id="TRAN_EN_YN"  type="STRING" size="1"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_CustInfo">
+        <ColumnInfo>
+          <Column id="ID"          type="STRING" size="32"/>
+          <Column id="CUST_CODE"   type="STRING" size="20"/>
+          <Column id="SAUP_NO"     type="STRING" size="20"/>
+          <Column id="CUST_NM"     type="STRING" size="200"/>
+          <Column id="CUST_SHOT_NM" type="STRING" size="100"/>
+          <Column id="BUY_SALE_GB" type="STRING" size="10"/>
+          <Column id="REPRESENT_NM" type="STRING" size="100"/>
+          <Column id="REPRESENT_TEL_NO" type="STRING" size="30"/>
+          <Column id="ADD1"        type="STRING" size="300"/>
+          <Column id="CUST_EMAIL"  type="STRING" size="200"/>
+          <Column id="TRAN_EN_YN"  type="STRING" size="1"/>
+          <Column id="ECONT_YN"    type="STRING" size="1"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_CustMngr">
+        <ColumnInfo>
+          <Column id="DEPT_NM" type="STRING" size="100"/>
+          <Column id="EMP_NM"  type="STRING" size="100"/>
+          <Column id="TEL_NO"  type="STRING" size="30"/>
+          <Column id="EMAIL"   type="STRING" size="200"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+
+    <!-- 검색 영역 -->
+    <Edit id="edt_Search" left="20" top="16" width="240" height="28"
+          taborder="0" text="" bind:value="ds_Search.0.CUST_CD_AND_NM"/>
+    <Combo id="cbo_BuySale" left="270" top="16" width="140" height="28" taborder="1"
+           bind:value="ds_Search.0.BUY_SALE_GB" innerdataset="ds_BuySale"
+           codecolumn="code" datacolumn="name"/>
+    <Button id="btn_Search" left="420" top="16" width="70" height="28" taborder="2"
+            text="조회" onclick="btn_Search_onclick"/>
+    <Button id="btn_New"    left="700" top="16" width="70" height="28" taborder="3"
+            text="신규" onclick="btn_New_onclick"/>
+    <Button id="btn_Save"   left="775" top="16" width="70" height="28" taborder="4"
+            text="저장" onclick="btn_Save_onclick"/>
+    <Button id="btn_Delete" left="850" top="16" width="70" height="28" taborder="5"
+            text="삭제" onclick="btn_Delete_onclick"/>
+
+    <!-- 거래처 목록 그리드 -->
+    <Grid id="grd_List" left="20" top="56" width="500" height="560" taborder="6"
+          binddataset="ds_List" autofittype="col" oncellclick="grd_List_oncellclick"/>
+
+    <!-- 거래처 상세 + 담당자 -->
+    <Edit id="edt_CustNm" left="540" top="60" width="240" height="28" taborder="7"
+          bind:value="ds_CustInfo.0.CUST_NM"/>
+    <Edit id="edt_SaupNo" left="540" top="96" width="240" height="28" taborder="8"
+          bind:value="ds_CustInfo.0.SAUP_NO"/>
+    <Edit id="edt_Repr" left="540" top="132" width="240" height="28" taborder="9"
+          bind:value="ds_CustInfo.0.REPRESENT_NM"/>
+    <Grid id="grd_Mngr" left="540" top="180" width="464" height="436" taborder="10"
+          binddataset="ds_CustMngr" autofittype="col"/>
+
+    <Script type="xscript5.0"><![CDATA[
+include "script::lib_script_common.xjs";
+
+this.sPACKAGENAME = "POVM0001";
+
+// on_initEvent — 폼 로드 시 초기화
+this.POVM0001_onload = function(obj, e)
+{
+    this.fn_Init();
+};
+
+this.fn_Init = function()
+{
+    // 목록 그리드 포맷(set_format 사용 — 컨벤션)
+    this.grd_List.set_format('<Format id="default"><Columns><Column size="80"/><Column size="220"/><Column size="100"/><Column size="100"/></Columns>'
+        + '<Head><Band id="head"><Cell text="코드"/><Cell col="1" text="거래처명"/><Cell col="2" text="구분"/><Cell col="3" text="대표자"/></Band></Head>'
+        + '<Body><Band id="body"><Cell text="bind:CUST_CODE"/><Cell col="1" text="bind:CUST_NM"/><Cell col="2" text="bind:BUY_SALE_GB"/><Cell col="3" text="bind:REPRESENT_NM"/></Band></Body></Format>');
+    this.fn_Search();
+};
+
+// 목록 조회 — SEARCH00
+this.fn_Search = function()
+{
+    this.fnc_TransactionCall("SEARCH00", "erp/po/POVM0001_SEARCH00.do",
+        "ds_Search=ds_Search", "ds_List=ds_List", "", "fn_PostProcess");
+};
+
+// 상세 조회 — SEARCH01 (그리드 클릭)
+this.fn_SelectDetail = function()
+{
+    var nRow = this.ds_List.rowposition;
+    this.ds_Search.clearData();
+    this.ds_Search.addRow();
+    this.ds_Search.setColumn(0, "ID", this.ds_List.getColumn(nRow, "ID"));
+    this.fnc_TransactionCall("SEARCH01", "erp/po/POVM0001_SEARCH01.do",
+        "ds_Search=ds_Search", "ds_CustInfo=ds_CustInfo ds_CustMngr=ds_CustMngr", "", "fn_PostProcess");
+};
+
+// 신규
+this.fn_New = function()
+{
+    this.ds_CustInfo.clearData(); this.ds_CustInfo.addRow();
+    this.ds_CustMngr.clearData();
+};
+
+// 저장 — SAVE00 (ID 없으면 신규, 있으면 수정)
+this.fn_Save = function()
+{
+    if (this.ds_CustInfo.getRowCount() == 0) { alert("저장할 거래처가 없습니다."); return; }
+    this.fnc_TransactionCall("SAVE00", "erp/po/POVM0001_SAVE00.do",
+        "ds_CustInfo=ds_CustInfo ds_CustMngr=ds_CustMngr", "ds_CustInfo=ds_CustInfo", "", "fn_PostProcess");
+};
+
+// 삭제 — DELETE00
+this.fn_Delete = function()
+{
+    var sId = this.ds_CustInfo.getColumn(0, "ID");
+    if (sId == null || sId == "") { alert("삭제할 거래처를 선택하세요."); return; }
+    this.ds_Search.clearData(); this.ds_Search.addRow();
+    this.ds_Search.setColumn(0, "ID", sId);
+    this.fnc_TransactionCall("DELETE00", "erp/po/POVM0001_DELETE00.do",
+        "ds_Search=ds_Search", "", "", "fn_PostProcess");
+};
+
+// 트랜잭션 콜백 — ErrorCode/ErrorMsg 처리
+this.fn_PostProcess = function(svcID, errCode, errMsg)
+{
+    if (errCode < 0) { alert("오류[" + errCode + "] " + errMsg); return; }
+    if (svcID == "SAVE00" || svcID == "DELETE00") { this.fn_Search(); }
+};
+
+// 이벤트 핸들러
+this.btn_Search_onclick = function(obj, e) { this.fn_Search(); };
+this.btn_New_onclick    = function(obj, e) { this.fn_New(); };
+this.btn_Save_onclick   = function(obj, e) { this.fn_Save(); };
+this.btn_Delete_onclick = function(obj, e) { this.fn_Delete(); };
+this.grd_List_oncellclick = function(obj, e) { this.fn_SelectDetail(); };
+    ]]></Script>
+  </Form>
+</FDL>

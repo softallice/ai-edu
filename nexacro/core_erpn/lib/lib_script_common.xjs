@@ -1,0 +1,32 @@
+//==============================================================================
+//  lib_script_common.xjs  —  공통 스크립트
+//  모든 폼에서 include "script::lib_script_common.xjs" 로 포함합니다.
+//  핵심: fnc_TransactionCall — 백엔드 Nexacro 어댑터(JSON)와의 트랜잭션 공통 래퍼.
+//==============================================================================
+
+// 트랜잭션 공통 호출.
+//  strSvcID   : 트랜잭션 식별자(콜백 svcID)              예) "SEARCH00"
+//  strUrl     : gv_svcUrl 기준 상대 경로                  예) "erp/po/POVM0001_SEARCH00.do"
+//  strInDs    : 입력 데이터셋 매핑   "ds_Search=ds_Search"
+//  strOutDs   : 출력 데이터셋 매핑   "ds_List=ds_List"
+//  strArg     : 추가 인자 문자열
+//  strCallback: 콜백 함수명          예) "fn_PostProcess"
+//  ⚠ Transaction 직접 생성 금지 — 반드시 이 래퍼를 통해 this.transaction 사용.
+this.fnc_TransactionCall = function(strSvcID, strUrl, strInDs, strOutDs, strArg, strCallback)
+{
+    var sBase = nexacro.getApplication().gv_svcUrl;   // 예: http://localhost:8080/nexacro
+    if (sBase.charAt(sBase.length - 1) != "/") sBase += "/";
+
+    this.transaction(
+        strSvcID,
+        sBase + strUrl,
+        strInDs,
+        strOutDs,
+        strArg,
+        strCallback,
+        false   // 동기 처리(교육용). 운영은 비동기 권장.
+    );
+};
+
+// Y/N ↔ boolean 표시 헬퍼
+this.fnc_YN = function(b) { return b ? "Y" : "N"; };

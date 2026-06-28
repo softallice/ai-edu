@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AppVariables version="2.0">
+  <!-- 백엔드 Nexacro 어댑터 베이스 URL. 배포 환경에 맞게 변경하세요. -->
+  <Variable id="gv_svcUrl" value="http://localhost:8080/nexacro"/>
+  <Variable id="gv_userId" value=""/>
+  <Variable id="gv_userNm" value=""/>
+</AppVariables>

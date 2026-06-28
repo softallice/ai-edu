@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TypeDefinition version="2.3">
+  <Modules>
+    <Module url="CompBase.json"/>
+    <Module url="ComComp.json"/>
+    <Module url="Grid.json"/>
+    <Module url="ListView.json"/>
+    <Module url="DeviceAPI.json"/>
+    <Module url="extlib::ToggleButton.json"/>
+    <Module url="UbiReport4.json"/>
+    <Module url="Splitter.json"/>
+    <Module url="PdfObject.json"/>
+  </Modules>
+  <Components>
+    <Component type="JavaScript" id="Button" classname="nexacro.Button"/>
+    <Component type="JavaScript" id="Combo" classname="nexacro.Combo"/>
+    <Component type="JavaScript" id="Edit" classname="nexacro.Edit"/>
+    <Component type="JavaScript" id="MaskEdit" classname="nexacro.MaskEdit"/>
+    <Component type="JavaScript" id="TextArea" classname="nexacro.TextArea"/>
+    <Component type="JavaScript" id="Static" classname="nexacro.Static"/>
+    <Component type="JavaScript" id="Div" classname="nexacro.Div"/>
+    <Component type="JavaScript" id="PopupDiv" classname="nexacro.PopupDiv"/>
+    <Component type="JavaScript" id="Radio" classname="nexacro.Radio"/>
+    <Component type="JavaScript" id="CheckBox" classname="nexacro.CheckBox"/>
+    <Component type="JavaScript" id="ListBox" classname="nexacro.ListBox"/>
+    <Component type="JavaScript" id="Grid" classname="nexacro.Grid"/>
+    <Component type="JavaScript" id="Spin" classname="nexacro.Spin"/>
+    <Component type="JavaScript" id="Menu" classname="nexacro.Menu"/>
+    <Component type="JavaScript" id="PopupMenu" classname="nexacro.PopupMenu"/>
+    <Component type="JavaScript" id="Tab" classname="nexacro.Tab"/>
+    <Component type="JavaScript" id="GroupBox" classname="nexacro.GroupBox"/>
+    <Component type="JavaScript" id="Calendar" classname="nexacro.Calendar"/>
+    <Component type="JavaScript" id="ImageViewer" classname="nexacro.ImageViewer"/>
+    <Component type="JavaScript" id="ProgressBar" classname="nexacro.ProgressBar"/>
+    <Component type="JavaScript" id="Plugin" classname="nexacro.Plugin"/>
+    <Component type="JavaScript" id="Dataset" classname="nexacro.NormalDataset"/>
+    <Component type="JavaScript" id="ListView" classname="nexacro.ListView"/>
+    <Component type="JavaScript" id="WebBrowser" classname="nexacro.WebBrowser"/>
+    <Component type="JavaScript" id="FileDownload" classname="nexacro.FileDownload"/>
+    <Component type="JavaScript" id="FileUpload" classname="nexacro.FileUpload"/>
+    <Component type="JavaScript" id="Sketch" classname="nexacro.Sketch"/>
+    <Component type="JavaScript" id="ExcelExportObject" classname="nexacro.ExcelExportObject"/>
+    <Component type="JavaScript" id="ExcelImportObject" classname="nexacro.ExcelImportObject"/>
+    <Component type="JavaScript" id="ToggleButton" classname="nexacro.ToggleButton" iconindex="400" iconextra="true" defaultwidth="60" defaultheight="30" prefixid=""/>
+    <Component type="JavaScript" id="FileUpTransfer" classname="nexacro.FileUpTransfer"/>
+    <Component type="JavaScript" id="FileDialog" classname="nexacro.FileDialog"/>
+    <Component type="JavaScript" id="UbiReport" classname="nexacro.UbiViewer"/>
+    <Component type="JavaScript" id="Splitter" classname="nexacro.Splitter"/>
+    <Component type="JavaScript" id="VideoPlayer" classname="nexacro.VideoPlayer"/>
+  </Components>
+  <Services>
+    <Service prefixid="theme" type="resource" url="./_resource_/_theme_/" cachelevel="session" include_subdir="true"/>
+    <Service prefixid="initvalue" type="resource" url="./_resource_/_initvalue_/" cachelevel="session" include_subdir="false"/>
+    <Service prefixid="xcssrc" type="resource" url="./_resource_/_xcss_/" cachelevel="session" include_subdir="false"/>
+    <Service prefixid="imagerc" type="resource" url="./_resource_/_images_/" cachelevel="session" include_subdir="true"/>
+    <Service prefixid="font" type="resource" url="./_resource_/_font_/" version="0" communicationversion="0" cachelevel="session" include_subdir="false"/>
+    <Service prefixid="frame" type="form" url="./c/frame/" cachelevel="dynamic" version="0" communicationversion="0" include_subdir="false"/>
+    <Service prefixid="common" type="form" cachelevel="dynamic" url="./c/common/" version="0" communicationversion="0" include_subdir="false"/>
+    <Service prefixid="html" type="file" cachelevel="dynamic" url="./html/" version="0" communicationversion="0" include_subdir="false"/>
+    <Service prefixid="script" type="js" cachelevel="dynamic" url="./c/script/" version="0" communicationversion="0" include_subdir="false"/>
+    <Service prefixid="fi" type="form" url="./u/fi/" version="0" cachelevel="dynamic" include_subdir="false" communicationversion="0"/>
+    <Service prefixid="hr" type="form" url="./u/hr/" version="0" cachelevel="dynamic" include_subdir="false" communicationversion="0"/>    
+    <Service prefixid="ga" type="form" url="./u/ga/" version="0" cachelevel="dynamic" include_subdir="false" communicationversion="0"/>
+    <Service prefixid="em" type="form" url="./u/em/" version="0" cachelevel="dynamic" include_subdir="false" communicationversion="0"/>
+    <Service prefixid="om" type="form" url="./u/om/" version="0" cachelevel="dynamic" include_subdir="false" communicationversion="0"/>
+    <Service prefixid="po" type="form" url="./u/po/" version="0" cachelevel="dynamic" include_subdir="false" communicationversion="0"/>
+    <Service prefixid="pm" type="form" url="./u/pm/" version="0" cachelevel="dynamic" include_subdir="false" communicationversion="0"/>
+    <Service prefixid="tmm" type="form" cachelevel="dynamic" url="./c/tmm/" version="0" communicationversion="0" include_subdir="false"/>
+    <Service prefixid="template" type="form" url="./c/template/" version="0" cachelevel="dynamic" include_subdir="false" communicationversion="0"/>
+    <Service prefixid="sample" type="form" url="./c/sample/" version="0" cachelevel="dynamic" include_subdir="false" communicationversion="0"/>
+    <Service prefixid="guide" type="form" url="./c/guide/" version="0" cachelevel="dynamic" include_subdir="false" communicationversion="0"/>
+    <Service prefixid="is" type="form" url="./u/is/" version="0" cachelevel="dynamic" include_subdir="false" communicationversion="0"/>
+    <Service prefixid="cb" type="form" url="./u/cb/" version="0" cachelevel="dynamic" include_subdir="false" communicationversion="0"/>
+  </Services>
+  <Protocols/>
+  <Update/>
+</TypeDefinition>

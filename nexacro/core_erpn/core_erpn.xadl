@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nexacro 애플리케이션 기술서(스캐폴드). 시작 화면: 거래처등록(POVM0001). -->
+<Application version="2.0" id="core_erpn">
+  <Window id="mainframe" url="u/po/POVM0001.xfdl"/>
+  <AppVariables src="appvariables.xml"/>
+</Application>
