@@ -34,17 +34,17 @@
             obj = new Edit("edt_Search","20","16","240","28",null,null,null,null,null,null,this);
             this.addChild(obj.name, obj);
             obj = new Button("btn_Search","270","16","70","28",null,null,null,null,null,null,this);
-            obj.set_text("조회"); this.addChild(obj.name, obj);
+            obj.set_text("조회"); obj.set_background("#2563eb"); obj.set_color("#ffffff"); this.addChild(obj.name, obj);
             obj = new Button("btn_New","700","16","70","28",null,null,null,null,null,null,this);
             obj.set_text("신규"); this.addChild(obj.name, obj);
             obj = new Button("btn_Save","775","16","70","28",null,null,null,null,null,null,this);
-            obj.set_text("저장"); this.addChild(obj.name, obj);
+            obj.set_text("저장"); obj.set_background("#2563eb"); obj.set_color("#ffffff"); this.addChild(obj.name, obj);
             obj = new Button("btn_Delete","850","16","70","28",null,null,null,null,null,null,this);
             obj.set_text("삭제"); this.addChild(obj.name, obj);
             obj = new Grid("grd_List","20","56","500","560",null,null,null,null,null,null,this);
-            obj.set_binddataset("ds_List"); this.addChild(obj.name, obj);
+            obj.set_binddataset("ds_List"); obj._setContents('<Formats><Format id="default"><Columns><Column size="80"/><Column size="220"/><Column size="100"/><Column size="98"/></Columns><Rows><Row size="30" band="head"/><Row size="28"/></Rows><Band id="head"><Cell text="코드"/><Cell col="1" text="거래처명"/><Cell col="2" text="구분"/><Cell col="3" text="대표자"/></Band><Band id="body"><Cell text="bind:CUST_CODE"/><Cell col="1" text="bind:CUST_NM"/><Cell col="2" text="bind:BUY_SALE_GB"/><Cell col="3" text="bind:REPRESENT_NM"/></Band></Format></Formats>'); this.addChild(obj.name, obj);
             obj = new Grid("grd_Mngr","540","180","464","436",null,null,null,null,null,null,this);
-            obj.set_binddataset("ds_CustMngr"); this.addChild(obj.name, obj);
+            obj.set_binddataset("ds_CustMngr"); obj._setContents('<Formats><Format id="default"><Columns><Column size="120"/><Column size="120"/><Column size="120"/><Column size="100"/></Columns><Rows><Row size="30" band="head"/><Row size="28"/></Rows><Band id="head"><Cell text="소속"/><Cell col="1" text="성명"/><Cell col="2" text="전화"/><Cell col="3" text="이메일"/></Band><Band id="body"><Cell text="bind:DEPT_NM"/><Cell col="1" text="bind:EMP_NM"/><Cell col="2" text="bind:TEL_NO"/><Cell col="3" text="bind:EMAIL"/></Band></Format></Formats>'); this.addChild(obj.name, obj);
 
             obj = new Layout("default","",1040,760,this,function(p){});
             this.addLayout(obj.name, obj);
@@ -62,8 +62,6 @@
 
             this.fn_FormLoad = function(obj, e)
             {
-                try { this.grd_List.set_format('<Formats><Format id="default"><Columns><Column size="80"/><Column size="220"/><Column size="100"/><Column size="100"/></Columns><Rows><Row size="28" band="head"/><Row size="26" band="body"/></Rows><Band id="head"><Cell text="코드"/><Cell col="1" text="거래처명"/><Cell col="2" text="구분"/><Cell col="3" text="대표자"/></Band><Band id="body"><Cell text="bind:CUST_CODE"/><Cell col="1" text="bind:CUST_NM"/><Cell col="2" text="bind:BUY_SALE_GB"/><Cell col="3" text="bind:REPRESENT_NM"/></Band></Format></Formats>'); } catch (e) {}
-                try { this.grd_Mngr.set_format('<Formats><Format id="default"><Columns><Column size="120"/><Column size="120"/><Column size="120"/><Column size="100"/></Columns><Rows><Row size="28" band="head"/><Row size="26" band="body"/></Rows><Band id="head"><Cell text="소속"/><Cell col="1" text="성명"/><Cell col="2" text="전화"/><Cell col="3" text="이메일"/></Band><Band id="body"><Cell text="bind:DEPT_NM"/><Cell col="1" text="bind:EMP_NM"/><Cell col="2" text="bind:TEL_NO"/><Cell col="3" text="bind:EMAIL"/></Band></Format></Formats>'); } catch (e) {}
                 this.fn_Search();
             };
             this.fn_Search = function()

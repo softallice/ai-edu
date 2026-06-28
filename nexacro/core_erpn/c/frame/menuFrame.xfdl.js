@@ -16,7 +16,7 @@
             obj = new Static("sta_Hd","0","0","220","36",null,null,null,null,null,null,this);
             obj.set_text("메뉴"); obj.set_font("bold 14px"); this.addChild(obj.name, obj);
             obj = new Grid("grd_Menu","0","36","220","720",null,null,null,null,null,null,this);
-            obj.set_binddataset("ds_Menu"); this.addChild(obj.name, obj);
+            obj.set_binddataset("ds_Menu"); obj._setContents('<Formats><Format id="default"><Columns><Column size="218"/></Columns><Rows><Row size="30" band="head"/><Row size="28"/></Rows><Band id="head"><Cell text="메뉴"/></Band><Band id="body"><Cell text="bind:MENU_NAME"/></Band></Format></Formats>'); this.addChild(obj.name, obj);
             obj = new Layout("default","",220,756,this,function(p){});
             this.addLayout(obj.name, obj);
         };
@@ -30,7 +30,6 @@
             };
             this.fn_FormLoad = function(obj, e)
             {
-                try { this.grd_Menu.set_format('<Formats><Format id="default"><Columns><Column size="220"/></Columns><Rows><Row size="28" band="head"/><Row size="26" band="body"/></Rows><Band id="head"><Cell text="메뉴"/></Band><Band id="body"><Cell text="bind:MENU_NAME"/></Band></Format></Formats>'); } catch (e) {}
                 this.fnc_TransactionCall("Menu","com/ComLogin_Menu.do","","ds_Menu=ds_Menu","","fn_MenuCallback");
             };
             this.fn_MenuCallback = function(svcID, errCode, errMsg)

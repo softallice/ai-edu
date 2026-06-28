@@ -7,7 +7,7 @@
         this.on_create = function()
         {
             this.set_name("topFrame");
-            this.set_titletext("상단");
+            this.set_titletext("상단"); this.set_background("#1f2937");
             if (Form == this.constructor) { this._setFormPosition(1280, 44); }
             obj = new Static("sta_Title","16","8","300","28",null,null,null,null,null,null,this);
             obj.set_text("ai-edu ERP"); obj.set_font("bold 16px"); this.addChild(obj.name, obj);
@@ -29,7 +29,7 @@
             this.fn_FormLoad = function(obj, e)
             {
                 var app = nexacro.getApplication();
-                this.sta_User.set_text((app.gv_userNm || "") + " (" + (app.gv_userId || "") + ")");
+                var nm = app.gv_userNm; var id = app.gv_userId; this.sta_User.set_text((nm ? nm : "사용자") + (id ? " (" + id + ")" : ""));
             };
             this.fn_Logout = function(obj, e) { nexacro.getApplication().gfn_logout(); };
         });
