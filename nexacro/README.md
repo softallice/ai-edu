@@ -108,3 +108,15 @@ Nexacro 컴파일러가 생성하는 **onload 이벤트 바인딩 / `include "sc
 - 로그인 화면 렌더 ✅ ("ai-edu ERP 로그인" + 로그인 버튼, asset 404·에러 없음)
 - 백엔드 로그인/메뉴 어댑터 ✅ (curl 실측: 성공 시 토큰+사용자, 실패 시 ErrorCode -1, 메뉴 목록)
 - ⚠️ 로그인 클릭→메인 전환, 메뉴→화면 이동 등 **이벤트/트랜잭션/프레임 전환의 완전한 동작은 Nexacro Studio `Generate` 필요**(손수 작성 `.xfdl.js`의 컴파일 배선 한계 — 위 "검증 상태" 참고).
+
+### 업데이트 — 로그인→메인 전환 동작 (headless 스크린샷 검증)
+
+손수 작성 `.xfdl.js`를 **실제 Nexacro 컴파일 구조**(on_create + Layout + on_initEvent + 12-인자 컴포넌트 생성자)에 맞추고, 트랜잭션은 Nexacro SSV 대신 **JSON XHR**(`core_erpn.xadl.js`의 `gfn_transaction`)으로 구현해 다음을 확인했습니다.
+
+- 로그인 폼 onload·onclick 발화 ✅ (실제 클릭/호출로 로그인)
+- 로그인 성공 → **메인 셸 표시** ✅ — 상단바(ai-edu ERP/로그아웃) + 좌측 메뉴 + 중앙 검색·거래처 그리드 + 담당자 그리드 (스크린샷 확인)
+- 트랜잭션 200 ✅ — `ComLogin_Login` / `ComLogin_Menu` / `POVM0001_SEARCH00`
+- 데이터셋 적재 ✅ — 메뉴 2건, 거래처 3건
+- 프레임 전환: `gfn_openMainFrame` 의 `set_separatesize("0,44,*")` + `set_visible` 토글
+
+⚠️ 남은 폴리시: 그리드 **셀 행 렌더**(메뉴 항목/거래처 행)는 데이터가 적재돼 있으나 hand-authored `set_format` 의 시각 렌더가 불완전합니다(상단 사용자명도 미표시). 그리드 표시 등 세부는 Nexacro Studio `Generate` 로 보정하면 완성됩니다. 화면 구조·연동·데이터 흐름은 모두 동작합니다.

@@ -1,10 +1,9 @@
 // 컴파일된 Application (런타임 로드용). index.html 의 screeninfo.xadl 이 참조.
-// 부팅 흐름: 로그인(comLogin) → 메인 프레임셋(상단 topFrame + 메뉴 menuFrame + 작업영역 WORKFRAME).
-// gv_svcUrl = 백엔드 Nexacro 어댑터 베이스 URL. gv_token/userId/userNm = 로그인 결과.
+// 부팅: 모든 프레임(로그인/상단/메뉴/작업)을 미리 생성하고 VFrameSet separatesize 로 가시성 토글.
+//   초기: "*,0,0" (로그인만) → 로그인 성공: "0,44,*" (상단+메뉴+작업).
+// 백엔드와는 gfn_transaction(XHR+JSON)으로 통신.
 //
-// ⚠ 본 파일 및 c/**·u/** 의 .xfdl.js 는 손수 작성한 부트 스텁입니다.
-//    onload·트랜잭션·프레임 전환의 완전한 동작은 Nexacro Studio 의 Generate(컴파일)로
-//    .xadl/.xfdl 원본에서 정식 .js 를 재생성해야 보장됩니다(README "검증 상태" 참고).
+// ⚠ 손수 작성 부트 스텁. 정식 구동/배포는 Nexacro Studio Generate 권장(README).
 (function()
 {
     return function()
@@ -22,7 +21,6 @@
             this.set_id("core_erpn");
             this.set_screenid("screen_generated");
             if (this._is_attach_childframe) return;
-
             var mainframe = this.createMainFrame("mainframe", "0", "0", "1280", "800", null, null, this);
             mainframe.set_showtitlebar("true");
             mainframe.set_showstatusbar("false");
@@ -32,68 +30,136 @@
 
         this.loadPreloadList = function() {};
 
-        // 초기 바디 = 로그인 프레임 (this = mainframe)
+        // 모든 프레임을 미리 생성 (this = mainframe). 초기엔 로그인만 보이게 separatesize.
         this.mainframe_createBodyFrame = function()
         {
-            var loginset = new VFrameSet("VFrameSet", null, null, null, null, null, null, this);
-            loginset.set_separatesize("*");
-            this.addChild(loginset.name, loginset);
-            this.frame = loginset;
+            var vset = new VFrameSet("VFrameSet", null, null, null, null, null, null, this);
+            this.addChild(vset.name, vset);
+            this.frame = vset;
 
-            var login = new ChildFrame("LOGINFRAME", null, null, null, null, null, null,
-                                       "common::comLogin.xfdl", loginset);
+            var login = new ChildFrame("LOGINFRAME", null, null, null, null, null, null, "common::comLogin.xfdl", vset);
+            login.set_showtitlebar("false");
+            vset.addChild(login.name, login);
             login.set_formurl("common::comLogin.xfdl");
-            loginset.addChild(login.name, login);
+
+            var top = new ChildFrame("TOPFRAME", null, null, null, null, null, null, "frame::topFrame.xfdl", vset);
+            top.set_showtitlebar("false");
+            vset.addChild(top.name, top);
+            top.set_formurl("frame::topFrame.xfdl");
+
+            var hmain = new HFrameSet("HMAIN", null, null, null, null, null, null, vset);
+            hmain.set_separatesize("220,*");
+            vset.addChild(hmain.name, hmain);
+
+            var menu = new ChildFrame("MENUFRAME", null, null, null, null, null, null, "frame::menuFrame.xfdl", hmain);
+            menu.set_showtitlebar("false");
+            hmain.addChild(menu.name, menu);
+            menu.set_formurl("frame::menuFrame.xfdl");
+
+            var work = new ChildFrame("WORKFRAME", null, null, null, null, null, null, "po::POVM0001.xfdl", hmain);
+            work.set_showtitlebar("false");
+            hmain.addChild(work.name, work);
+            work.set_formurl("po::POVM0001.xfdl");
+
+            // 초기: 로그인 프레임만 표시
+            vset.set_separatesize("*,0,0");
         };
 
-        // 로그인 성공 → 메인 프레임셋으로 전환 (this = application)
+        // 로그인 성공 → 메인(상단+메뉴+작업) 표시 (this = application)
         this.gfn_openMainFrame = function()
         {
-            var mf = this.mainframe;
-            // 기존 로그인 프레임셋 제거
-            if (mf.frame) { mf.removeChild(mf.frame.name); }
-
-            var vset = new VFrameSet("VMAIN", null, null, null, null, null, null, mf);
-            vset.set_separatesize("44,*");
-            mf.addChild(vset.name, vset);
-            mf.frame = vset;
-
-            var top = new ChildFrame("TOPFRAME", null, null, null, null, null, null,
-                                     "frame::topFrame.xfdl", vset);
-            top.set_formurl("frame::topFrame.xfdl");
-            vset.addChild(top.name, top);
-
-            var hset = new HFrameSet("HMAIN", null, null, null, null, null, null, vset);
-            hset.set_separatesize("220,*");
-            vset.addChild(hset.name, hset);
-
-            var menu = new ChildFrame("MENUFRAME", null, null, null, null, null, null,
-                                      "frame::menuFrame.xfdl", hset);
-            menu.set_formurl("frame::menuFrame.xfdl");
-            hset.addChild(menu.name, menu);
-
-            var work = new ChildFrame("WORKFRAME", null, null, null, null, null, null,
-                                      "po::POVM0001.xfdl", hset);
-            work.set_formurl("po::POVM0001.xfdl");
-            hset.addChild(work.name, work);
+            var vf = this.mainframe.VFrameSet;
+            vf.set_separatesize("0,44,*");
+            try { vf.LOGINFRAME.set_visible(false); } catch (e) {}
+            try { vf.TOPFRAME.set_visible(true); } catch (e) {}
+            try { vf.HMAIN.set_visible(true); } catch (e) {}
+            // 숨겨져 있던 메인 프레임을 표시한 뒤 formurl 을 재설정해 폼 로드(+onload 트랜잭션)를 강제
+            vf.TOPFRAME.set_formurl("frame::topFrame.xfdl");
+            vf.HMAIN.MENUFRAME.set_formurl("frame::menuFrame.xfdl");
+            vf.HMAIN.WORKFRAME.set_formurl("po::POVM0001.xfdl");
         };
 
-        // 메뉴 클릭 → 작업영역에 폼 로드 (this = application)
+        // 메뉴 클릭 → 작업영역 폼 교체 (this = application)
         this.gfn_openWork = function(formurl)
         {
-            var work = this.mainframe.frame.HMAIN.WORKFRAME;
-            if (work) { work.set_formurl(formurl); }
+            var work = this.mainframe.VFrameSet.HMAIN.WORKFRAME;
+            if (work) {
+                work.set_formurl(formurl);
+                var self = this;
+                setTimeout(function(){ try { if (work.form && work.form.fn_FormLoad) work.form.fn_FormLoad(); } catch(e){} }, 300);
+            }
         };
 
-        // 로그아웃 → 로그인 화면으로 복귀 (this = application)
+        // 로그아웃 → 로그인 화면 (this = application)
         this.gfn_logout = function()
         {
-            this.gv_token = "";
-            this.gv_userId = "";
-            this.gv_userNm = "";
-            var mf = this.mainframe;
-            if (mf.frame) { mf.removeChild(mf.frame.name); }
-            this.mainframe_createBodyFrame.call(mf);
+            this.gv_token = ""; this.gv_userId = ""; this.gv_userNm = "";
+            var vf2 = this.mainframe.VFrameSet;
+            vf2.set_separatesize("*,0,0");
+            try { vf2.LOGINFRAME.set_visible(true); } catch (e) {}
+        };
+
+        // 공통 JSON 트랜잭션 (XHR). Nexacro SSV 대신 백엔드 JSON 어댑터와 직접 통신.
+        //  inDs/outDs : "백엔드ds=폼ds" 공백구분 매핑. cb(svcID, ErrorCode, ErrorMsg).
+        this.gfn_transaction = function(form, svcID, url, inDs, outDs, arg, cbName)
+        {
+            var base = this.gv_svcUrl;
+            if (base.charAt(base.length - 1) != "/") base += "/";
+
+            var reqBody = {};
+            if (inDs) {
+                inDs.split(" ").forEach(function(pair) {
+                    if (!pair) return;
+                    var kv = pair.split("="); var sendName = kv[0]; var dsName = kv[1] || kv[0];
+                    var ds = form[dsName];
+                    if (!ds) return;
+                    var rows = [];
+                    for (var i = 0; i < ds.getRowCount(); i++) {
+                        var row = {};
+                        for (var c = 0; c < ds.getColCount(); c++) {
+                            var col = ds.getColID(c);
+                            row[col] = ds.getColumn(i, col);
+                        }
+                        rows.push(row);
+                    }
+                    reqBody[sendName] = rows;
+                });
+            }
+
+            var app = this;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", base + url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            if (app.gv_token) xhr.setRequestHeader("Authorization", "Bearer " + app.gv_token);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState != 4) return;
+                var errCode = -1, errMsg = "통신 오류(" + xhr.status + ")";
+                try {
+                    var res = JSON.parse(xhr.responseText);
+                    errCode = (res.ErrorCode != null) ? res.ErrorCode : 0;
+                    errMsg = res.ErrorMsg || "";
+                    if (errCode >= 0 && outDs) {
+                        outDs.split(" ").forEach(function(pair) {
+                            if (!pair) return;
+                            var kv = pair.split("="); var dsName = kv[0]; var respName = kv[1] || kv[0];
+                            var ds = form[dsName]; var arr = res[respName];
+                            if (!ds || !arr) return;
+                            ds.clearData();
+                            for (var i = 0; i < arr.length; i++) {
+                                var r = ds.addRow(); var o = arr[i];
+                                for (var c = 0; c < ds.getColCount(); c++) {
+                                    var col = ds.getColID(c);
+                                    if (o[col] !== undefined && o[col] !== null) ds.setColumn(r, col, o[col]);
+                                }
+                            }
+                        });
+                    }
+                } catch (e) { errCode = -1; errMsg = "응답 파싱 오류: " + e.message; }
+                if (cbName && typeof form[cbName] === "function") {
+                    form[cbName].call(form, svcID, errCode, errMsg);
+                }
+            };
+            xhr.send(JSON.stringify(reqBody));
         };
 
         this.checkLicense("");
