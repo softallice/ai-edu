@@ -36,6 +36,7 @@ import { Route as AuthenticatedSettingsAccountRouteImport } from './routes/_auth
 import { Route as AuthenticatedSalesPurchaseRequestRouteImport } from './routes/_authenticated/sales/purchase-request'
 import { Route as AuthenticatedSalesCollectionRouteImport } from './routes/_authenticated/sales/collection'
 import { Route as AuthenticatedPurchaseOrderRouteImport } from './routes/_authenticated/purchase/order'
+import { Route as AuthenticatedPurchaseCollectionRouteImport } from './routes/_authenticated/purchase/collection'
 import { Route as AuthenticatedErrorsErrorRouteImport } from './routes/_authenticated/errors/$error'
 import { Route as AuthenticatedCommonNoticeRouteImport } from './routes/_authenticated/common/notice'
 import { Route as AuthenticatedHrEmployeesIndexRouteImport } from './routes/_authenticated/hr/employees/index'
@@ -47,6 +48,11 @@ import { Route as AuthenticatedSalesContractRegisterRouteImport } from './routes
 import { Route as AuthenticatedSalesContractProposalRouteImport } from './routes/_authenticated/sales/contract/proposal'
 import { Route as AuthenticatedSalesContractPerformanceRouteImport } from './routes/_authenticated/sales/contract/performance'
 import { Route as AuthenticatedSalesContractItemsRouteImport } from './routes/_authenticated/sales/contract/items'
+import { Route as AuthenticatedPurchasePaymentStatusRouteImport } from './routes/_authenticated/purchase/payment/status'
+import { Route as AuthenticatedPurchasePaymentApprovalRouteImport } from './routes/_authenticated/purchase/payment/approval'
+import { Route as AuthenticatedPurchaseBillStatusRouteImport } from './routes/_authenticated/purchase/bill/status'
+import { Route as AuthenticatedPurchaseBillServiceRouteImport } from './routes/_authenticated/purchase/bill/service'
+import { Route as AuthenticatedPurchaseBillGoodsRouteImport } from './routes/_authenticated/purchase/bill/goods'
 import { Route as AuthenticatedPmUtilizationPersonalRouteImport } from './routes/_authenticated/pm/utilization/personal'
 import { Route as AuthenticatedPmBudgetTeamActualRouteImport } from './routes/_authenticated/pm/budget/team-actual'
 import { Route as AuthenticatedPmBudgetProjectActualRouteImport } from './routes/_authenticated/pm/budget/project-actual'
@@ -204,6 +210,12 @@ const AuthenticatedPurchaseOrderRoute =
     path: '/purchase/order',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedPurchaseCollectionRoute =
+  AuthenticatedPurchaseCollectionRouteImport.update({
+    id: '/purchase/collection',
+    path: '/purchase/collection',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedErrorsErrorRoute =
   AuthenticatedErrorsErrorRouteImport.update({
     id: '/errors/$error',
@@ -268,6 +280,36 @@ const AuthenticatedSalesContractItemsRoute =
   AuthenticatedSalesContractItemsRouteImport.update({
     id: '/sales/contract/items',
     path: '/sales/contract/items',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedPurchasePaymentStatusRoute =
+  AuthenticatedPurchasePaymentStatusRouteImport.update({
+    id: '/purchase/payment/status',
+    path: '/purchase/payment/status',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedPurchasePaymentApprovalRoute =
+  AuthenticatedPurchasePaymentApprovalRouteImport.update({
+    id: '/purchase/payment/approval',
+    path: '/purchase/payment/approval',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedPurchaseBillStatusRoute =
+  AuthenticatedPurchaseBillStatusRouteImport.update({
+    id: '/purchase/bill/status',
+    path: '/purchase/bill/status',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedPurchaseBillServiceRoute =
+  AuthenticatedPurchaseBillServiceRouteImport.update({
+    id: '/purchase/bill/service',
+    path: '/purchase/bill/service',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedPurchaseBillGoodsRoute =
+  AuthenticatedPurchaseBillGoodsRouteImport.update({
+    id: '/purchase/bill/goods',
+    path: '/purchase/bill/goods',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedPmUtilizationPersonalRoute =
@@ -353,6 +395,7 @@ export interface FileRoutesByFullPath {
   '/$': typeof AuthenticatedSplatRoute
   '/common/notice': typeof AuthenticatedCommonNoticeRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
+  '/purchase/collection': typeof AuthenticatedPurchaseCollectionRoute
   '/purchase/order': typeof AuthenticatedPurchaseOrderRoute
   '/sales/collection': typeof AuthenticatedSalesCollectionRoute
   '/sales/purchase-request': typeof AuthenticatedSalesPurchaseRequestRoute
@@ -377,6 +420,11 @@ export interface FileRoutesByFullPath {
   '/pm/budget/project-actual': typeof AuthenticatedPmBudgetProjectActualRoute
   '/pm/budget/team-actual': typeof AuthenticatedPmBudgetTeamActualRoute
   '/pm/utilization/personal': typeof AuthenticatedPmUtilizationPersonalRoute
+  '/purchase/bill/goods': typeof AuthenticatedPurchaseBillGoodsRoute
+  '/purchase/bill/service': typeof AuthenticatedPurchaseBillServiceRoute
+  '/purchase/bill/status': typeof AuthenticatedPurchaseBillStatusRoute
+  '/purchase/payment/approval': typeof AuthenticatedPurchasePaymentApprovalRoute
+  '/purchase/payment/status': typeof AuthenticatedPurchasePaymentStatusRoute
   '/sales/contract/items': typeof AuthenticatedSalesContractItemsRoute
   '/sales/contract/performance': typeof AuthenticatedSalesContractPerformanceRoute
   '/sales/contract/proposal': typeof AuthenticatedSalesContractProposalRoute
@@ -402,6 +450,7 @@ export interface FileRoutesByTo {
   '/': typeof AuthenticatedIndexRoute
   '/common/notice': typeof AuthenticatedCommonNoticeRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
+  '/purchase/collection': typeof AuthenticatedPurchaseCollectionRoute
   '/purchase/order': typeof AuthenticatedPurchaseOrderRoute
   '/sales/collection': typeof AuthenticatedSalesCollectionRoute
   '/sales/purchase-request': typeof AuthenticatedSalesPurchaseRequestRoute
@@ -426,6 +475,11 @@ export interface FileRoutesByTo {
   '/pm/budget/project-actual': typeof AuthenticatedPmBudgetProjectActualRoute
   '/pm/budget/team-actual': typeof AuthenticatedPmBudgetTeamActualRoute
   '/pm/utilization/personal': typeof AuthenticatedPmUtilizationPersonalRoute
+  '/purchase/bill/goods': typeof AuthenticatedPurchaseBillGoodsRoute
+  '/purchase/bill/service': typeof AuthenticatedPurchaseBillServiceRoute
+  '/purchase/bill/status': typeof AuthenticatedPurchaseBillStatusRoute
+  '/purchase/payment/approval': typeof AuthenticatedPurchasePaymentApprovalRoute
+  '/purchase/payment/status': typeof AuthenticatedPurchasePaymentStatusRoute
   '/sales/contract/items': typeof AuthenticatedSalesContractItemsRoute
   '/sales/contract/performance': typeof AuthenticatedSalesContractPerformanceRoute
   '/sales/contract/proposal': typeof AuthenticatedSalesContractProposalRoute
@@ -454,6 +508,7 @@ export interface FileRoutesById {
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/common/notice': typeof AuthenticatedCommonNoticeRoute
   '/_authenticated/errors/$error': typeof AuthenticatedErrorsErrorRoute
+  '/_authenticated/purchase/collection': typeof AuthenticatedPurchaseCollectionRoute
   '/_authenticated/purchase/order': typeof AuthenticatedPurchaseOrderRoute
   '/_authenticated/sales/collection': typeof AuthenticatedSalesCollectionRoute
   '/_authenticated/sales/purchase-request': typeof AuthenticatedSalesPurchaseRequestRoute
@@ -478,6 +533,11 @@ export interface FileRoutesById {
   '/_authenticated/pm/budget/project-actual': typeof AuthenticatedPmBudgetProjectActualRoute
   '/_authenticated/pm/budget/team-actual': typeof AuthenticatedPmBudgetTeamActualRoute
   '/_authenticated/pm/utilization/personal': typeof AuthenticatedPmUtilizationPersonalRoute
+  '/_authenticated/purchase/bill/goods': typeof AuthenticatedPurchaseBillGoodsRoute
+  '/_authenticated/purchase/bill/service': typeof AuthenticatedPurchaseBillServiceRoute
+  '/_authenticated/purchase/bill/status': typeof AuthenticatedPurchaseBillStatusRoute
+  '/_authenticated/purchase/payment/approval': typeof AuthenticatedPurchasePaymentApprovalRoute
+  '/_authenticated/purchase/payment/status': typeof AuthenticatedPurchasePaymentStatusRoute
   '/_authenticated/sales/contract/items': typeof AuthenticatedSalesContractItemsRoute
   '/_authenticated/sales/contract/performance': typeof AuthenticatedSalesContractPerformanceRoute
   '/_authenticated/sales/contract/proposal': typeof AuthenticatedSalesContractProposalRoute
@@ -506,6 +566,7 @@ export interface FileRouteTypes {
     | '/$'
     | '/common/notice'
     | '/errors/$error'
+    | '/purchase/collection'
     | '/purchase/order'
     | '/sales/collection'
     | '/sales/purchase-request'
@@ -530,6 +591,11 @@ export interface FileRouteTypes {
     | '/pm/budget/project-actual'
     | '/pm/budget/team-actual'
     | '/pm/utilization/personal'
+    | '/purchase/bill/goods'
+    | '/purchase/bill/service'
+    | '/purchase/bill/status'
+    | '/purchase/payment/approval'
+    | '/purchase/payment/status'
     | '/sales/contract/items'
     | '/sales/contract/performance'
     | '/sales/contract/proposal'
@@ -555,6 +621,7 @@ export interface FileRouteTypes {
     | '/'
     | '/common/notice'
     | '/errors/$error'
+    | '/purchase/collection'
     | '/purchase/order'
     | '/sales/collection'
     | '/sales/purchase-request'
@@ -579,6 +646,11 @@ export interface FileRouteTypes {
     | '/pm/budget/project-actual'
     | '/pm/budget/team-actual'
     | '/pm/utilization/personal'
+    | '/purchase/bill/goods'
+    | '/purchase/bill/service'
+    | '/purchase/bill/status'
+    | '/purchase/payment/approval'
+    | '/purchase/payment/status'
     | '/sales/contract/items'
     | '/sales/contract/performance'
     | '/sales/contract/proposal'
@@ -606,6 +678,7 @@ export interface FileRouteTypes {
     | '/_authenticated/'
     | '/_authenticated/common/notice'
     | '/_authenticated/errors/$error'
+    | '/_authenticated/purchase/collection'
     | '/_authenticated/purchase/order'
     | '/_authenticated/sales/collection'
     | '/_authenticated/sales/purchase-request'
@@ -630,6 +703,11 @@ export interface FileRouteTypes {
     | '/_authenticated/pm/budget/project-actual'
     | '/_authenticated/pm/budget/team-actual'
     | '/_authenticated/pm/utilization/personal'
+    | '/_authenticated/purchase/bill/goods'
+    | '/_authenticated/purchase/bill/service'
+    | '/_authenticated/purchase/bill/status'
+    | '/_authenticated/purchase/payment/approval'
+    | '/_authenticated/purchase/payment/status'
     | '/_authenticated/sales/contract/items'
     | '/_authenticated/sales/contract/performance'
     | '/_authenticated/sales/contract/proposal'
@@ -846,6 +924,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPurchaseOrderRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/purchase/collection': {
+      id: '/_authenticated/purchase/collection'
+      path: '/purchase/collection'
+      fullPath: '/purchase/collection'
+      preLoaderRoute: typeof AuthenticatedPurchaseCollectionRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/errors/$error': {
       id: '/_authenticated/errors/$error'
       path: '/errors/$error'
@@ -921,6 +1006,41 @@ declare module '@tanstack/react-router' {
       path: '/sales/contract/items'
       fullPath: '/sales/contract/items'
       preLoaderRoute: typeof AuthenticatedSalesContractItemsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/purchase/payment/status': {
+      id: '/_authenticated/purchase/payment/status'
+      path: '/purchase/payment/status'
+      fullPath: '/purchase/payment/status'
+      preLoaderRoute: typeof AuthenticatedPurchasePaymentStatusRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/purchase/payment/approval': {
+      id: '/_authenticated/purchase/payment/approval'
+      path: '/purchase/payment/approval'
+      fullPath: '/purchase/payment/approval'
+      preLoaderRoute: typeof AuthenticatedPurchasePaymentApprovalRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/purchase/bill/status': {
+      id: '/_authenticated/purchase/bill/status'
+      path: '/purchase/bill/status'
+      fullPath: '/purchase/bill/status'
+      preLoaderRoute: typeof AuthenticatedPurchaseBillStatusRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/purchase/bill/service': {
+      id: '/_authenticated/purchase/bill/service'
+      path: '/purchase/bill/service'
+      fullPath: '/purchase/bill/service'
+      preLoaderRoute: typeof AuthenticatedPurchaseBillServiceRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/purchase/bill/goods': {
+      id: '/_authenticated/purchase/bill/goods'
+      path: '/purchase/bill/goods'
+      fullPath: '/purchase/bill/goods'
+      preLoaderRoute: typeof AuthenticatedPurchaseBillGoodsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/pm/utilization/personal': {
@@ -1032,6 +1152,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedCommonNoticeRoute: typeof AuthenticatedCommonNoticeRoute
   AuthenticatedErrorsErrorRoute: typeof AuthenticatedErrorsErrorRoute
+  AuthenticatedPurchaseCollectionRoute: typeof AuthenticatedPurchaseCollectionRoute
   AuthenticatedPurchaseOrderRoute: typeof AuthenticatedPurchaseOrderRoute
   AuthenticatedSalesCollectionRoute: typeof AuthenticatedSalesCollectionRoute
   AuthenticatedSalesPurchaseRequestRoute: typeof AuthenticatedSalesPurchaseRequestRoute
@@ -1051,6 +1172,11 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedPmBudgetProjectActualRoute: typeof AuthenticatedPmBudgetProjectActualRoute
   AuthenticatedPmBudgetTeamActualRoute: typeof AuthenticatedPmBudgetTeamActualRoute
   AuthenticatedPmUtilizationPersonalRoute: typeof AuthenticatedPmUtilizationPersonalRoute
+  AuthenticatedPurchaseBillGoodsRoute: typeof AuthenticatedPurchaseBillGoodsRoute
+  AuthenticatedPurchaseBillServiceRoute: typeof AuthenticatedPurchaseBillServiceRoute
+  AuthenticatedPurchaseBillStatusRoute: typeof AuthenticatedPurchaseBillStatusRoute
+  AuthenticatedPurchasePaymentApprovalRoute: typeof AuthenticatedPurchasePaymentApprovalRoute
+  AuthenticatedPurchasePaymentStatusRoute: typeof AuthenticatedPurchasePaymentStatusRoute
   AuthenticatedSalesContractItemsRoute: typeof AuthenticatedSalesContractItemsRoute
   AuthenticatedSalesContractPerformanceRoute: typeof AuthenticatedSalesContractPerformanceRoute
   AuthenticatedSalesContractProposalRoute: typeof AuthenticatedSalesContractProposalRoute
@@ -1068,6 +1194,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedCommonNoticeRoute: AuthenticatedCommonNoticeRoute,
   AuthenticatedErrorsErrorRoute: AuthenticatedErrorsErrorRoute,
+  AuthenticatedPurchaseCollectionRoute: AuthenticatedPurchaseCollectionRoute,
   AuthenticatedPurchaseOrderRoute: AuthenticatedPurchaseOrderRoute,
   AuthenticatedSalesCollectionRoute: AuthenticatedSalesCollectionRoute,
   AuthenticatedSalesPurchaseRequestRoute:
@@ -1094,6 +1221,13 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedPmBudgetTeamActualRoute: AuthenticatedPmBudgetTeamActualRoute,
   AuthenticatedPmUtilizationPersonalRoute:
     AuthenticatedPmUtilizationPersonalRoute,
+  AuthenticatedPurchaseBillGoodsRoute: AuthenticatedPurchaseBillGoodsRoute,
+  AuthenticatedPurchaseBillServiceRoute: AuthenticatedPurchaseBillServiceRoute,
+  AuthenticatedPurchaseBillStatusRoute: AuthenticatedPurchaseBillStatusRoute,
+  AuthenticatedPurchasePaymentApprovalRoute:
+    AuthenticatedPurchasePaymentApprovalRoute,
+  AuthenticatedPurchasePaymentStatusRoute:
+    AuthenticatedPurchasePaymentStatusRoute,
   AuthenticatedSalesContractItemsRoute: AuthenticatedSalesContractItemsRoute,
   AuthenticatedSalesContractPerformanceRoute:
     AuthenticatedSalesContractPerformanceRoute,

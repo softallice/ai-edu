@@ -210,6 +210,23 @@ export const sidebarData: SidebarData = {
         },
         { title: '구매발주', url: '/purchase/order', icon: ShoppingCart },
         {
+          title: '매입세금계산서',
+          icon: Receipt,
+          items: [
+            { title: '상품매입세금계산서', url: '/purchase/bill/goods' },
+            { title: '용역매입세금계산서', url: '/purchase/bill/service' },
+            { title: '매입세금계산서현황', url: '/purchase/bill/status' },
+          ],
+        },
+        {
+          title: '대금지급',
+          icon: HandCoins,
+          items: [
+            { title: '대금지급결재', url: '/purchase/payment/approval' },
+            { title: '대금지급현황표', url: '/purchase/payment/status' },
+          ],
+        },
+        {
           title: '프로젝트수금실적현황',
           url: '/purchase/collection',
           icon: Coins,
