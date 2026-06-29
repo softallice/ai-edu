@@ -88,6 +88,42 @@ public class NexacroCommonController {
         return ok;
     }
 
+    /** 메인 포털 데이터(공지/일정). 레거시 dsTM_NOTICE / dsTM_SCHDXM 대응. */
+    @PostMapping("/ComMain_Portal.do")
+    public Map<String, Object> mainPortal(@RequestBody(required = false) Map<String, Object> body) {
+        List<Map<String, Object>> notices = List.of(
+                noticeRow("7", "연말정산 자료입력 안내 매뉴얼", "정한균", "2023-02-02"),
+                noticeRow("6", "직무성과급인사제도(PMS) 매뉴얼 V1.0", "남택윤", "2022-11-29"),
+                noticeRow("5", "크롬/엣지브라우저 외부 로그인 비정상 해결", "김남호", "2022-08-11"),
+                noticeRow("3", "NDS PC 셋팅 안내", "김남호", "2022-05-24"),
+                noticeRow("2", "NEBIS 시스템 안내 (경영지원본부, 서무직 해당)", "김남호", "2022-05-24"),
+                noticeRow("1", "NDSERP 시스템 오픈", "김남호", "2022-05-24"));
+        List<Map<String, Object>> schedules = List.of(
+                schRow("06월 03일 (수)", "지방선거"),
+                schRow("06월 06일 (토)", "현충일"),
+                schRow("06월 19일 (금)", "가정의 날 단체반차"));
+        Map<String, Object> ok = NexacroResponse.ok();
+        ok.put("ds_Notice", notices);
+        ok.put("ds_Schedule", schedules);
+        return ok;
+    }
+
+    private static Map<String, Object> noticeRow(String no, String title, String writer, String dt) {
+        Map<String, Object> r = new LinkedHashMap<>();
+        r.put("NO", no);
+        r.put("TITLE", title);
+        r.put("WRITER", writer);
+        r.put("REG_DT", dt);
+        return r;
+    }
+
+    private static Map<String, Object> schRow(String dt, String name) {
+        Map<String, Object> r = new LinkedHashMap<>();
+        r.put("SCH_DT", dt);
+        r.put("SCH_NM", name);
+        return r;
+    }
+
     private static Map<String, Object> menuRow(String id, String name, String upper, String path, String level) {
         Map<String, Object> row = new LinkedHashMap<>();
         row.put("MENU_IDXX", id);
