@@ -40,6 +40,8 @@ import { Route as AuthenticatedPurchaseCollectionRouteImport } from './routes/_a
 import { Route as AuthenticatedErrorsErrorRouteImport } from './routes/_authenticated/errors/$error'
 import { Route as AuthenticatedCommonNoticeRouteImport } from './routes/_authenticated/common/notice'
 import { Route as AuthenticatedCommonCodeRouteImport } from './routes/_authenticated/common/code'
+import { Route as AuthenticatedAccountingJournalEntriesRouteImport } from './routes/_authenticated/accounting/journal-entries'
+import { Route as AuthenticatedAccountingAccountsRouteImport } from './routes/_authenticated/accounting/accounts'
 import { Route as AuthenticatedHrEmployeesIndexRouteImport } from './routes/_authenticated/hr/employees/index'
 import { Route as AuthenticatedHrDepartmentsIndexRouteImport } from './routes/_authenticated/hr/departments/index'
 import { Route as AuthenticatedSalesTaxInvoiceStatusRouteImport } from './routes/_authenticated/sales/tax-invoice/status'
@@ -262,6 +264,18 @@ const AuthenticatedCommonCodeRoute = AuthenticatedCommonCodeRouteImport.update({
   path: '/common/code',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAccountingJournalEntriesRoute =
+  AuthenticatedAccountingJournalEntriesRouteImport.update({
+    id: '/accounting/journal-entries',
+    path: '/accounting/journal-entries',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAccountingAccountsRoute =
+  AuthenticatedAccountingAccountsRouteImport.update({
+    id: '/accounting/accounts',
+    path: '/accounting/accounts',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedHrEmployeesIndexRoute =
   AuthenticatedHrEmployeesIndexRouteImport.update({
     id: '/hr/employees/',
@@ -595,6 +609,8 @@ export interface FileRoutesByFullPath {
   '/500': typeof errors500Route
   '/503': typeof errors503Route
   '/$': typeof AuthenticatedSplatRoute
+  '/accounting/accounts': typeof AuthenticatedAccountingAccountsRoute
+  '/accounting/journal-entries': typeof AuthenticatedAccountingJournalEntriesRoute
   '/common/code': typeof AuthenticatedCommonCodeRoute
   '/common/notice': typeof AuthenticatedCommonNoticeRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
@@ -679,6 +695,8 @@ export interface FileRoutesByTo {
   '/503': typeof errors503Route
   '/$': typeof AuthenticatedSplatRoute
   '/': typeof AuthenticatedIndexRoute
+  '/accounting/accounts': typeof AuthenticatedAccountingAccountsRoute
+  '/accounting/journal-entries': typeof AuthenticatedAccountingJournalEntriesRoute
   '/common/code': typeof AuthenticatedCommonCodeRoute
   '/common/notice': typeof AuthenticatedCommonNoticeRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
@@ -766,6 +784,8 @@ export interface FileRoutesById {
   '/(errors)/503': typeof errors503Route
   '/_authenticated/$': typeof AuthenticatedSplatRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/accounting/accounts': typeof AuthenticatedAccountingAccountsRoute
+  '/_authenticated/accounting/journal-entries': typeof AuthenticatedAccountingJournalEntriesRoute
   '/_authenticated/common/code': typeof AuthenticatedCommonCodeRoute
   '/_authenticated/common/notice': typeof AuthenticatedCommonNoticeRoute
   '/_authenticated/errors/$error': typeof AuthenticatedErrorsErrorRoute
@@ -853,6 +873,8 @@ export interface FileRouteTypes {
     | '/500'
     | '/503'
     | '/$'
+    | '/accounting/accounts'
+    | '/accounting/journal-entries'
     | '/common/code'
     | '/common/notice'
     | '/errors/$error'
@@ -937,6 +959,8 @@ export interface FileRouteTypes {
     | '/503'
     | '/$'
     | '/'
+    | '/accounting/accounts'
+    | '/accounting/journal-entries'
     | '/common/code'
     | '/common/notice'
     | '/errors/$error'
@@ -1023,6 +1047,8 @@ export interface FileRouteTypes {
     | '/(errors)/503'
     | '/_authenticated/$'
     | '/_authenticated/'
+    | '/_authenticated/accounting/accounts'
+    | '/_authenticated/accounting/journal-entries'
     | '/_authenticated/common/code'
     | '/_authenticated/common/notice'
     | '/_authenticated/errors/$error'
@@ -1326,6 +1352,20 @@ declare module '@tanstack/react-router' {
       path: '/common/code'
       fullPath: '/common/code'
       preLoaderRoute: typeof AuthenticatedCommonCodeRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/accounting/journal-entries': {
+      id: '/_authenticated/accounting/journal-entries'
+      path: '/accounting/journal-entries'
+      fullPath: '/accounting/journal-entries'
+      preLoaderRoute: typeof AuthenticatedAccountingJournalEntriesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/accounting/accounts': {
+      id: '/_authenticated/accounting/accounts'
+      path: '/accounting/accounts'
+      fullPath: '/accounting/accounts'
+      preLoaderRoute: typeof AuthenticatedAccountingAccountsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/hr/employees/': {
@@ -1729,6 +1769,8 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedSettingsRouteRoute: typeof AuthenticatedSettingsRouteRouteWithChildren
   AuthenticatedSplatRoute: typeof AuthenticatedSplatRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedAccountingAccountsRoute: typeof AuthenticatedAccountingAccountsRoute
+  AuthenticatedAccountingJournalEntriesRoute: typeof AuthenticatedAccountingJournalEntriesRoute
   AuthenticatedCommonCodeRoute: typeof AuthenticatedCommonCodeRoute
   AuthenticatedCommonNoticeRoute: typeof AuthenticatedCommonNoticeRoute
   AuthenticatedErrorsErrorRoute: typeof AuthenticatedErrorsErrorRoute
@@ -1800,6 +1842,9 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedSettingsRouteRoute: AuthenticatedSettingsRouteRouteWithChildren,
   AuthenticatedSplatRoute: AuthenticatedSplatRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedAccountingAccountsRoute: AuthenticatedAccountingAccountsRoute,
+  AuthenticatedAccountingJournalEntriesRoute:
+    AuthenticatedAccountingJournalEntriesRoute,
   AuthenticatedCommonCodeRoute: AuthenticatedCommonCodeRoute,
   AuthenticatedCommonNoticeRoute: AuthenticatedCommonNoticeRoute,
   AuthenticatedErrorsErrorRoute: AuthenticatedErrorsErrorRoute,

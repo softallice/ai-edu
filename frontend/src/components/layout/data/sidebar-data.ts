@@ -253,6 +253,14 @@ export const sidebarData: SidebarData = {
             { title: '법인카드처리현황', url: '/finance/card/status' },
           ],
         },
+        {
+          title: '회계',
+          icon: Calculator,
+          items: [
+            { title: '계정과목관리', url: '/accounting/accounts' },
+            { title: '분개전표', url: '/accounting/journal-entries' },
+          ],
+        },
       ],
     },
     {
