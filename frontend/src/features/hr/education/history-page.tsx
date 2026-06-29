@@ -17,20 +17,15 @@ import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { SelectDropdown } from '@/components/select-dropdown'
 import { ThemeSwitch } from '@/components/theme-switch'
-import {
-  useEducationRequests,
-  EDU_TYPE,
-  won,
-  type EducationType,
-} from './api'
+import { useEducationRequests, EDU_TYPE, won, type EducationType } from './api'
 
 const pad = (n: number) => String(n).padStart(2, '0')
 const ymd = (d: Date) =>
   `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
 
-const TYPE_ITEMS = (
-  Object.entries(EDU_TYPE) as [EducationType, string][]
-).map(([value, label]) => ({ label, value }))
+const TYPE_ITEMS = (Object.entries(EDU_TYPE) as [EducationType, string][]).map(
+  ([value, label]) => ({ label, value })
+)
 
 type EmpStat = {
   employeeId: number
@@ -159,7 +154,9 @@ export function EduHistoryPage() {
                 </TableRow>
               ) : (
                 stats.map((s) => {
-                  const empRows = list.filter((r) => r.employeeId === s.employeeId)
+                  const empRows = list.filter(
+                    (r) => r.employeeId === s.employeeId
+                  )
                   const types = [...new Set(empRows.map((r) => r.eduType))]
                   return (
                     <TableRow key={s.employeeId}>
@@ -170,7 +167,9 @@ export function EduHistoryPage() {
                         {s.departmentName ?? '-'}
                       </TableCell>
                       <TableCell className='text-end'>{s.count}</TableCell>
-                      <TableCell className='text-end'>{won(s.totalCost)}</TableCell>
+                      <TableCell className='text-end'>
+                        {won(s.totalCost)}
+                      </TableCell>
                       <TableCell>
                         <div className='flex flex-wrap gap-1'>
                           {types.map((t) => (

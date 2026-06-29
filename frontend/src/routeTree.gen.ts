@@ -77,7 +77,11 @@ import { Route as AuthenticatedFinanceVoucherByAccountRouteImport } from './rout
 import { Route as AuthenticatedFinanceCardUsageRouteImport } from './routes/_authenticated/finance/card/usage'
 import { Route as AuthenticatedFinanceCardStatusRouteImport } from './routes/_authenticated/finance/card/status'
 import { Route as AuthenticatedFinanceCardBillingRouteImport } from './routes/_authenticated/finance/card/billing'
+import { Route as AuthenticatedEvalProgressStatusRouteImport } from './routes/_authenticated/eval/progress/status'
+import { Route as AuthenticatedEvalProgressEvaluateeRouteImport } from './routes/_authenticated/eval/progress/evaluatee'
 import { Route as AuthenticatedEvalGoalRegisterRouteImport } from './routes/_authenticated/eval/goal/register'
+import { Route as AuthenticatedEvalAppraisalSelfRouteImport } from './routes/_authenticated/eval/appraisal/self'
+import { Route as AuthenticatedEvalAppraisalReviewRouteImport } from './routes/_authenticated/eval/appraisal/review'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
@@ -470,10 +474,34 @@ const AuthenticatedFinanceCardBillingRoute =
     path: '/finance/card/billing',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedEvalProgressStatusRoute =
+  AuthenticatedEvalProgressStatusRouteImport.update({
+    id: '/eval/progress/status',
+    path: '/eval/progress/status',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedEvalProgressEvaluateeRoute =
+  AuthenticatedEvalProgressEvaluateeRouteImport.update({
+    id: '/eval/progress/evaluatee',
+    path: '/eval/progress/evaluatee',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedEvalGoalRegisterRoute =
   AuthenticatedEvalGoalRegisterRouteImport.update({
     id: '/eval/goal/register',
     path: '/eval/goal/register',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedEvalAppraisalSelfRoute =
+  AuthenticatedEvalAppraisalSelfRouteImport.update({
+    id: '/eval/appraisal/self',
+    path: '/eval/appraisal/self',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedEvalAppraisalReviewRoute =
+  AuthenticatedEvalAppraisalReviewRouteImport.update({
+    id: '/eval/appraisal/review',
+    path: '/eval/appraisal/review',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 
@@ -507,7 +535,11 @@ export interface FileRoutesByFullPath {
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/tasks/': typeof AuthenticatedTasksIndexRoute
   '/users/': typeof AuthenticatedUsersIndexRoute
+  '/eval/appraisal/review': typeof AuthenticatedEvalAppraisalReviewRoute
+  '/eval/appraisal/self': typeof AuthenticatedEvalAppraisalSelfRoute
   '/eval/goal/register': typeof AuthenticatedEvalGoalRegisterRoute
+  '/eval/progress/evaluatee': typeof AuthenticatedEvalProgressEvaluateeRoute
+  '/eval/progress/status': typeof AuthenticatedEvalProgressStatusRoute
   '/finance/card/billing': typeof AuthenticatedFinanceCardBillingRoute
   '/finance/card/status': typeof AuthenticatedFinanceCardStatusRoute
   '/finance/card/usage': typeof AuthenticatedFinanceCardUsageRoute
@@ -576,7 +608,11 @@ export interface FileRoutesByTo {
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
+  '/eval/appraisal/review': typeof AuthenticatedEvalAppraisalReviewRoute
+  '/eval/appraisal/self': typeof AuthenticatedEvalAppraisalSelfRoute
   '/eval/goal/register': typeof AuthenticatedEvalGoalRegisterRoute
+  '/eval/progress/evaluatee': typeof AuthenticatedEvalProgressEvaluateeRoute
+  '/eval/progress/status': typeof AuthenticatedEvalProgressStatusRoute
   '/finance/card/billing': typeof AuthenticatedFinanceCardBillingRoute
   '/finance/card/status': typeof AuthenticatedFinanceCardStatusRoute
   '/finance/card/usage': typeof AuthenticatedFinanceCardUsageRoute
@@ -648,7 +684,11 @@ export interface FileRoutesById {
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
+  '/_authenticated/eval/appraisal/review': typeof AuthenticatedEvalAppraisalReviewRoute
+  '/_authenticated/eval/appraisal/self': typeof AuthenticatedEvalAppraisalSelfRoute
   '/_authenticated/eval/goal/register': typeof AuthenticatedEvalGoalRegisterRoute
+  '/_authenticated/eval/progress/evaluatee': typeof AuthenticatedEvalProgressEvaluateeRoute
+  '/_authenticated/eval/progress/status': typeof AuthenticatedEvalProgressStatusRoute
   '/_authenticated/finance/card/billing': typeof AuthenticatedFinanceCardBillingRoute
   '/_authenticated/finance/card/status': typeof AuthenticatedFinanceCardStatusRoute
   '/_authenticated/finance/card/usage': typeof AuthenticatedFinanceCardUsageRoute
@@ -720,7 +760,11 @@ export interface FileRouteTypes {
     | '/settings/'
     | '/tasks/'
     | '/users/'
+    | '/eval/appraisal/review'
+    | '/eval/appraisal/self'
     | '/eval/goal/register'
+    | '/eval/progress/evaluatee'
+    | '/eval/progress/status'
     | '/finance/card/billing'
     | '/finance/card/status'
     | '/finance/card/usage'
@@ -789,7 +833,11 @@ export interface FileRouteTypes {
     | '/settings'
     | '/tasks'
     | '/users'
+    | '/eval/appraisal/review'
+    | '/eval/appraisal/self'
     | '/eval/goal/register'
+    | '/eval/progress/evaluatee'
+    | '/eval/progress/status'
     | '/finance/card/billing'
     | '/finance/card/status'
     | '/finance/card/usage'
@@ -860,7 +908,11 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/'
     | '/_authenticated/tasks/'
     | '/_authenticated/users/'
+    | '/_authenticated/eval/appraisal/review'
+    | '/_authenticated/eval/appraisal/self'
     | '/_authenticated/eval/goal/register'
+    | '/_authenticated/eval/progress/evaluatee'
+    | '/_authenticated/eval/progress/status'
     | '/_authenticated/finance/card/billing'
     | '/_authenticated/finance/card/status'
     | '/_authenticated/finance/card/usage'
@@ -1393,11 +1445,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFinanceCardBillingRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/eval/progress/status': {
+      id: '/_authenticated/eval/progress/status'
+      path: '/eval/progress/status'
+      fullPath: '/eval/progress/status'
+      preLoaderRoute: typeof AuthenticatedEvalProgressStatusRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/eval/progress/evaluatee': {
+      id: '/_authenticated/eval/progress/evaluatee'
+      path: '/eval/progress/evaluatee'
+      fullPath: '/eval/progress/evaluatee'
+      preLoaderRoute: typeof AuthenticatedEvalProgressEvaluateeRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/eval/goal/register': {
       id: '/_authenticated/eval/goal/register'
       path: '/eval/goal/register'
       fullPath: '/eval/goal/register'
       preLoaderRoute: typeof AuthenticatedEvalGoalRegisterRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/eval/appraisal/self': {
+      id: '/_authenticated/eval/appraisal/self'
+      path: '/eval/appraisal/self'
+      fullPath: '/eval/appraisal/self'
+      preLoaderRoute: typeof AuthenticatedEvalAppraisalSelfRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/eval/appraisal/review': {
+      id: '/_authenticated/eval/appraisal/review'
+      path: '/eval/appraisal/review'
+      fullPath: '/eval/appraisal/review'
+      preLoaderRoute: typeof AuthenticatedEvalAppraisalReviewRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
   }
@@ -1441,7 +1521,11 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
   AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
   AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
+  AuthenticatedEvalAppraisalReviewRoute: typeof AuthenticatedEvalAppraisalReviewRoute
+  AuthenticatedEvalAppraisalSelfRoute: typeof AuthenticatedEvalAppraisalSelfRoute
   AuthenticatedEvalGoalRegisterRoute: typeof AuthenticatedEvalGoalRegisterRoute
+  AuthenticatedEvalProgressEvaluateeRoute: typeof AuthenticatedEvalProgressEvaluateeRoute
+  AuthenticatedEvalProgressStatusRoute: typeof AuthenticatedEvalProgressStatusRoute
   AuthenticatedFinanceCardBillingRoute: typeof AuthenticatedFinanceCardBillingRoute
   AuthenticatedFinanceCardStatusRoute: typeof AuthenticatedFinanceCardStatusRoute
   AuthenticatedFinanceCardUsageRoute: typeof AuthenticatedFinanceCardUsageRoute
@@ -1498,7 +1582,12 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
   AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
   AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
+  AuthenticatedEvalAppraisalReviewRoute: AuthenticatedEvalAppraisalReviewRoute,
+  AuthenticatedEvalAppraisalSelfRoute: AuthenticatedEvalAppraisalSelfRoute,
   AuthenticatedEvalGoalRegisterRoute: AuthenticatedEvalGoalRegisterRoute,
+  AuthenticatedEvalProgressEvaluateeRoute:
+    AuthenticatedEvalProgressEvaluateeRoute,
+  AuthenticatedEvalProgressStatusRoute: AuthenticatedEvalProgressStatusRoute,
   AuthenticatedFinanceCardBillingRoute: AuthenticatedFinanceCardBillingRoute,
   AuthenticatedFinanceCardStatusRoute: AuthenticatedFinanceCardStatusRoute,
   AuthenticatedFinanceCardUsageRoute: AuthenticatedFinanceCardUsageRoute,
