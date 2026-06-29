@@ -33,16 +33,28 @@ import { Route as AuthenticatedSettingsNotificationsRouteImport } from './routes
 import { Route as AuthenticatedSettingsDisplayRouteImport } from './routes/_authenticated/settings/display'
 import { Route as AuthenticatedSettingsAppearanceRouteImport } from './routes/_authenticated/settings/appearance'
 import { Route as AuthenticatedSettingsAccountRouteImport } from './routes/_authenticated/settings/account'
+import { Route as AuthenticatedSalesPurchaseRequestRouteImport } from './routes/_authenticated/sales/purchase-request'
+import { Route as AuthenticatedSalesCollectionRouteImport } from './routes/_authenticated/sales/collection'
+import { Route as AuthenticatedPurchaseOrderRouteImport } from './routes/_authenticated/purchase/order'
 import { Route as AuthenticatedErrorsErrorRouteImport } from './routes/_authenticated/errors/$error'
+import { Route as AuthenticatedCommonNoticeRouteImport } from './routes/_authenticated/common/notice'
 import { Route as AuthenticatedHrEmployeesIndexRouteImport } from './routes/_authenticated/hr/employees/index'
 import { Route as AuthenticatedHrDepartmentsIndexRouteImport } from './routes/_authenticated/hr/departments/index'
 import { Route as AuthenticatedSalesTaxInvoiceStatusRouteImport } from './routes/_authenticated/sales/tax-invoice/status'
 import { Route as AuthenticatedSalesTaxInvoiceIssueRouteImport } from './routes/_authenticated/sales/tax-invoice/issue'
+import { Route as AuthenticatedSalesContractValidateRouteImport } from './routes/_authenticated/sales/contract/validate'
 import { Route as AuthenticatedSalesContractRegisterRouteImport } from './routes/_authenticated/sales/contract/register'
+import { Route as AuthenticatedSalesContractProposalRouteImport } from './routes/_authenticated/sales/contract/proposal'
 import { Route as AuthenticatedSalesContractPerformanceRouteImport } from './routes/_authenticated/sales/contract/performance'
 import { Route as AuthenticatedSalesContractItemsRouteImport } from './routes/_authenticated/sales/contract/items'
 import { Route as AuthenticatedPmActivityViewRouteImport } from './routes/_authenticated/pm/activity/view'
 import { Route as AuthenticatedPmActivityRegisterRouteImport } from './routes/_authenticated/pm/activity/register'
+import { Route as AuthenticatedHrAttendanceViewRouteImport } from './routes/_authenticated/hr/attendance/view'
+import { Route as AuthenticatedHrAttendanceRegisterRouteImport } from './routes/_authenticated/hr/attendance/register'
+import { Route as AuthenticatedGaExpenseDisbursementRouteImport } from './routes/_authenticated/ga/expense/disbursement'
+import { Route as AuthenticatedFinanceVoucherByDateRouteImport } from './routes/_authenticated/finance/voucher/by-date'
+import { Route as AuthenticatedFinanceVoucherByAccountRouteImport } from './routes/_authenticated/finance/voucher/by-account'
+import { Route as AuthenticatedEvalGoalRegisterRouteImport } from './routes/_authenticated/eval/goal/register'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
@@ -171,10 +183,34 @@ const AuthenticatedSettingsAccountRoute =
     path: '/account',
     getParentRoute: () => AuthenticatedSettingsRouteRoute,
   } as any)
+const AuthenticatedSalesPurchaseRequestRoute =
+  AuthenticatedSalesPurchaseRequestRouteImport.update({
+    id: '/sales/purchase-request',
+    path: '/sales/purchase-request',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSalesCollectionRoute =
+  AuthenticatedSalesCollectionRouteImport.update({
+    id: '/sales/collection',
+    path: '/sales/collection',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedPurchaseOrderRoute =
+  AuthenticatedPurchaseOrderRouteImport.update({
+    id: '/purchase/order',
+    path: '/purchase/order',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedErrorsErrorRoute =
   AuthenticatedErrorsErrorRouteImport.update({
     id: '/errors/$error',
     path: '/errors/$error',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedCommonNoticeRoute =
+  AuthenticatedCommonNoticeRouteImport.update({
+    id: '/common/notice',
+    path: '/common/notice',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedHrEmployeesIndexRoute =
@@ -201,10 +237,22 @@ const AuthenticatedSalesTaxInvoiceIssueRoute =
     path: '/sales/tax-invoice/issue',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedSalesContractValidateRoute =
+  AuthenticatedSalesContractValidateRouteImport.update({
+    id: '/sales/contract/validate',
+    path: '/sales/contract/validate',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedSalesContractRegisterRoute =
   AuthenticatedSalesContractRegisterRouteImport.update({
     id: '/sales/contract/register',
     path: '/sales/contract/register',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSalesContractProposalRoute =
+  AuthenticatedSalesContractProposalRouteImport.update({
+    id: '/sales/contract/proposal',
+    path: '/sales/contract/proposal',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedSalesContractPerformanceRoute =
@@ -231,6 +279,42 @@ const AuthenticatedPmActivityRegisterRoute =
     path: '/pm/activity/register',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedHrAttendanceViewRoute =
+  AuthenticatedHrAttendanceViewRouteImport.update({
+    id: '/hr/attendance/view',
+    path: '/hr/attendance/view',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedHrAttendanceRegisterRoute =
+  AuthenticatedHrAttendanceRegisterRouteImport.update({
+    id: '/hr/attendance/register',
+    path: '/hr/attendance/register',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedGaExpenseDisbursementRoute =
+  AuthenticatedGaExpenseDisbursementRouteImport.update({
+    id: '/ga/expense/disbursement',
+    path: '/ga/expense/disbursement',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFinanceVoucherByDateRoute =
+  AuthenticatedFinanceVoucherByDateRouteImport.update({
+    id: '/finance/voucher/by-date',
+    path: '/finance/voucher/by-date',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFinanceVoucherByAccountRoute =
+  AuthenticatedFinanceVoucherByAccountRouteImport.update({
+    id: '/finance/voucher/by-account',
+    path: '/finance/voucher/by-account',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedEvalGoalRegisterRoute =
+  AuthenticatedEvalGoalRegisterRouteImport.update({
+    id: '/eval/goal/register',
+    path: '/eval/goal/register',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
@@ -246,7 +330,11 @@ export interface FileRoutesByFullPath {
   '/500': typeof errors500Route
   '/503': typeof errors503Route
   '/$': typeof AuthenticatedSplatRoute
+  '/common/notice': typeof AuthenticatedCommonNoticeRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
+  '/purchase/order': typeof AuthenticatedPurchaseOrderRoute
+  '/sales/collection': typeof AuthenticatedSalesCollectionRoute
+  '/sales/purchase-request': typeof AuthenticatedSalesPurchaseRequestRoute
   '/settings/account': typeof AuthenticatedSettingsAccountRoute
   '/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
   '/settings/display': typeof AuthenticatedSettingsDisplayRoute
@@ -257,11 +345,19 @@ export interface FileRoutesByFullPath {
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/tasks/': typeof AuthenticatedTasksIndexRoute
   '/users/': typeof AuthenticatedUsersIndexRoute
+  '/eval/goal/register': typeof AuthenticatedEvalGoalRegisterRoute
+  '/finance/voucher/by-account': typeof AuthenticatedFinanceVoucherByAccountRoute
+  '/finance/voucher/by-date': typeof AuthenticatedFinanceVoucherByDateRoute
+  '/ga/expense/disbursement': typeof AuthenticatedGaExpenseDisbursementRoute
+  '/hr/attendance/register': typeof AuthenticatedHrAttendanceRegisterRoute
+  '/hr/attendance/view': typeof AuthenticatedHrAttendanceViewRoute
   '/pm/activity/register': typeof AuthenticatedPmActivityRegisterRoute
   '/pm/activity/view': typeof AuthenticatedPmActivityViewRoute
   '/sales/contract/items': typeof AuthenticatedSalesContractItemsRoute
   '/sales/contract/performance': typeof AuthenticatedSalesContractPerformanceRoute
+  '/sales/contract/proposal': typeof AuthenticatedSalesContractProposalRoute
   '/sales/contract/register': typeof AuthenticatedSalesContractRegisterRoute
+  '/sales/contract/validate': typeof AuthenticatedSalesContractValidateRoute
   '/sales/tax-invoice/issue': typeof AuthenticatedSalesTaxInvoiceIssueRoute
   '/sales/tax-invoice/status': typeof AuthenticatedSalesTaxInvoiceStatusRoute
   '/hr/departments/': typeof AuthenticatedHrDepartmentsIndexRoute
@@ -280,7 +376,11 @@ export interface FileRoutesByTo {
   '/503': typeof errors503Route
   '/$': typeof AuthenticatedSplatRoute
   '/': typeof AuthenticatedIndexRoute
+  '/common/notice': typeof AuthenticatedCommonNoticeRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
+  '/purchase/order': typeof AuthenticatedPurchaseOrderRoute
+  '/sales/collection': typeof AuthenticatedSalesCollectionRoute
+  '/sales/purchase-request': typeof AuthenticatedSalesPurchaseRequestRoute
   '/settings/account': typeof AuthenticatedSettingsAccountRoute
   '/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
   '/settings/display': typeof AuthenticatedSettingsDisplayRoute
@@ -291,11 +391,19 @@ export interface FileRoutesByTo {
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
+  '/eval/goal/register': typeof AuthenticatedEvalGoalRegisterRoute
+  '/finance/voucher/by-account': typeof AuthenticatedFinanceVoucherByAccountRoute
+  '/finance/voucher/by-date': typeof AuthenticatedFinanceVoucherByDateRoute
+  '/ga/expense/disbursement': typeof AuthenticatedGaExpenseDisbursementRoute
+  '/hr/attendance/register': typeof AuthenticatedHrAttendanceRegisterRoute
+  '/hr/attendance/view': typeof AuthenticatedHrAttendanceViewRoute
   '/pm/activity/register': typeof AuthenticatedPmActivityRegisterRoute
   '/pm/activity/view': typeof AuthenticatedPmActivityViewRoute
   '/sales/contract/items': typeof AuthenticatedSalesContractItemsRoute
   '/sales/contract/performance': typeof AuthenticatedSalesContractPerformanceRoute
+  '/sales/contract/proposal': typeof AuthenticatedSalesContractProposalRoute
   '/sales/contract/register': typeof AuthenticatedSalesContractRegisterRoute
+  '/sales/contract/validate': typeof AuthenticatedSalesContractValidateRoute
   '/sales/tax-invoice/issue': typeof AuthenticatedSalesTaxInvoiceIssueRoute
   '/sales/tax-invoice/status': typeof AuthenticatedSalesTaxInvoiceStatusRoute
   '/hr/departments': typeof AuthenticatedHrDepartmentsIndexRoute
@@ -317,7 +425,11 @@ export interface FileRoutesById {
   '/(errors)/503': typeof errors503Route
   '/_authenticated/$': typeof AuthenticatedSplatRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/common/notice': typeof AuthenticatedCommonNoticeRoute
   '/_authenticated/errors/$error': typeof AuthenticatedErrorsErrorRoute
+  '/_authenticated/purchase/order': typeof AuthenticatedPurchaseOrderRoute
+  '/_authenticated/sales/collection': typeof AuthenticatedSalesCollectionRoute
+  '/_authenticated/sales/purchase-request': typeof AuthenticatedSalesPurchaseRequestRoute
   '/_authenticated/settings/account': typeof AuthenticatedSettingsAccountRoute
   '/_authenticated/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
   '/_authenticated/settings/display': typeof AuthenticatedSettingsDisplayRoute
@@ -328,11 +440,19 @@ export interface FileRoutesById {
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
+  '/_authenticated/eval/goal/register': typeof AuthenticatedEvalGoalRegisterRoute
+  '/_authenticated/finance/voucher/by-account': typeof AuthenticatedFinanceVoucherByAccountRoute
+  '/_authenticated/finance/voucher/by-date': typeof AuthenticatedFinanceVoucherByDateRoute
+  '/_authenticated/ga/expense/disbursement': typeof AuthenticatedGaExpenseDisbursementRoute
+  '/_authenticated/hr/attendance/register': typeof AuthenticatedHrAttendanceRegisterRoute
+  '/_authenticated/hr/attendance/view': typeof AuthenticatedHrAttendanceViewRoute
   '/_authenticated/pm/activity/register': typeof AuthenticatedPmActivityRegisterRoute
   '/_authenticated/pm/activity/view': typeof AuthenticatedPmActivityViewRoute
   '/_authenticated/sales/contract/items': typeof AuthenticatedSalesContractItemsRoute
   '/_authenticated/sales/contract/performance': typeof AuthenticatedSalesContractPerformanceRoute
+  '/_authenticated/sales/contract/proposal': typeof AuthenticatedSalesContractProposalRoute
   '/_authenticated/sales/contract/register': typeof AuthenticatedSalesContractRegisterRoute
+  '/_authenticated/sales/contract/validate': typeof AuthenticatedSalesContractValidateRoute
   '/_authenticated/sales/tax-invoice/issue': typeof AuthenticatedSalesTaxInvoiceIssueRoute
   '/_authenticated/sales/tax-invoice/status': typeof AuthenticatedSalesTaxInvoiceStatusRoute
   '/_authenticated/hr/departments/': typeof AuthenticatedHrDepartmentsIndexRoute
@@ -354,7 +474,11 @@ export interface FileRouteTypes {
     | '/500'
     | '/503'
     | '/$'
+    | '/common/notice'
     | '/errors/$error'
+    | '/purchase/order'
+    | '/sales/collection'
+    | '/sales/purchase-request'
     | '/settings/account'
     | '/settings/appearance'
     | '/settings/display'
@@ -365,11 +489,19 @@ export interface FileRouteTypes {
     | '/settings/'
     | '/tasks/'
     | '/users/'
+    | '/eval/goal/register'
+    | '/finance/voucher/by-account'
+    | '/finance/voucher/by-date'
+    | '/ga/expense/disbursement'
+    | '/hr/attendance/register'
+    | '/hr/attendance/view'
     | '/pm/activity/register'
     | '/pm/activity/view'
     | '/sales/contract/items'
     | '/sales/contract/performance'
+    | '/sales/contract/proposal'
     | '/sales/contract/register'
+    | '/sales/contract/validate'
     | '/sales/tax-invoice/issue'
     | '/sales/tax-invoice/status'
     | '/hr/departments/'
@@ -388,7 +520,11 @@ export interface FileRouteTypes {
     | '/503'
     | '/$'
     | '/'
+    | '/common/notice'
     | '/errors/$error'
+    | '/purchase/order'
+    | '/sales/collection'
+    | '/sales/purchase-request'
     | '/settings/account'
     | '/settings/appearance'
     | '/settings/display'
@@ -399,11 +535,19 @@ export interface FileRouteTypes {
     | '/settings'
     | '/tasks'
     | '/users'
+    | '/eval/goal/register'
+    | '/finance/voucher/by-account'
+    | '/finance/voucher/by-date'
+    | '/ga/expense/disbursement'
+    | '/hr/attendance/register'
+    | '/hr/attendance/view'
     | '/pm/activity/register'
     | '/pm/activity/view'
     | '/sales/contract/items'
     | '/sales/contract/performance'
+    | '/sales/contract/proposal'
     | '/sales/contract/register'
+    | '/sales/contract/validate'
     | '/sales/tax-invoice/issue'
     | '/sales/tax-invoice/status'
     | '/hr/departments'
@@ -424,7 +568,11 @@ export interface FileRouteTypes {
     | '/(errors)/503'
     | '/_authenticated/$'
     | '/_authenticated/'
+    | '/_authenticated/common/notice'
     | '/_authenticated/errors/$error'
+    | '/_authenticated/purchase/order'
+    | '/_authenticated/sales/collection'
+    | '/_authenticated/sales/purchase-request'
     | '/_authenticated/settings/account'
     | '/_authenticated/settings/appearance'
     | '/_authenticated/settings/display'
@@ -435,11 +583,19 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/'
     | '/_authenticated/tasks/'
     | '/_authenticated/users/'
+    | '/_authenticated/eval/goal/register'
+    | '/_authenticated/finance/voucher/by-account'
+    | '/_authenticated/finance/voucher/by-date'
+    | '/_authenticated/ga/expense/disbursement'
+    | '/_authenticated/hr/attendance/register'
+    | '/_authenticated/hr/attendance/view'
     | '/_authenticated/pm/activity/register'
     | '/_authenticated/pm/activity/view'
     | '/_authenticated/sales/contract/items'
     | '/_authenticated/sales/contract/performance'
+    | '/_authenticated/sales/contract/proposal'
     | '/_authenticated/sales/contract/register'
+    | '/_authenticated/sales/contract/validate'
     | '/_authenticated/sales/tax-invoice/issue'
     | '/_authenticated/sales/tax-invoice/status'
     | '/_authenticated/hr/departments/'
@@ -630,11 +786,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsAccountRouteImport
       parentRoute: typeof AuthenticatedSettingsRouteRoute
     }
+    '/_authenticated/sales/purchase-request': {
+      id: '/_authenticated/sales/purchase-request'
+      path: '/sales/purchase-request'
+      fullPath: '/sales/purchase-request'
+      preLoaderRoute: typeof AuthenticatedSalesPurchaseRequestRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/sales/collection': {
+      id: '/_authenticated/sales/collection'
+      path: '/sales/collection'
+      fullPath: '/sales/collection'
+      preLoaderRoute: typeof AuthenticatedSalesCollectionRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/purchase/order': {
+      id: '/_authenticated/purchase/order'
+      path: '/purchase/order'
+      fullPath: '/purchase/order'
+      preLoaderRoute: typeof AuthenticatedPurchaseOrderRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/errors/$error': {
       id: '/_authenticated/errors/$error'
       path: '/errors/$error'
       fullPath: '/errors/$error'
       preLoaderRoute: typeof AuthenticatedErrorsErrorRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/common/notice': {
+      id: '/_authenticated/common/notice'
+      path: '/common/notice'
+      fullPath: '/common/notice'
+      preLoaderRoute: typeof AuthenticatedCommonNoticeRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/hr/employees/': {
@@ -665,11 +849,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSalesTaxInvoiceIssueRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/sales/contract/validate': {
+      id: '/_authenticated/sales/contract/validate'
+      path: '/sales/contract/validate'
+      fullPath: '/sales/contract/validate'
+      preLoaderRoute: typeof AuthenticatedSalesContractValidateRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/sales/contract/register': {
       id: '/_authenticated/sales/contract/register'
       path: '/sales/contract/register'
       fullPath: '/sales/contract/register'
       preLoaderRoute: typeof AuthenticatedSalesContractRegisterRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/sales/contract/proposal': {
+      id: '/_authenticated/sales/contract/proposal'
+      path: '/sales/contract/proposal'
+      fullPath: '/sales/contract/proposal'
+      preLoaderRoute: typeof AuthenticatedSalesContractProposalRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/sales/contract/performance': {
@@ -698,6 +896,48 @@ declare module '@tanstack/react-router' {
       path: '/pm/activity/register'
       fullPath: '/pm/activity/register'
       preLoaderRoute: typeof AuthenticatedPmActivityRegisterRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/hr/attendance/view': {
+      id: '/_authenticated/hr/attendance/view'
+      path: '/hr/attendance/view'
+      fullPath: '/hr/attendance/view'
+      preLoaderRoute: typeof AuthenticatedHrAttendanceViewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/hr/attendance/register': {
+      id: '/_authenticated/hr/attendance/register'
+      path: '/hr/attendance/register'
+      fullPath: '/hr/attendance/register'
+      preLoaderRoute: typeof AuthenticatedHrAttendanceRegisterRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ga/expense/disbursement': {
+      id: '/_authenticated/ga/expense/disbursement'
+      path: '/ga/expense/disbursement'
+      fullPath: '/ga/expense/disbursement'
+      preLoaderRoute: typeof AuthenticatedGaExpenseDisbursementRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/finance/voucher/by-date': {
+      id: '/_authenticated/finance/voucher/by-date'
+      path: '/finance/voucher/by-date'
+      fullPath: '/finance/voucher/by-date'
+      preLoaderRoute: typeof AuthenticatedFinanceVoucherByDateRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/finance/voucher/by-account': {
+      id: '/_authenticated/finance/voucher/by-account'
+      path: '/finance/voucher/by-account'
+      fullPath: '/finance/voucher/by-account'
+      preLoaderRoute: typeof AuthenticatedFinanceVoucherByAccountRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/eval/goal/register': {
+      id: '/_authenticated/eval/goal/register'
+      path: '/eval/goal/register'
+      fullPath: '/eval/goal/register'
+      preLoaderRoute: typeof AuthenticatedEvalGoalRegisterRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
   }
@@ -730,17 +970,29 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedSettingsRouteRoute: typeof AuthenticatedSettingsRouteRouteWithChildren
   AuthenticatedSplatRoute: typeof AuthenticatedSplatRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedCommonNoticeRoute: typeof AuthenticatedCommonNoticeRoute
   AuthenticatedErrorsErrorRoute: typeof AuthenticatedErrorsErrorRoute
+  AuthenticatedPurchaseOrderRoute: typeof AuthenticatedPurchaseOrderRoute
+  AuthenticatedSalesCollectionRoute: typeof AuthenticatedSalesCollectionRoute
+  AuthenticatedSalesPurchaseRequestRoute: typeof AuthenticatedSalesPurchaseRequestRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
   AuthenticatedCustomersIndexRoute: typeof AuthenticatedCustomersIndexRoute
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
   AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
   AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
+  AuthenticatedEvalGoalRegisterRoute: typeof AuthenticatedEvalGoalRegisterRoute
+  AuthenticatedFinanceVoucherByAccountRoute: typeof AuthenticatedFinanceVoucherByAccountRoute
+  AuthenticatedFinanceVoucherByDateRoute: typeof AuthenticatedFinanceVoucherByDateRoute
+  AuthenticatedGaExpenseDisbursementRoute: typeof AuthenticatedGaExpenseDisbursementRoute
+  AuthenticatedHrAttendanceRegisterRoute: typeof AuthenticatedHrAttendanceRegisterRoute
+  AuthenticatedHrAttendanceViewRoute: typeof AuthenticatedHrAttendanceViewRoute
   AuthenticatedPmActivityRegisterRoute: typeof AuthenticatedPmActivityRegisterRoute
   AuthenticatedPmActivityViewRoute: typeof AuthenticatedPmActivityViewRoute
   AuthenticatedSalesContractItemsRoute: typeof AuthenticatedSalesContractItemsRoute
   AuthenticatedSalesContractPerformanceRoute: typeof AuthenticatedSalesContractPerformanceRoute
+  AuthenticatedSalesContractProposalRoute: typeof AuthenticatedSalesContractProposalRoute
   AuthenticatedSalesContractRegisterRoute: typeof AuthenticatedSalesContractRegisterRoute
+  AuthenticatedSalesContractValidateRoute: typeof AuthenticatedSalesContractValidateRoute
   AuthenticatedSalesTaxInvoiceIssueRoute: typeof AuthenticatedSalesTaxInvoiceIssueRoute
   AuthenticatedSalesTaxInvoiceStatusRoute: typeof AuthenticatedSalesTaxInvoiceStatusRoute
   AuthenticatedHrDepartmentsIndexRoute: typeof AuthenticatedHrDepartmentsIndexRoute
@@ -751,19 +1003,38 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedSettingsRouteRoute: AuthenticatedSettingsRouteRouteWithChildren,
   AuthenticatedSplatRoute: AuthenticatedSplatRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedCommonNoticeRoute: AuthenticatedCommonNoticeRoute,
   AuthenticatedErrorsErrorRoute: AuthenticatedErrorsErrorRoute,
+  AuthenticatedPurchaseOrderRoute: AuthenticatedPurchaseOrderRoute,
+  AuthenticatedSalesCollectionRoute: AuthenticatedSalesCollectionRoute,
+  AuthenticatedSalesPurchaseRequestRoute:
+    AuthenticatedSalesPurchaseRequestRoute,
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
   AuthenticatedCustomersIndexRoute: AuthenticatedCustomersIndexRoute,
   AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
   AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
   AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
+  AuthenticatedEvalGoalRegisterRoute: AuthenticatedEvalGoalRegisterRoute,
+  AuthenticatedFinanceVoucherByAccountRoute:
+    AuthenticatedFinanceVoucherByAccountRoute,
+  AuthenticatedFinanceVoucherByDateRoute:
+    AuthenticatedFinanceVoucherByDateRoute,
+  AuthenticatedGaExpenseDisbursementRoute:
+    AuthenticatedGaExpenseDisbursementRoute,
+  AuthenticatedHrAttendanceRegisterRoute:
+    AuthenticatedHrAttendanceRegisterRoute,
+  AuthenticatedHrAttendanceViewRoute: AuthenticatedHrAttendanceViewRoute,
   AuthenticatedPmActivityRegisterRoute: AuthenticatedPmActivityRegisterRoute,
   AuthenticatedPmActivityViewRoute: AuthenticatedPmActivityViewRoute,
   AuthenticatedSalesContractItemsRoute: AuthenticatedSalesContractItemsRoute,
   AuthenticatedSalesContractPerformanceRoute:
     AuthenticatedSalesContractPerformanceRoute,
+  AuthenticatedSalesContractProposalRoute:
+    AuthenticatedSalesContractProposalRoute,
   AuthenticatedSalesContractRegisterRoute:
     AuthenticatedSalesContractRegisterRoute,
+  AuthenticatedSalesContractValidateRoute:
+    AuthenticatedSalesContractValidateRoute,
   AuthenticatedSalesTaxInvoiceIssueRoute:
     AuthenticatedSalesTaxInvoiceIssueRoute,
   AuthenticatedSalesTaxInvoiceStatusRoute:

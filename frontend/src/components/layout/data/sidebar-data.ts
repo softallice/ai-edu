@@ -208,6 +208,7 @@ export const sidebarData: SidebarData = {
           icon: Building2,
           items: [{ title: '거래처등록', url: '/customers' }],
         },
+        { title: '구매발주', url: '/purchase/order', icon: ShoppingCart },
         {
           title: '프로젝트수금실적현황',
           url: '/purchase/collection',
