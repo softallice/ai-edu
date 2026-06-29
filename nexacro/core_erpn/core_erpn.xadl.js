@@ -38,30 +38,14 @@
             this.frame = vset;
 
             var login = new ChildFrame("LOGINFRAME", null, null, null, null, null, null, "common::comLogin.xfdl", vset);
-            login.set_showtitlebar("false");
-            vset.addChild(login.name, login);
-            login.set_formurl("common::comLogin.xfdl");
+            login.set_showtitlebar("false"); vset.addChild(login.name, login); login.set_formurl("common::comLogin.xfdl");
 
             var top = new ChildFrame("TOPFRAME", null, null, null, null, null, null, "frame::topFrame.xfdl", vset);
-            top.set_showtitlebar("false");
-            vset.addChild(top.name, top);
-            top.set_formurl("frame::topFrame.xfdl");
+            top.set_showtitlebar("false"); vset.addChild(top.name, top); top.set_formurl("frame::topFrame.xfdl");
 
-            var hmain = new HFrameSet("HMAIN", null, null, null, null, null, null, vset);
-            hmain.set_separatesize("220,*");
-            vset.addChild(hmain.name, hmain);
+            var work = new ChildFrame("WORKFRAME", null, null, null, null, null, null, "common::comMain.xfdl", vset);
+            work.set_showtitlebar("false"); vset.addChild(work.name, work); work.set_formurl("common::comMain.xfdl");
 
-            var menu = new ChildFrame("MENUFRAME", null, null, null, null, null, null, "frame::menuFrame.xfdl", hmain);
-            menu.set_showtitlebar("false");
-            hmain.addChild(menu.name, menu);
-            menu.set_formurl("frame::menuFrame.xfdl");
-
-            var work = new ChildFrame("WORKFRAME", null, null, null, null, null, null, "common::comMain.xfdl", hmain);
-            work.set_showtitlebar("false");
-            hmain.addChild(work.name, work);
-            work.set_formurl("common::comMain.xfdl");
-
-            // 초기: 로그인 프레임만 표시
             vset.set_separatesize("*,0,0");
         };
 
@@ -69,20 +53,18 @@
         this.gfn_openMainFrame = function()
         {
             var vf = this.mainframe.VFrameSet;
-            vf.set_separatesize("0,44,*");
+            vf.set_separatesize("0,56,*");
             try { vf.LOGINFRAME.set_visible(false); } catch (e) {}
             try { vf.TOPFRAME.set_visible(true); } catch (e) {}
-            try { vf.HMAIN.set_visible(true); } catch (e) {}
-            // 숨겨져 있던 메인 프레임을 표시한 뒤 formurl 을 재설정해 폼 로드(+onload 트랜잭션)를 강제
+            try { vf.WORKFRAME.set_visible(true); } catch (e) {}
             vf.TOPFRAME.set_formurl("frame::topFrame.xfdl");
-            vf.HMAIN.MENUFRAME.set_formurl("frame::menuFrame.xfdl");
-            vf.HMAIN.WORKFRAME.set_formurl("common::comMain.xfdl");
+            vf.WORKFRAME.set_formurl("common::comMain.xfdl");
         };
 
         // 메뉴 클릭 → 작업영역 폼 교체 (this = application)
         this.gfn_openWork = function(formurl)
         {
-            var work = this.mainframe.VFrameSet.HMAIN.WORKFRAME;
+            var work = this.mainframe.VFrameSet.WORKFRAME;
             if (work) {
                 work.set_formurl(formurl);
                 var self = this;
