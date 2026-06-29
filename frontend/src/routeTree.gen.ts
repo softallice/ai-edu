@@ -71,7 +71,17 @@ import { Route as AuthenticatedHrAttendanceRegisterRouteImport } from './routes/
 import { Route as AuthenticatedHrAttendanceOvertimeApplyRouteImport } from './routes/_authenticated/hr/attendance/overtime-apply'
 import { Route as AuthenticatedHrAttendanceLeaveStatusRouteImport } from './routes/_authenticated/hr/attendance/leave-status'
 import { Route as AuthenticatedHrAttendanceLeaveApplyRouteImport } from './routes/_authenticated/hr/attendance/leave-apply'
+import { Route as AuthenticatedGaSealUseExportRouteImport } from './routes/_authenticated/ga/seal/use-export'
+import { Route as AuthenticatedGaSealUseApplyRouteImport } from './routes/_authenticated/ga/seal/use-apply'
+import { Route as AuthenticatedGaSealFingerprintExportRouteImport } from './routes/_authenticated/ga/seal/fingerprint-export'
+import { Route as AuthenticatedGaSealEContractRouteImport } from './routes/_authenticated/ga/seal/e-contract'
+import { Route as AuthenticatedGaSealCorporateApplyRouteImport } from './routes/_authenticated/ga/seal/corporate-apply'
+import { Route as AuthenticatedGaExpenseVehicleSubsidyRouteImport } from './routes/_authenticated/ga/expense/vehicle-subsidy'
+import { Route as AuthenticatedGaExpenseTuitionRouteImport } from './routes/_authenticated/ga/expense/tuition'
+import { Route as AuthenticatedGaExpenseTransportRouteImport } from './routes/_authenticated/ga/expense/transport'
+import { Route as AuthenticatedGaExpenseMealTicketRouteImport } from './routes/_authenticated/ga/expense/meal-ticket'
 import { Route as AuthenticatedGaExpenseDisbursementRouteImport } from './routes/_authenticated/ga/expense/disbursement'
+import { Route as AuthenticatedGaExpenseCongratulationRouteImport } from './routes/_authenticated/ga/expense/congratulation'
 import { Route as AuthenticatedFinanceVoucherByDateRouteImport } from './routes/_authenticated/finance/voucher/by-date'
 import { Route as AuthenticatedFinanceVoucherByAccountRouteImport } from './routes/_authenticated/finance/voucher/by-account'
 import { Route as AuthenticatedFinanceCardUsageRouteImport } from './routes/_authenticated/finance/card/usage'
@@ -438,10 +448,70 @@ const AuthenticatedHrAttendanceLeaveApplyRoute =
     path: '/hr/attendance/leave-apply',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedGaSealUseExportRoute =
+  AuthenticatedGaSealUseExportRouteImport.update({
+    id: '/ga/seal/use-export',
+    path: '/ga/seal/use-export',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedGaSealUseApplyRoute =
+  AuthenticatedGaSealUseApplyRouteImport.update({
+    id: '/ga/seal/use-apply',
+    path: '/ga/seal/use-apply',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedGaSealFingerprintExportRoute =
+  AuthenticatedGaSealFingerprintExportRouteImport.update({
+    id: '/ga/seal/fingerprint-export',
+    path: '/ga/seal/fingerprint-export',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedGaSealEContractRoute =
+  AuthenticatedGaSealEContractRouteImport.update({
+    id: '/ga/seal/e-contract',
+    path: '/ga/seal/e-contract',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedGaSealCorporateApplyRoute =
+  AuthenticatedGaSealCorporateApplyRouteImport.update({
+    id: '/ga/seal/corporate-apply',
+    path: '/ga/seal/corporate-apply',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedGaExpenseVehicleSubsidyRoute =
+  AuthenticatedGaExpenseVehicleSubsidyRouteImport.update({
+    id: '/ga/expense/vehicle-subsidy',
+    path: '/ga/expense/vehicle-subsidy',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedGaExpenseTuitionRoute =
+  AuthenticatedGaExpenseTuitionRouteImport.update({
+    id: '/ga/expense/tuition',
+    path: '/ga/expense/tuition',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedGaExpenseTransportRoute =
+  AuthenticatedGaExpenseTransportRouteImport.update({
+    id: '/ga/expense/transport',
+    path: '/ga/expense/transport',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedGaExpenseMealTicketRoute =
+  AuthenticatedGaExpenseMealTicketRouteImport.update({
+    id: '/ga/expense/meal-ticket',
+    path: '/ga/expense/meal-ticket',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedGaExpenseDisbursementRoute =
   AuthenticatedGaExpenseDisbursementRouteImport.update({
     id: '/ga/expense/disbursement',
     path: '/ga/expense/disbursement',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedGaExpenseCongratulationRoute =
+  AuthenticatedGaExpenseCongratulationRouteImport.update({
+    id: '/ga/expense/congratulation',
+    path: '/ga/expense/congratulation',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedFinanceVoucherByDateRoute =
@@ -545,7 +615,17 @@ export interface FileRoutesByFullPath {
   '/finance/card/usage': typeof AuthenticatedFinanceCardUsageRoute
   '/finance/voucher/by-account': typeof AuthenticatedFinanceVoucherByAccountRoute
   '/finance/voucher/by-date': typeof AuthenticatedFinanceVoucherByDateRoute
+  '/ga/expense/congratulation': typeof AuthenticatedGaExpenseCongratulationRoute
   '/ga/expense/disbursement': typeof AuthenticatedGaExpenseDisbursementRoute
+  '/ga/expense/meal-ticket': typeof AuthenticatedGaExpenseMealTicketRoute
+  '/ga/expense/transport': typeof AuthenticatedGaExpenseTransportRoute
+  '/ga/expense/tuition': typeof AuthenticatedGaExpenseTuitionRoute
+  '/ga/expense/vehicle-subsidy': typeof AuthenticatedGaExpenseVehicleSubsidyRoute
+  '/ga/seal/corporate-apply': typeof AuthenticatedGaSealCorporateApplyRoute
+  '/ga/seal/e-contract': typeof AuthenticatedGaSealEContractRoute
+  '/ga/seal/fingerprint-export': typeof AuthenticatedGaSealFingerprintExportRoute
+  '/ga/seal/use-apply': typeof AuthenticatedGaSealUseApplyRoute
+  '/ga/seal/use-export': typeof AuthenticatedGaSealUseExportRoute
   '/hr/attendance/leave-apply': typeof AuthenticatedHrAttendanceLeaveApplyRoute
   '/hr/attendance/leave-status': typeof AuthenticatedHrAttendanceLeaveStatusRoute
   '/hr/attendance/overtime-apply': typeof AuthenticatedHrAttendanceOvertimeApplyRoute
@@ -618,7 +698,17 @@ export interface FileRoutesByTo {
   '/finance/card/usage': typeof AuthenticatedFinanceCardUsageRoute
   '/finance/voucher/by-account': typeof AuthenticatedFinanceVoucherByAccountRoute
   '/finance/voucher/by-date': typeof AuthenticatedFinanceVoucherByDateRoute
+  '/ga/expense/congratulation': typeof AuthenticatedGaExpenseCongratulationRoute
   '/ga/expense/disbursement': typeof AuthenticatedGaExpenseDisbursementRoute
+  '/ga/expense/meal-ticket': typeof AuthenticatedGaExpenseMealTicketRoute
+  '/ga/expense/transport': typeof AuthenticatedGaExpenseTransportRoute
+  '/ga/expense/tuition': typeof AuthenticatedGaExpenseTuitionRoute
+  '/ga/expense/vehicle-subsidy': typeof AuthenticatedGaExpenseVehicleSubsidyRoute
+  '/ga/seal/corporate-apply': typeof AuthenticatedGaSealCorporateApplyRoute
+  '/ga/seal/e-contract': typeof AuthenticatedGaSealEContractRoute
+  '/ga/seal/fingerprint-export': typeof AuthenticatedGaSealFingerprintExportRoute
+  '/ga/seal/use-apply': typeof AuthenticatedGaSealUseApplyRoute
+  '/ga/seal/use-export': typeof AuthenticatedGaSealUseExportRoute
   '/hr/attendance/leave-apply': typeof AuthenticatedHrAttendanceLeaveApplyRoute
   '/hr/attendance/leave-status': typeof AuthenticatedHrAttendanceLeaveStatusRoute
   '/hr/attendance/overtime-apply': typeof AuthenticatedHrAttendanceOvertimeApplyRoute
@@ -694,7 +784,17 @@ export interface FileRoutesById {
   '/_authenticated/finance/card/usage': typeof AuthenticatedFinanceCardUsageRoute
   '/_authenticated/finance/voucher/by-account': typeof AuthenticatedFinanceVoucherByAccountRoute
   '/_authenticated/finance/voucher/by-date': typeof AuthenticatedFinanceVoucherByDateRoute
+  '/_authenticated/ga/expense/congratulation': typeof AuthenticatedGaExpenseCongratulationRoute
   '/_authenticated/ga/expense/disbursement': typeof AuthenticatedGaExpenseDisbursementRoute
+  '/_authenticated/ga/expense/meal-ticket': typeof AuthenticatedGaExpenseMealTicketRoute
+  '/_authenticated/ga/expense/transport': typeof AuthenticatedGaExpenseTransportRoute
+  '/_authenticated/ga/expense/tuition': typeof AuthenticatedGaExpenseTuitionRoute
+  '/_authenticated/ga/expense/vehicle-subsidy': typeof AuthenticatedGaExpenseVehicleSubsidyRoute
+  '/_authenticated/ga/seal/corporate-apply': typeof AuthenticatedGaSealCorporateApplyRoute
+  '/_authenticated/ga/seal/e-contract': typeof AuthenticatedGaSealEContractRoute
+  '/_authenticated/ga/seal/fingerprint-export': typeof AuthenticatedGaSealFingerprintExportRoute
+  '/_authenticated/ga/seal/use-apply': typeof AuthenticatedGaSealUseApplyRoute
+  '/_authenticated/ga/seal/use-export': typeof AuthenticatedGaSealUseExportRoute
   '/_authenticated/hr/attendance/leave-apply': typeof AuthenticatedHrAttendanceLeaveApplyRoute
   '/_authenticated/hr/attendance/leave-status': typeof AuthenticatedHrAttendanceLeaveStatusRoute
   '/_authenticated/hr/attendance/overtime-apply': typeof AuthenticatedHrAttendanceOvertimeApplyRoute
@@ -770,7 +870,17 @@ export interface FileRouteTypes {
     | '/finance/card/usage'
     | '/finance/voucher/by-account'
     | '/finance/voucher/by-date'
+    | '/ga/expense/congratulation'
     | '/ga/expense/disbursement'
+    | '/ga/expense/meal-ticket'
+    | '/ga/expense/transport'
+    | '/ga/expense/tuition'
+    | '/ga/expense/vehicle-subsidy'
+    | '/ga/seal/corporate-apply'
+    | '/ga/seal/e-contract'
+    | '/ga/seal/fingerprint-export'
+    | '/ga/seal/use-apply'
+    | '/ga/seal/use-export'
     | '/hr/attendance/leave-apply'
     | '/hr/attendance/leave-status'
     | '/hr/attendance/overtime-apply'
@@ -843,7 +953,17 @@ export interface FileRouteTypes {
     | '/finance/card/usage'
     | '/finance/voucher/by-account'
     | '/finance/voucher/by-date'
+    | '/ga/expense/congratulation'
     | '/ga/expense/disbursement'
+    | '/ga/expense/meal-ticket'
+    | '/ga/expense/transport'
+    | '/ga/expense/tuition'
+    | '/ga/expense/vehicle-subsidy'
+    | '/ga/seal/corporate-apply'
+    | '/ga/seal/e-contract'
+    | '/ga/seal/fingerprint-export'
+    | '/ga/seal/use-apply'
+    | '/ga/seal/use-export'
     | '/hr/attendance/leave-apply'
     | '/hr/attendance/leave-status'
     | '/hr/attendance/overtime-apply'
@@ -918,7 +1038,17 @@ export interface FileRouteTypes {
     | '/_authenticated/finance/card/usage'
     | '/_authenticated/finance/voucher/by-account'
     | '/_authenticated/finance/voucher/by-date'
+    | '/_authenticated/ga/expense/congratulation'
     | '/_authenticated/ga/expense/disbursement'
+    | '/_authenticated/ga/expense/meal-ticket'
+    | '/_authenticated/ga/expense/transport'
+    | '/_authenticated/ga/expense/tuition'
+    | '/_authenticated/ga/expense/vehicle-subsidy'
+    | '/_authenticated/ga/seal/corporate-apply'
+    | '/_authenticated/ga/seal/e-contract'
+    | '/_authenticated/ga/seal/fingerprint-export'
+    | '/_authenticated/ga/seal/use-apply'
+    | '/_authenticated/ga/seal/use-export'
     | '/_authenticated/hr/attendance/leave-apply'
     | '/_authenticated/hr/attendance/leave-status'
     | '/_authenticated/hr/attendance/overtime-apply'
@@ -1403,11 +1533,81 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedHrAttendanceLeaveApplyRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/ga/seal/use-export': {
+      id: '/_authenticated/ga/seal/use-export'
+      path: '/ga/seal/use-export'
+      fullPath: '/ga/seal/use-export'
+      preLoaderRoute: typeof AuthenticatedGaSealUseExportRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ga/seal/use-apply': {
+      id: '/_authenticated/ga/seal/use-apply'
+      path: '/ga/seal/use-apply'
+      fullPath: '/ga/seal/use-apply'
+      preLoaderRoute: typeof AuthenticatedGaSealUseApplyRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ga/seal/fingerprint-export': {
+      id: '/_authenticated/ga/seal/fingerprint-export'
+      path: '/ga/seal/fingerprint-export'
+      fullPath: '/ga/seal/fingerprint-export'
+      preLoaderRoute: typeof AuthenticatedGaSealFingerprintExportRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ga/seal/e-contract': {
+      id: '/_authenticated/ga/seal/e-contract'
+      path: '/ga/seal/e-contract'
+      fullPath: '/ga/seal/e-contract'
+      preLoaderRoute: typeof AuthenticatedGaSealEContractRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ga/seal/corporate-apply': {
+      id: '/_authenticated/ga/seal/corporate-apply'
+      path: '/ga/seal/corporate-apply'
+      fullPath: '/ga/seal/corporate-apply'
+      preLoaderRoute: typeof AuthenticatedGaSealCorporateApplyRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ga/expense/vehicle-subsidy': {
+      id: '/_authenticated/ga/expense/vehicle-subsidy'
+      path: '/ga/expense/vehicle-subsidy'
+      fullPath: '/ga/expense/vehicle-subsidy'
+      preLoaderRoute: typeof AuthenticatedGaExpenseVehicleSubsidyRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ga/expense/tuition': {
+      id: '/_authenticated/ga/expense/tuition'
+      path: '/ga/expense/tuition'
+      fullPath: '/ga/expense/tuition'
+      preLoaderRoute: typeof AuthenticatedGaExpenseTuitionRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ga/expense/transport': {
+      id: '/_authenticated/ga/expense/transport'
+      path: '/ga/expense/transport'
+      fullPath: '/ga/expense/transport'
+      preLoaderRoute: typeof AuthenticatedGaExpenseTransportRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ga/expense/meal-ticket': {
+      id: '/_authenticated/ga/expense/meal-ticket'
+      path: '/ga/expense/meal-ticket'
+      fullPath: '/ga/expense/meal-ticket'
+      preLoaderRoute: typeof AuthenticatedGaExpenseMealTicketRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/ga/expense/disbursement': {
       id: '/_authenticated/ga/expense/disbursement'
       path: '/ga/expense/disbursement'
       fullPath: '/ga/expense/disbursement'
       preLoaderRoute: typeof AuthenticatedGaExpenseDisbursementRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ga/expense/congratulation': {
+      id: '/_authenticated/ga/expense/congratulation'
+      path: '/ga/expense/congratulation'
+      fullPath: '/ga/expense/congratulation'
+      preLoaderRoute: typeof AuthenticatedGaExpenseCongratulationRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/finance/voucher/by-date': {
@@ -1531,7 +1731,17 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedFinanceCardUsageRoute: typeof AuthenticatedFinanceCardUsageRoute
   AuthenticatedFinanceVoucherByAccountRoute: typeof AuthenticatedFinanceVoucherByAccountRoute
   AuthenticatedFinanceVoucherByDateRoute: typeof AuthenticatedFinanceVoucherByDateRoute
+  AuthenticatedGaExpenseCongratulationRoute: typeof AuthenticatedGaExpenseCongratulationRoute
   AuthenticatedGaExpenseDisbursementRoute: typeof AuthenticatedGaExpenseDisbursementRoute
+  AuthenticatedGaExpenseMealTicketRoute: typeof AuthenticatedGaExpenseMealTicketRoute
+  AuthenticatedGaExpenseTransportRoute: typeof AuthenticatedGaExpenseTransportRoute
+  AuthenticatedGaExpenseTuitionRoute: typeof AuthenticatedGaExpenseTuitionRoute
+  AuthenticatedGaExpenseVehicleSubsidyRoute: typeof AuthenticatedGaExpenseVehicleSubsidyRoute
+  AuthenticatedGaSealCorporateApplyRoute: typeof AuthenticatedGaSealCorporateApplyRoute
+  AuthenticatedGaSealEContractRoute: typeof AuthenticatedGaSealEContractRoute
+  AuthenticatedGaSealFingerprintExportRoute: typeof AuthenticatedGaSealFingerprintExportRoute
+  AuthenticatedGaSealUseApplyRoute: typeof AuthenticatedGaSealUseApplyRoute
+  AuthenticatedGaSealUseExportRoute: typeof AuthenticatedGaSealUseExportRoute
   AuthenticatedHrAttendanceLeaveApplyRoute: typeof AuthenticatedHrAttendanceLeaveApplyRoute
   AuthenticatedHrAttendanceLeaveStatusRoute: typeof AuthenticatedHrAttendanceLeaveStatusRoute
   AuthenticatedHrAttendanceOvertimeApplyRoute: typeof AuthenticatedHrAttendanceOvertimeApplyRoute
@@ -1595,8 +1805,22 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
     AuthenticatedFinanceVoucherByAccountRoute,
   AuthenticatedFinanceVoucherByDateRoute:
     AuthenticatedFinanceVoucherByDateRoute,
+  AuthenticatedGaExpenseCongratulationRoute:
+    AuthenticatedGaExpenseCongratulationRoute,
   AuthenticatedGaExpenseDisbursementRoute:
     AuthenticatedGaExpenseDisbursementRoute,
+  AuthenticatedGaExpenseMealTicketRoute: AuthenticatedGaExpenseMealTicketRoute,
+  AuthenticatedGaExpenseTransportRoute: AuthenticatedGaExpenseTransportRoute,
+  AuthenticatedGaExpenseTuitionRoute: AuthenticatedGaExpenseTuitionRoute,
+  AuthenticatedGaExpenseVehicleSubsidyRoute:
+    AuthenticatedGaExpenseVehicleSubsidyRoute,
+  AuthenticatedGaSealCorporateApplyRoute:
+    AuthenticatedGaSealCorporateApplyRoute,
+  AuthenticatedGaSealEContractRoute: AuthenticatedGaSealEContractRoute,
+  AuthenticatedGaSealFingerprintExportRoute:
+    AuthenticatedGaSealFingerprintExportRoute,
+  AuthenticatedGaSealUseApplyRoute: AuthenticatedGaSealUseApplyRoute,
+  AuthenticatedGaSealUseExportRoute: AuthenticatedGaSealUseExportRoute,
   AuthenticatedHrAttendanceLeaveApplyRoute:
     AuthenticatedHrAttendanceLeaveApplyRoute,
   AuthenticatedHrAttendanceLeaveStatusRoute:

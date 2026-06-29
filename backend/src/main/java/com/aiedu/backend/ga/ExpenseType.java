@@ -11,5 +11,7 @@ public enum ExpenseType {
     /** 교통비 */
     TRANSPORT,
     /** 식대 */
-    MEAL
+    MEAL,
+    /** 차량지원금 */
+    VEHICLE_SUBSIDY
 }

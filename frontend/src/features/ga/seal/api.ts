@@ -1,43 +1,40 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { apiClient } from '@/lib/api-client'
 
-export type ExpenseType =
-  | 'DISBURSEMENT'
-  | 'CONGRATULATION'
-  | 'TUITION'
-  | 'TRANSPORT'
-  | 'MEAL'
-  | 'VEHICLE_SUBSIDY'
-export type ExpenseStatus = 'REQUESTED' | 'APPROVED' | 'PAID' | 'REJECTED'
+export type SealType =
+  | 'USE'
+  | 'CORPORATE'
+  | 'USE_EXPORT'
+  | 'FINGERPRINT_EXPORT'
+  | 'E_CONTRACT'
+export type SealStatus = 'REQUESTED' | 'APPROVED' | 'REJECTED' | 'COMPLETED'
 
-export type ExpenseRequest = {
+export type SealRequest = {
   id: number
   code: string
   employeeId: number
   employeeName: string
-  expenseType: ExpenseType
+  sealType: SealType
   title: string
-  amount: number
-  requestDate: string | null
-  reason: string | null
-  status: ExpenseStatus
+  purpose: string | null
+  useDate: string | null
+  status: SealStatus
 }
 
-export type ExpenseRequestInput = {
+export type SealRequestInput = {
   employeeId: number
-  expenseType: ExpenseType
+  sealType: SealType
   title: string
-  amount: number
-  requestDate?: string | null
-  reason?: string | null
-  status: ExpenseStatus
+  purpose?: string | null
+  useDate?: string | null
+  status: SealStatus
 }
 
-export type ExpenseRequestQuery = {
+export type SealRequestQuery = {
   keyword?: string
   employeeId?: number
-  expenseType?: ExpenseType
-  status?: ExpenseStatus
+  sealType?: SealType
+  status?: SealStatus
   dateFrom?: string
   dateTo?: string
 }
@@ -48,29 +45,29 @@ export type EmployeeItem = {
   employeeNo: string
 }
 
-const BASE = '/api/ga/expense-requests'
-const key = ['ga', 'expense-requests'] as const
+const BASE = '/api/ga/seal-requests'
+const key = ['ga', 'seal-requests'] as const
 
 const EMP_BASE = '/api/hr/employees'
 const empKey = ['hr', 'employees'] as const
 
-export function useExpenseRequests(query: ExpenseRequestQuery) {
+export function useSealRequests(query: SealRequestQuery) {
   return useQuery({
     queryKey: [...key, query],
     queryFn: async () => {
       const params: Record<string, string | number> = {}
       if (query.keyword) params.keyword = query.keyword
       if (query.employeeId) params.employeeId = query.employeeId
-      if (query.expenseType) params.expenseType = query.expenseType
+      if (query.sealType) params.sealType = query.sealType
       if (query.status) params.status = query.status
       if (query.dateFrom) params.dateFrom = query.dateFrom
       if (query.dateTo) params.dateTo = query.dateTo
-      return (await apiClient.get<ExpenseRequest[]>(BASE, { params })).data
+      return (await apiClient.get<SealRequest[]>(BASE, { params })).data
     },
   })
 }
 
-export function useSaveExpenseRequest() {
+export function useSaveSealRequest() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: async ({
@@ -78,16 +75,16 @@ export function useSaveExpenseRequest() {
       body,
     }: {
       id?: number
-      body: ExpenseRequestInput
+      body: SealRequestInput
     }) =>
       id
-        ? (await apiClient.put<ExpenseRequest>(`${BASE}/${id}`, body)).data
-        : (await apiClient.post<ExpenseRequest>(BASE, body)).data,
+        ? (await apiClient.put<SealRequest>(`${BASE}/${id}`, body)).data
+        : (await apiClient.post<SealRequest>(BASE, body)).data,
     onSuccess: () => qc.invalidateQueries({ queryKey: key }),
   })
 }
 
-export function useDeleteExpenseRequest() {
+export function useDeleteSealRequest() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: async (id: number) => {
@@ -104,20 +101,17 @@ export function useEmployees() {
   })
 }
 
-export const EXPENSE_TYPE: Record<ExpenseType, string> = {
-  DISBURSEMENT: '지출',
-  CONGRATULATION: '경조사',
-  TUITION: '교육비',
-  TRANSPORT: '교통비',
-  MEAL: '식대',
-  VEHICLE_SUBSIDY: '차량지원금',
+export const SEAL_TYPE: Record<SealType, string> = {
+  USE: '사용인감',
+  CORPORATE: '법인인감',
+  USE_EXPORT: '사용인감반출',
+  FINGERPRINT_EXPORT: '지문인식기반출',
+  E_CONTRACT: '전자계약',
 }
 
-export const EXPENSE_STATUS: Record<ExpenseStatus, string> = {
+export const SEAL_STATUS: Record<SealStatus, string> = {
   REQUESTED: '신청',
   APPROVED: '승인',
-  PAID: '지급',
   REJECTED: '반려',
+  COMPLETED: '완료',
 }
-
-export const won = (n: number) => (n ?? 0).toLocaleString('ko-KR')
