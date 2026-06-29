@@ -34,6 +34,8 @@ import { Route as AuthenticatedSettingsDisplayRouteImport } from './routes/_auth
 import { Route as AuthenticatedSettingsAppearanceRouteImport } from './routes/_authenticated/settings/appearance'
 import { Route as AuthenticatedSettingsAccountRouteImport } from './routes/_authenticated/settings/account'
 import { Route as AuthenticatedErrorsErrorRouteImport } from './routes/_authenticated/errors/$error'
+import { Route as AuthenticatedHrEmployeesIndexRouteImport } from './routes/_authenticated/hr/employees/index'
+import { Route as AuthenticatedHrDepartmentsIndexRouteImport } from './routes/_authenticated/hr/departments/index'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
@@ -168,6 +170,18 @@ const AuthenticatedErrorsErrorRoute =
     path: '/errors/$error',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedHrEmployeesIndexRoute =
+  AuthenticatedHrEmployeesIndexRouteImport.update({
+    id: '/hr/employees/',
+    path: '/hr/employees/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedHrDepartmentsIndexRoute =
+  AuthenticatedHrDepartmentsIndexRouteImport.update({
+    id: '/hr/departments/',
+    path: '/hr/departments/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
@@ -194,6 +208,8 @@ export interface FileRoutesByFullPath {
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/tasks/': typeof AuthenticatedTasksIndexRoute
   '/users/': typeof AuthenticatedUsersIndexRoute
+  '/hr/departments/': typeof AuthenticatedHrDepartmentsIndexRoute
+  '/hr/employees/': typeof AuthenticatedHrEmployeesIndexRoute
 }
 export interface FileRoutesByTo {
   '/forgot-password': typeof authForgotPasswordRoute
@@ -219,6 +235,8 @@ export interface FileRoutesByTo {
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
+  '/hr/departments': typeof AuthenticatedHrDepartmentsIndexRoute
+  '/hr/employees': typeof AuthenticatedHrEmployeesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -247,6 +265,8 @@ export interface FileRoutesById {
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
+  '/_authenticated/hr/departments/': typeof AuthenticatedHrDepartmentsIndexRoute
+  '/_authenticated/hr/employees/': typeof AuthenticatedHrEmployeesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -275,6 +295,8 @@ export interface FileRouteTypes {
     | '/settings/'
     | '/tasks/'
     | '/users/'
+    | '/hr/departments/'
+    | '/hr/employees/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/forgot-password'
@@ -300,6 +322,8 @@ export interface FileRouteTypes {
     | '/settings'
     | '/tasks'
     | '/users'
+    | '/hr/departments'
+    | '/hr/employees'
   id:
     | '__root__'
     | '/_authenticated'
@@ -327,6 +351,8 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/'
     | '/_authenticated/tasks/'
     | '/_authenticated/users/'
+    | '/_authenticated/hr/departments/'
+    | '/_authenticated/hr/employees/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -520,6 +546,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedErrorsErrorRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/hr/employees/': {
+      id: '/_authenticated/hr/employees/'
+      path: '/hr/employees'
+      fullPath: '/hr/employees/'
+      preLoaderRoute: typeof AuthenticatedHrEmployeesIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/hr/departments/': {
+      id: '/_authenticated/hr/departments/'
+      path: '/hr/departments'
+      fullPath: '/hr/departments/'
+      preLoaderRoute: typeof AuthenticatedHrDepartmentsIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -556,6 +596,8 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
   AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
   AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
+  AuthenticatedHrDepartmentsIndexRoute: typeof AuthenticatedHrDepartmentsIndexRoute
+  AuthenticatedHrEmployeesIndexRoute: typeof AuthenticatedHrEmployeesIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -568,6 +610,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
   AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
   AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
+  AuthenticatedHrDepartmentsIndexRoute: AuthenticatedHrDepartmentsIndexRoute,
+  AuthenticatedHrEmployeesIndexRoute: AuthenticatedHrEmployeesIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
