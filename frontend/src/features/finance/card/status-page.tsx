@@ -15,7 +15,12 @@ import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
-import { useCardTransactions, CARD_TX_STATUS, won, type CardTransactionStatus } from './api'
+import {
+  useCardTransactions,
+  CARD_TX_STATUS,
+  won,
+  type CardTransactionStatus,
+} from './api'
 
 const pad = (n: number) => String(n).padStart(2, '0')
 const ymd = (d: Date) =>
@@ -63,7 +68,12 @@ export function CardStatusPage() {
   }
 
   // 상태 순서: APPROVED → PURCHASED → BILLED → PAID
-  const statusOrder: CardTransactionStatus[] = ['APPROVED', 'PURCHASED', 'BILLED', 'PAID']
+  const statusOrder: CardTransactionStatus[] = [
+    'APPROVED',
+    'PURCHASED',
+    'BILLED',
+    'PAID',
+  ]
   const summaries = statusOrder
     .map((s) => summaryMap.get(s))
     .filter((s): s is StatusSummary => s !== undefined)

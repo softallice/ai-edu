@@ -71,7 +71,13 @@ export function useCardTransactions(query: CardTransactionQuery) {
 export function useSaveCardTransaction() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: async ({ id, body }: { id?: number; body: CardTransactionInput }) =>
+    mutationFn: async ({
+      id,
+      body,
+    }: {
+      id?: number
+      body: CardTransactionInput
+    }) =>
       id
         ? (await apiClient.put<CardTransaction>(`${BASE}/${id}`, body)).data
         : (await apiClient.post<CardTransaction>(BASE, body)).data,

@@ -60,6 +60,9 @@ import { Route as AuthenticatedPmActivityViewRouteImport } from './routes/_authe
 import { Route as AuthenticatedPmActivityRegisterRouteImport } from './routes/_authenticated/pm/activity/register'
 import { Route as AuthenticatedHrAttendanceViewRouteImport } from './routes/_authenticated/hr/attendance/view'
 import { Route as AuthenticatedHrAttendanceRegisterRouteImport } from './routes/_authenticated/hr/attendance/register'
+import { Route as AuthenticatedHrAttendanceOvertimeApplyRouteImport } from './routes/_authenticated/hr/attendance/overtime-apply'
+import { Route as AuthenticatedHrAttendanceLeaveStatusRouteImport } from './routes/_authenticated/hr/attendance/leave-status'
+import { Route as AuthenticatedHrAttendanceLeaveApplyRouteImport } from './routes/_authenticated/hr/attendance/leave-apply'
 import { Route as AuthenticatedGaExpenseDisbursementRouteImport } from './routes/_authenticated/ga/expense/disbursement'
 import { Route as AuthenticatedFinanceVoucherByDateRouteImport } from './routes/_authenticated/finance/voucher/by-date'
 import { Route as AuthenticatedFinanceVoucherByAccountRouteImport } from './routes/_authenticated/finance/voucher/by-account'
@@ -357,6 +360,24 @@ const AuthenticatedHrAttendanceRegisterRoute =
     path: '/hr/attendance/register',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedHrAttendanceOvertimeApplyRoute =
+  AuthenticatedHrAttendanceOvertimeApplyRouteImport.update({
+    id: '/hr/attendance/overtime-apply',
+    path: '/hr/attendance/overtime-apply',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedHrAttendanceLeaveStatusRoute =
+  AuthenticatedHrAttendanceLeaveStatusRouteImport.update({
+    id: '/hr/attendance/leave-status',
+    path: '/hr/attendance/leave-status',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedHrAttendanceLeaveApplyRoute =
+  AuthenticatedHrAttendanceLeaveApplyRouteImport.update({
+    id: '/hr/attendance/leave-apply',
+    path: '/hr/attendance/leave-apply',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedGaExpenseDisbursementRoute =
   AuthenticatedGaExpenseDisbursementRouteImport.update({
     id: '/ga/expense/disbursement',
@@ -437,6 +458,9 @@ export interface FileRoutesByFullPath {
   '/finance/voucher/by-account': typeof AuthenticatedFinanceVoucherByAccountRoute
   '/finance/voucher/by-date': typeof AuthenticatedFinanceVoucherByDateRoute
   '/ga/expense/disbursement': typeof AuthenticatedGaExpenseDisbursementRoute
+  '/hr/attendance/leave-apply': typeof AuthenticatedHrAttendanceLeaveApplyRoute
+  '/hr/attendance/leave-status': typeof AuthenticatedHrAttendanceLeaveStatusRoute
+  '/hr/attendance/overtime-apply': typeof AuthenticatedHrAttendanceOvertimeApplyRoute
   '/hr/attendance/register': typeof AuthenticatedHrAttendanceRegisterRoute
   '/hr/attendance/view': typeof AuthenticatedHrAttendanceViewRoute
   '/pm/activity/register': typeof AuthenticatedPmActivityRegisterRoute
@@ -495,6 +519,9 @@ export interface FileRoutesByTo {
   '/finance/voucher/by-account': typeof AuthenticatedFinanceVoucherByAccountRoute
   '/finance/voucher/by-date': typeof AuthenticatedFinanceVoucherByDateRoute
   '/ga/expense/disbursement': typeof AuthenticatedGaExpenseDisbursementRoute
+  '/hr/attendance/leave-apply': typeof AuthenticatedHrAttendanceLeaveApplyRoute
+  '/hr/attendance/leave-status': typeof AuthenticatedHrAttendanceLeaveStatusRoute
+  '/hr/attendance/overtime-apply': typeof AuthenticatedHrAttendanceOvertimeApplyRoute
   '/hr/attendance/register': typeof AuthenticatedHrAttendanceRegisterRoute
   '/hr/attendance/view': typeof AuthenticatedHrAttendanceViewRoute
   '/pm/activity/register': typeof AuthenticatedPmActivityRegisterRoute
@@ -556,6 +583,9 @@ export interface FileRoutesById {
   '/_authenticated/finance/voucher/by-account': typeof AuthenticatedFinanceVoucherByAccountRoute
   '/_authenticated/finance/voucher/by-date': typeof AuthenticatedFinanceVoucherByDateRoute
   '/_authenticated/ga/expense/disbursement': typeof AuthenticatedGaExpenseDisbursementRoute
+  '/_authenticated/hr/attendance/leave-apply': typeof AuthenticatedHrAttendanceLeaveApplyRoute
+  '/_authenticated/hr/attendance/leave-status': typeof AuthenticatedHrAttendanceLeaveStatusRoute
+  '/_authenticated/hr/attendance/overtime-apply': typeof AuthenticatedHrAttendanceOvertimeApplyRoute
   '/_authenticated/hr/attendance/register': typeof AuthenticatedHrAttendanceRegisterRoute
   '/_authenticated/hr/attendance/view': typeof AuthenticatedHrAttendanceViewRoute
   '/_authenticated/pm/activity/register': typeof AuthenticatedPmActivityRegisterRoute
@@ -617,6 +647,9 @@ export interface FileRouteTypes {
     | '/finance/voucher/by-account'
     | '/finance/voucher/by-date'
     | '/ga/expense/disbursement'
+    | '/hr/attendance/leave-apply'
+    | '/hr/attendance/leave-status'
+    | '/hr/attendance/overtime-apply'
     | '/hr/attendance/register'
     | '/hr/attendance/view'
     | '/pm/activity/register'
@@ -675,6 +708,9 @@ export interface FileRouteTypes {
     | '/finance/voucher/by-account'
     | '/finance/voucher/by-date'
     | '/ga/expense/disbursement'
+    | '/hr/attendance/leave-apply'
+    | '/hr/attendance/leave-status'
+    | '/hr/attendance/overtime-apply'
     | '/hr/attendance/register'
     | '/hr/attendance/view'
     | '/pm/activity/register'
@@ -735,6 +771,9 @@ export interface FileRouteTypes {
     | '/_authenticated/finance/voucher/by-account'
     | '/_authenticated/finance/voucher/by-date'
     | '/_authenticated/ga/expense/disbursement'
+    | '/_authenticated/hr/attendance/leave-apply'
+    | '/_authenticated/hr/attendance/leave-status'
+    | '/_authenticated/hr/attendance/overtime-apply'
     | '/_authenticated/hr/attendance/register'
     | '/_authenticated/hr/attendance/view'
     | '/_authenticated/pm/activity/register'
@@ -1131,6 +1170,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedHrAttendanceRegisterRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/hr/attendance/overtime-apply': {
+      id: '/_authenticated/hr/attendance/overtime-apply'
+      path: '/hr/attendance/overtime-apply'
+      fullPath: '/hr/attendance/overtime-apply'
+      preLoaderRoute: typeof AuthenticatedHrAttendanceOvertimeApplyRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/hr/attendance/leave-status': {
+      id: '/_authenticated/hr/attendance/leave-status'
+      path: '/hr/attendance/leave-status'
+      fullPath: '/hr/attendance/leave-status'
+      preLoaderRoute: typeof AuthenticatedHrAttendanceLeaveStatusRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/hr/attendance/leave-apply': {
+      id: '/_authenticated/hr/attendance/leave-apply'
+      path: '/hr/attendance/leave-apply'
+      fullPath: '/hr/attendance/leave-apply'
+      preLoaderRoute: typeof AuthenticatedHrAttendanceLeaveApplyRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/ga/expense/disbursement': {
       id: '/_authenticated/ga/expense/disbursement'
       path: '/ga/expense/disbursement'
@@ -1228,6 +1288,9 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedFinanceVoucherByAccountRoute: typeof AuthenticatedFinanceVoucherByAccountRoute
   AuthenticatedFinanceVoucherByDateRoute: typeof AuthenticatedFinanceVoucherByDateRoute
   AuthenticatedGaExpenseDisbursementRoute: typeof AuthenticatedGaExpenseDisbursementRoute
+  AuthenticatedHrAttendanceLeaveApplyRoute: typeof AuthenticatedHrAttendanceLeaveApplyRoute
+  AuthenticatedHrAttendanceLeaveStatusRoute: typeof AuthenticatedHrAttendanceLeaveStatusRoute
+  AuthenticatedHrAttendanceOvertimeApplyRoute: typeof AuthenticatedHrAttendanceOvertimeApplyRoute
   AuthenticatedHrAttendanceRegisterRoute: typeof AuthenticatedHrAttendanceRegisterRoute
   AuthenticatedHrAttendanceViewRoute: typeof AuthenticatedHrAttendanceViewRoute
   AuthenticatedPmActivityRegisterRoute: typeof AuthenticatedPmActivityRegisterRoute
@@ -1277,6 +1340,12 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
     AuthenticatedFinanceVoucherByDateRoute,
   AuthenticatedGaExpenseDisbursementRoute:
     AuthenticatedGaExpenseDisbursementRoute,
+  AuthenticatedHrAttendanceLeaveApplyRoute:
+    AuthenticatedHrAttendanceLeaveApplyRoute,
+  AuthenticatedHrAttendanceLeaveStatusRoute:
+    AuthenticatedHrAttendanceLeaveStatusRoute,
+  AuthenticatedHrAttendanceOvertimeApplyRoute:
+    AuthenticatedHrAttendanceOvertimeApplyRoute,
   AuthenticatedHrAttendanceRegisterRoute:
     AuthenticatedHrAttendanceRegisterRoute,
   AuthenticatedHrAttendanceViewRoute: AuthenticatedHrAttendanceViewRoute,

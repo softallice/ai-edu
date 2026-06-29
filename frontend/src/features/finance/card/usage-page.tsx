@@ -61,7 +61,9 @@ const STATUS_ITEMS = (
 
 export function CardUsagePage() {
   const [keyword, setKeyword] = useState('')
-  const [status, setStatus] = useState<CardTransactionStatus | undefined>(undefined)
+  const [status, setStatus] = useState<CardTransactionStatus | undefined>(
+    undefined
+  )
 
   const { data: rows, isLoading } = useCardTransactions({
     keyword: keyword || undefined,
@@ -169,7 +171,9 @@ export function CardUsagePage() {
             <SelectDropdown
               defaultValue='ALL'
               onValueChange={(v) =>
-                setStatus(v === 'ALL' ? undefined : (v as CardTransactionStatus))
+                setStatus(
+                  v === 'ALL' ? undefined : (v as CardTransactionStatus)
+                )
               }
               placeholder='상태'
               items={[{ label: '전체', value: 'ALL' }, ...STATUS_ITEMS]}
