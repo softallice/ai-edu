@@ -47,6 +47,9 @@ import { Route as AuthenticatedSalesContractRegisterRouteImport } from './routes
 import { Route as AuthenticatedSalesContractProposalRouteImport } from './routes/_authenticated/sales/contract/proposal'
 import { Route as AuthenticatedSalesContractPerformanceRouteImport } from './routes/_authenticated/sales/contract/performance'
 import { Route as AuthenticatedSalesContractItemsRouteImport } from './routes/_authenticated/sales/contract/items'
+import { Route as AuthenticatedPmUtilizationPersonalRouteImport } from './routes/_authenticated/pm/utilization/personal'
+import { Route as AuthenticatedPmBudgetTeamActualRouteImport } from './routes/_authenticated/pm/budget/team-actual'
+import { Route as AuthenticatedPmBudgetProjectActualRouteImport } from './routes/_authenticated/pm/budget/project-actual'
 import { Route as AuthenticatedPmActivityViewRouteImport } from './routes/_authenticated/pm/activity/view'
 import { Route as AuthenticatedPmActivityRegisterRouteImport } from './routes/_authenticated/pm/activity/register'
 import { Route as AuthenticatedHrAttendanceViewRouteImport } from './routes/_authenticated/hr/attendance/view'
@@ -267,6 +270,24 @@ const AuthenticatedSalesContractItemsRoute =
     path: '/sales/contract/items',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedPmUtilizationPersonalRoute =
+  AuthenticatedPmUtilizationPersonalRouteImport.update({
+    id: '/pm/utilization/personal',
+    path: '/pm/utilization/personal',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedPmBudgetTeamActualRoute =
+  AuthenticatedPmBudgetTeamActualRouteImport.update({
+    id: '/pm/budget/team-actual',
+    path: '/pm/budget/team-actual',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedPmBudgetProjectActualRoute =
+  AuthenticatedPmBudgetProjectActualRouteImport.update({
+    id: '/pm/budget/project-actual',
+    path: '/pm/budget/project-actual',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedPmActivityViewRoute =
   AuthenticatedPmActivityViewRouteImport.update({
     id: '/pm/activity/view',
@@ -353,6 +374,9 @@ export interface FileRoutesByFullPath {
   '/hr/attendance/view': typeof AuthenticatedHrAttendanceViewRoute
   '/pm/activity/register': typeof AuthenticatedPmActivityRegisterRoute
   '/pm/activity/view': typeof AuthenticatedPmActivityViewRoute
+  '/pm/budget/project-actual': typeof AuthenticatedPmBudgetProjectActualRoute
+  '/pm/budget/team-actual': typeof AuthenticatedPmBudgetTeamActualRoute
+  '/pm/utilization/personal': typeof AuthenticatedPmUtilizationPersonalRoute
   '/sales/contract/items': typeof AuthenticatedSalesContractItemsRoute
   '/sales/contract/performance': typeof AuthenticatedSalesContractPerformanceRoute
   '/sales/contract/proposal': typeof AuthenticatedSalesContractProposalRoute
@@ -399,6 +423,9 @@ export interface FileRoutesByTo {
   '/hr/attendance/view': typeof AuthenticatedHrAttendanceViewRoute
   '/pm/activity/register': typeof AuthenticatedPmActivityRegisterRoute
   '/pm/activity/view': typeof AuthenticatedPmActivityViewRoute
+  '/pm/budget/project-actual': typeof AuthenticatedPmBudgetProjectActualRoute
+  '/pm/budget/team-actual': typeof AuthenticatedPmBudgetTeamActualRoute
+  '/pm/utilization/personal': typeof AuthenticatedPmUtilizationPersonalRoute
   '/sales/contract/items': typeof AuthenticatedSalesContractItemsRoute
   '/sales/contract/performance': typeof AuthenticatedSalesContractPerformanceRoute
   '/sales/contract/proposal': typeof AuthenticatedSalesContractProposalRoute
@@ -448,6 +475,9 @@ export interface FileRoutesById {
   '/_authenticated/hr/attendance/view': typeof AuthenticatedHrAttendanceViewRoute
   '/_authenticated/pm/activity/register': typeof AuthenticatedPmActivityRegisterRoute
   '/_authenticated/pm/activity/view': typeof AuthenticatedPmActivityViewRoute
+  '/_authenticated/pm/budget/project-actual': typeof AuthenticatedPmBudgetProjectActualRoute
+  '/_authenticated/pm/budget/team-actual': typeof AuthenticatedPmBudgetTeamActualRoute
+  '/_authenticated/pm/utilization/personal': typeof AuthenticatedPmUtilizationPersonalRoute
   '/_authenticated/sales/contract/items': typeof AuthenticatedSalesContractItemsRoute
   '/_authenticated/sales/contract/performance': typeof AuthenticatedSalesContractPerformanceRoute
   '/_authenticated/sales/contract/proposal': typeof AuthenticatedSalesContractProposalRoute
@@ -497,6 +527,9 @@ export interface FileRouteTypes {
     | '/hr/attendance/view'
     | '/pm/activity/register'
     | '/pm/activity/view'
+    | '/pm/budget/project-actual'
+    | '/pm/budget/team-actual'
+    | '/pm/utilization/personal'
     | '/sales/contract/items'
     | '/sales/contract/performance'
     | '/sales/contract/proposal'
@@ -543,6 +576,9 @@ export interface FileRouteTypes {
     | '/hr/attendance/view'
     | '/pm/activity/register'
     | '/pm/activity/view'
+    | '/pm/budget/project-actual'
+    | '/pm/budget/team-actual'
+    | '/pm/utilization/personal'
     | '/sales/contract/items'
     | '/sales/contract/performance'
     | '/sales/contract/proposal'
@@ -591,6 +627,9 @@ export interface FileRouteTypes {
     | '/_authenticated/hr/attendance/view'
     | '/_authenticated/pm/activity/register'
     | '/_authenticated/pm/activity/view'
+    | '/_authenticated/pm/budget/project-actual'
+    | '/_authenticated/pm/budget/team-actual'
+    | '/_authenticated/pm/utilization/personal'
     | '/_authenticated/sales/contract/items'
     | '/_authenticated/sales/contract/performance'
     | '/_authenticated/sales/contract/proposal'
@@ -884,6 +923,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSalesContractItemsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/pm/utilization/personal': {
+      id: '/_authenticated/pm/utilization/personal'
+      path: '/pm/utilization/personal'
+      fullPath: '/pm/utilization/personal'
+      preLoaderRoute: typeof AuthenticatedPmUtilizationPersonalRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/pm/budget/team-actual': {
+      id: '/_authenticated/pm/budget/team-actual'
+      path: '/pm/budget/team-actual'
+      fullPath: '/pm/budget/team-actual'
+      preLoaderRoute: typeof AuthenticatedPmBudgetTeamActualRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/pm/budget/project-actual': {
+      id: '/_authenticated/pm/budget/project-actual'
+      path: '/pm/budget/project-actual'
+      fullPath: '/pm/budget/project-actual'
+      preLoaderRoute: typeof AuthenticatedPmBudgetProjectActualRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/pm/activity/view': {
       id: '/_authenticated/pm/activity/view'
       path: '/pm/activity/view'
@@ -988,6 +1048,9 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedHrAttendanceViewRoute: typeof AuthenticatedHrAttendanceViewRoute
   AuthenticatedPmActivityRegisterRoute: typeof AuthenticatedPmActivityRegisterRoute
   AuthenticatedPmActivityViewRoute: typeof AuthenticatedPmActivityViewRoute
+  AuthenticatedPmBudgetProjectActualRoute: typeof AuthenticatedPmBudgetProjectActualRoute
+  AuthenticatedPmBudgetTeamActualRoute: typeof AuthenticatedPmBudgetTeamActualRoute
+  AuthenticatedPmUtilizationPersonalRoute: typeof AuthenticatedPmUtilizationPersonalRoute
   AuthenticatedSalesContractItemsRoute: typeof AuthenticatedSalesContractItemsRoute
   AuthenticatedSalesContractPerformanceRoute: typeof AuthenticatedSalesContractPerformanceRoute
   AuthenticatedSalesContractProposalRoute: typeof AuthenticatedSalesContractProposalRoute
@@ -1026,6 +1089,11 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedHrAttendanceViewRoute: AuthenticatedHrAttendanceViewRoute,
   AuthenticatedPmActivityRegisterRoute: AuthenticatedPmActivityRegisterRoute,
   AuthenticatedPmActivityViewRoute: AuthenticatedPmActivityViewRoute,
+  AuthenticatedPmBudgetProjectActualRoute:
+    AuthenticatedPmBudgetProjectActualRoute,
+  AuthenticatedPmBudgetTeamActualRoute: AuthenticatedPmBudgetTeamActualRoute,
+  AuthenticatedPmUtilizationPersonalRoute:
+    AuthenticatedPmUtilizationPersonalRoute,
   AuthenticatedSalesContractItemsRoute: AuthenticatedSalesContractItemsRoute,
   AuthenticatedSalesContractPerformanceRoute:
     AuthenticatedSalesContractPerformanceRoute,
