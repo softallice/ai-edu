@@ -66,10 +66,22 @@ export const sidebarData: SidebarData = {
           icon: Timer,
           items: [
             { title: '활동시간등록', url: '/pm/activity/register' },
-            { title: '활동시간승인(ITO-1차승인)', url: '/pm/activity/approve-ito1' },
-            { title: '활동시간승인(ITO-팀장)', url: '/pm/activity/approve-ito-lead' },
-            { title: '활동시간승인(대외사업-PM/사업)', url: '/pm/activity/approve-ext-pm' },
-            { title: '활동시간승인(대외사업-팀장)', url: '/pm/activity/approve-ext-lead' },
+            {
+              title: '활동시간승인(ITO-1차승인)',
+              url: '/pm/activity/approve-ito1',
+            },
+            {
+              title: '활동시간승인(ITO-팀장)',
+              url: '/pm/activity/approve-ito-lead',
+            },
+            {
+              title: '활동시간승인(대외사업-PM/사업)',
+              url: '/pm/activity/approve-ext-pm',
+            },
+            {
+              title: '활동시간승인(대외사업-팀장)',
+              url: '/pm/activity/approve-ext-lead',
+            },
             { title: '활동시간조회', url: '/pm/activity/view' },
           ],
         },
@@ -79,8 +91,14 @@ export const sidebarData: SidebarData = {
           icon: Activity,
           items: [
             { title: '개인가동율조회', url: '/pm/utilization/personal' },
-            { title: '가동율활동수정(부서장)', url: '/pm/utilization/edit-dept' },
-            { title: '가동율활동수정(파트장)', url: '/pm/utilization/edit-part' },
+            {
+              title: '가동율활동수정(부서장)',
+              url: '/pm/utilization/edit-dept',
+            },
+            {
+              title: '가동율활동수정(파트장)',
+              url: '/pm/utilization/edit-part',
+            },
           ],
         },
         {
@@ -89,10 +107,19 @@ export const sidebarData: SidebarData = {
           items: [
             { title: '팀별예산대실적', url: '/pm/budget/team-actual' },
             { title: '프로젝트예산대실적', url: '/pm/budget/project-actual' },
-            { title: '프로젝트업무추진비현황', url: '/pm/budget/project-expense' },
-            { title: '팀예산대프로젝트예산', url: '/pm/budget/team-vs-project' },
+            {
+              title: '프로젝트업무추진비현황',
+              url: '/pm/budget/project-expense',
+            },
+            {
+              title: '팀예산대프로젝트예산',
+              url: '/pm/budget/team-vs-project',
+            },
             { title: '예산별실적내역(공통)', url: '/pm/budget/actual-common' },
-            { title: '예산별실적내역(프로젝트)', url: '/pm/budget/actual-project' },
+            {
+              title: '예산별실적내역(프로젝트)',
+              url: '/pm/budget/actual-project',
+            },
           ],
         },
         {
@@ -101,7 +128,10 @@ export const sidebarData: SidebarData = {
           items: [
             { title: '프로젝트/팀별실적현황', url: '/pm/performance/by-team' },
             { title: '매출집표내역', url: '/pm/performance/sales-summary' },
-            { title: '프로젝트매출/원가내역서', url: '/pm/performance/sales-cost' },
+            {
+              title: '프로젝트매출/원가내역서',
+              url: '/pm/performance/sales-cost',
+            },
           ],
         },
         {
@@ -119,7 +149,10 @@ export const sidebarData: SidebarData = {
             { title: '프로젝트인력평가(PM)', url: '/pm/eval/pm' },
             { title: '프로젝트인력평가(영업팀장)', url: '/pm/eval/sales-lead' },
             { title: '프로젝트인력평가(주관팀장)', url: '/pm/eval/lead' },
-            { title: '프로젝트인력평가(승인자/본부장)', url: '/pm/eval/approver' },
+            {
+              title: '프로젝트인력평가(승인자/본부장)',
+              url: '/pm/eval/approver',
+            },
             { title: '프로젝트인력평가진행현황', url: '/pm/eval/progress' },
             { title: '프로젝트인력평가결과', url: '/pm/eval/result' },
             { title: '프로젝트인력평가조회', url: '/pm/eval/view' },
@@ -136,7 +169,10 @@ export const sidebarData: SidebarData = {
           items: [
             { title: '프로젝트등록', url: '/sales/contract/project' },
             { title: '제안내역등록', url: '/sales/contract/proposal' },
-            { title: '변경제안내역생성/삭제', url: '/sales/contract/proposal-change' },
+            {
+              title: '변경제안내역생성/삭제',
+              url: '/sales/contract/proposal-change',
+            },
             { title: '계약내역등록', url: '/sales/contract/register' },
             { title: '계약등록오류검증', url: '/sales/contract/validate' },
             { title: '변경계약생성/삭제', url: '/sales/contract/change' },
@@ -144,7 +180,11 @@ export const sidebarData: SidebarData = {
             { title: '계약실적현황', url: '/sales/contract/performance' },
           ],
         },
-        { title: '구매의뢰등록', url: '/sales/purchase-request', icon: ShoppingCart },
+        {
+          title: '구매의뢰등록',
+          url: '/sales/purchase-request',
+          icon: ShoppingCart,
+        },
         {
           title: '세금계산서',
           icon: Receipt,
@@ -153,7 +193,11 @@ export const sidebarData: SidebarData = {
             { title: '세금계산서발행현황', url: '/sales/tax-invoice/status' },
           ],
         },
-        { title: '프로젝트수금실적현황', url: '/sales/collection', icon: Coins },
+        {
+          title: '프로젝트수금실적현황',
+          url: '/sales/collection',
+          icon: Coins,
+        },
       ],
     },
     {
@@ -164,7 +208,11 @@ export const sidebarData: SidebarData = {
           icon: Building2,
           items: [{ title: '거래처등록', url: '/customers' }],
         },
-        { title: '프로젝트수금실적현황', url: '/purchase/collection', icon: Coins },
+        {
+          title: '프로젝트수금실적현황',
+          url: '/purchase/collection',
+          icon: Coins,
+        },
       ],
     },
     {
@@ -207,17 +255,35 @@ export const sidebarData: SidebarData = {
           icon: CalendarClock,
           items: [
             { title: '출퇴근부등록', url: '/hr/attendance/register' },
-            { title: '출퇴근부관리자확인', url: '/hr/attendance/manager-confirm' },
+            {
+              title: '출퇴근부관리자확인',
+              url: '/hr/attendance/manager-confirm',
+            },
             { title: '출퇴근부조회', url: '/hr/attendance/view' },
-            { title: '월근로시간통계현황', url: '/hr/attendance/monthly-stats' },
+            {
+              title: '월근로시간통계현황',
+              url: '/hr/attendance/monthly-stats',
+            },
             { title: '휴가계신청', url: '/hr/attendance/leave-apply' },
             { title: '휴가계신청취소', url: '/hr/attendance/leave-cancel' },
-            { title: '단체연차미사용사유서', url: '/hr/attendance/unused-leave' },
-            { title: '휴직(복직)계신청', url: '/hr/attendance/leave-of-absence' },
+            {
+              title: '단체연차미사용사유서',
+              url: '/hr/attendance/unused-leave',
+            },
+            {
+              title: '휴직(복직)계신청',
+              url: '/hr/attendance/leave-of-absence',
+            },
             { title: '연장근로신청', url: '/hr/attendance/overtime-apply' },
-            { title: '연장근로취소신청', url: '/hr/attendance/overtime-cancel' },
+            {
+              title: '연장근로취소신청',
+              url: '/hr/attendance/overtime-cancel',
+            },
             { title: '휴일근로신청', url: '/hr/attendance/holiday-work-apply' },
-            { title: '휴일근로취소신청', url: '/hr/attendance/holiday-work-cancel' },
+            {
+              title: '휴일근로취소신청',
+              url: '/hr/attendance/holiday-work-cancel',
+            },
             { title: '휴가현황관리', url: '/hr/attendance/leave-status' },
           ],
         },
@@ -226,11 +292,20 @@ export const sidebarData: SidebarData = {
           icon: Banknote,
           items: [
             { title: '급여명세표', url: '/hr/payroll/payslip' },
-            { title: '성과실적및보상지급현황', url: '/hr/payroll/incentive-status' },
+            {
+              title: '성과실적및보상지급현황',
+              url: '/hr/payroll/incentive-status',
+            },
             { title: '개인별MBO성과금상세내역', url: '/hr/payroll/mbo-detail' },
             { title: '연봉조정내역서', url: '/hr/payroll/salary-adjustment' },
-            { title: '근로소득원천징수부', url: '/hr/payroll/withholding-ledger' },
-            { title: '근로소득원천징수영수증(구)', url: '/hr/payroll/withholding-receipt' },
+            {
+              title: '근로소득원천징수부',
+              url: '/hr/payroll/withholding-ledger',
+            },
+            {
+              title: '근로소득원천징수영수증(구)',
+              url: '/hr/payroll/withholding-receipt',
+            },
             { title: '경비지급내역서', url: '/hr/payroll/expense-statement' },
           ],
         },
@@ -239,7 +314,10 @@ export const sidebarData: SidebarData = {
           icon: BarChart3,
           items: [
             { title: '팀목표대비실적현황', url: '/hr/performance/team-goal' },
-            { title: '개인목표대비실적현황', url: '/hr/performance/personal-goal' },
+            {
+              title: '개인목표대비실적현황',
+              url: '/hr/performance/personal-goal',
+            },
             { title: '매출실적상세현황', url: '/hr/performance/sales-detail' },
           ],
         },
@@ -248,11 +326,17 @@ export const sidebarData: SidebarData = {
           icon: GraduationCap,
           items: [
             { title: '사외교육신청', url: '/hr/education/external-apply' },
-            { title: '사외교육수강보고서', url: '/hr/education/external-report' },
+            {
+              title: '사외교육수강보고서',
+              url: '/hr/education/external-report',
+            },
             { title: '사외교육취소신청', url: '/hr/education/external-cancel' },
             { title: '도서구매의뢰', url: '/hr/education/book-request' },
             { title: '비즈니스자격신청', url: '/hr/education/cert-apply' },
-            { title: '비즈니스자격결과보고서', url: '/hr/education/cert-report' },
+            {
+              title: '비즈니스자격결과보고서',
+              url: '/hr/education/cert-report',
+            },
             { title: '비즈니스자격취소신청', url: '/hr/education/cert-cancel' },
             { title: '교육이력조회', url: '/hr/education/history' },
           ],
@@ -262,11 +346,21 @@ export const sidebarData: SidebarData = {
           title: '연말정산',
           icon: Calculator,
           items: [
-            { title: '소득세액공제/간소화PDF등록', url: '/hr/year-end/deduction-pdf' },
-            { title: '공제자료등록확인', url: '/hr/year-end/deduction-confirm' },
+            {
+              title: '소득세액공제/간소화PDF등록',
+              url: '/hr/year-end/deduction-pdf',
+            },
+            {
+              title: '공제자료등록확인',
+              url: '/hr/year-end/deduction-confirm',
+            },
           ],
         },
-        { title: '퇴직금지급명세서(DC)', url: '/hr/severance', icon: PiggyBank },
+        {
+          title: '퇴직금지급명세서(DC)',
+          url: '/hr/severance',
+          icon: PiggyBank,
+        },
         { title: '면접평가', url: '/hr/interview', icon: UserCheck },
       ],
     },
@@ -317,7 +411,10 @@ export const sidebarData: SidebarData = {
             { title: '차량지원금신청', url: '/ga/expense/vehicle-subsidy' },
             { title: '시내외교통비신청', url: '/ga/expense/transport' },
             { title: '업무용승용차운행기록', url: '/ga/expense/vehicle-log' },
-            { title: '업무용승용차운행기록(인쇄)', url: '/ga/expense/vehicle-log-print' },
+            {
+              title: '업무용승용차운행기록(인쇄)',
+              url: '/ga/expense/vehicle-log-print',
+            },
             { title: '식권신청', url: '/ga/expense/meal-ticket' },
           ],
         },

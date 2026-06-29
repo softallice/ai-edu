@@ -36,6 +36,13 @@ import { Route as AuthenticatedSettingsAccountRouteImport } from './routes/_auth
 import { Route as AuthenticatedErrorsErrorRouteImport } from './routes/_authenticated/errors/$error'
 import { Route as AuthenticatedHrEmployeesIndexRouteImport } from './routes/_authenticated/hr/employees/index'
 import { Route as AuthenticatedHrDepartmentsIndexRouteImport } from './routes/_authenticated/hr/departments/index'
+import { Route as AuthenticatedSalesTaxInvoiceStatusRouteImport } from './routes/_authenticated/sales/tax-invoice/status'
+import { Route as AuthenticatedSalesTaxInvoiceIssueRouteImport } from './routes/_authenticated/sales/tax-invoice/issue'
+import { Route as AuthenticatedSalesContractRegisterRouteImport } from './routes/_authenticated/sales/contract/register'
+import { Route as AuthenticatedSalesContractPerformanceRouteImport } from './routes/_authenticated/sales/contract/performance'
+import { Route as AuthenticatedSalesContractItemsRouteImport } from './routes/_authenticated/sales/contract/items'
+import { Route as AuthenticatedPmActivityViewRouteImport } from './routes/_authenticated/pm/activity/view'
+import { Route as AuthenticatedPmActivityRegisterRouteImport } from './routes/_authenticated/pm/activity/register'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
@@ -182,6 +189,48 @@ const AuthenticatedHrDepartmentsIndexRoute =
     path: '/hr/departments/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedSalesTaxInvoiceStatusRoute =
+  AuthenticatedSalesTaxInvoiceStatusRouteImport.update({
+    id: '/sales/tax-invoice/status',
+    path: '/sales/tax-invoice/status',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSalesTaxInvoiceIssueRoute =
+  AuthenticatedSalesTaxInvoiceIssueRouteImport.update({
+    id: '/sales/tax-invoice/issue',
+    path: '/sales/tax-invoice/issue',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSalesContractRegisterRoute =
+  AuthenticatedSalesContractRegisterRouteImport.update({
+    id: '/sales/contract/register',
+    path: '/sales/contract/register',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSalesContractPerformanceRoute =
+  AuthenticatedSalesContractPerformanceRouteImport.update({
+    id: '/sales/contract/performance',
+    path: '/sales/contract/performance',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSalesContractItemsRoute =
+  AuthenticatedSalesContractItemsRouteImport.update({
+    id: '/sales/contract/items',
+    path: '/sales/contract/items',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedPmActivityViewRoute =
+  AuthenticatedPmActivityViewRouteImport.update({
+    id: '/pm/activity/view',
+    path: '/pm/activity/view',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedPmActivityRegisterRoute =
+  AuthenticatedPmActivityRegisterRouteImport.update({
+    id: '/pm/activity/register',
+    path: '/pm/activity/register',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
@@ -208,6 +257,13 @@ export interface FileRoutesByFullPath {
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/tasks/': typeof AuthenticatedTasksIndexRoute
   '/users/': typeof AuthenticatedUsersIndexRoute
+  '/pm/activity/register': typeof AuthenticatedPmActivityRegisterRoute
+  '/pm/activity/view': typeof AuthenticatedPmActivityViewRoute
+  '/sales/contract/items': typeof AuthenticatedSalesContractItemsRoute
+  '/sales/contract/performance': typeof AuthenticatedSalesContractPerformanceRoute
+  '/sales/contract/register': typeof AuthenticatedSalesContractRegisterRoute
+  '/sales/tax-invoice/issue': typeof AuthenticatedSalesTaxInvoiceIssueRoute
+  '/sales/tax-invoice/status': typeof AuthenticatedSalesTaxInvoiceStatusRoute
   '/hr/departments/': typeof AuthenticatedHrDepartmentsIndexRoute
   '/hr/employees/': typeof AuthenticatedHrEmployeesIndexRoute
 }
@@ -235,6 +291,13 @@ export interface FileRoutesByTo {
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
+  '/pm/activity/register': typeof AuthenticatedPmActivityRegisterRoute
+  '/pm/activity/view': typeof AuthenticatedPmActivityViewRoute
+  '/sales/contract/items': typeof AuthenticatedSalesContractItemsRoute
+  '/sales/contract/performance': typeof AuthenticatedSalesContractPerformanceRoute
+  '/sales/contract/register': typeof AuthenticatedSalesContractRegisterRoute
+  '/sales/tax-invoice/issue': typeof AuthenticatedSalesTaxInvoiceIssueRoute
+  '/sales/tax-invoice/status': typeof AuthenticatedSalesTaxInvoiceStatusRoute
   '/hr/departments': typeof AuthenticatedHrDepartmentsIndexRoute
   '/hr/employees': typeof AuthenticatedHrEmployeesIndexRoute
 }
@@ -265,6 +328,13 @@ export interface FileRoutesById {
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
+  '/_authenticated/pm/activity/register': typeof AuthenticatedPmActivityRegisterRoute
+  '/_authenticated/pm/activity/view': typeof AuthenticatedPmActivityViewRoute
+  '/_authenticated/sales/contract/items': typeof AuthenticatedSalesContractItemsRoute
+  '/_authenticated/sales/contract/performance': typeof AuthenticatedSalesContractPerformanceRoute
+  '/_authenticated/sales/contract/register': typeof AuthenticatedSalesContractRegisterRoute
+  '/_authenticated/sales/tax-invoice/issue': typeof AuthenticatedSalesTaxInvoiceIssueRoute
+  '/_authenticated/sales/tax-invoice/status': typeof AuthenticatedSalesTaxInvoiceStatusRoute
   '/_authenticated/hr/departments/': typeof AuthenticatedHrDepartmentsIndexRoute
   '/_authenticated/hr/employees/': typeof AuthenticatedHrEmployeesIndexRoute
 }
@@ -295,6 +365,13 @@ export interface FileRouteTypes {
     | '/settings/'
     | '/tasks/'
     | '/users/'
+    | '/pm/activity/register'
+    | '/pm/activity/view'
+    | '/sales/contract/items'
+    | '/sales/contract/performance'
+    | '/sales/contract/register'
+    | '/sales/tax-invoice/issue'
+    | '/sales/tax-invoice/status'
     | '/hr/departments/'
     | '/hr/employees/'
   fileRoutesByTo: FileRoutesByTo
@@ -322,6 +399,13 @@ export interface FileRouteTypes {
     | '/settings'
     | '/tasks'
     | '/users'
+    | '/pm/activity/register'
+    | '/pm/activity/view'
+    | '/sales/contract/items'
+    | '/sales/contract/performance'
+    | '/sales/contract/register'
+    | '/sales/tax-invoice/issue'
+    | '/sales/tax-invoice/status'
     | '/hr/departments'
     | '/hr/employees'
   id:
@@ -351,6 +435,13 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/'
     | '/_authenticated/tasks/'
     | '/_authenticated/users/'
+    | '/_authenticated/pm/activity/register'
+    | '/_authenticated/pm/activity/view'
+    | '/_authenticated/sales/contract/items'
+    | '/_authenticated/sales/contract/performance'
+    | '/_authenticated/sales/contract/register'
+    | '/_authenticated/sales/tax-invoice/issue'
+    | '/_authenticated/sales/tax-invoice/status'
     | '/_authenticated/hr/departments/'
     | '/_authenticated/hr/employees/'
   fileRoutesById: FileRoutesById
@@ -560,6 +651,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedHrDepartmentsIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/sales/tax-invoice/status': {
+      id: '/_authenticated/sales/tax-invoice/status'
+      path: '/sales/tax-invoice/status'
+      fullPath: '/sales/tax-invoice/status'
+      preLoaderRoute: typeof AuthenticatedSalesTaxInvoiceStatusRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/sales/tax-invoice/issue': {
+      id: '/_authenticated/sales/tax-invoice/issue'
+      path: '/sales/tax-invoice/issue'
+      fullPath: '/sales/tax-invoice/issue'
+      preLoaderRoute: typeof AuthenticatedSalesTaxInvoiceIssueRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/sales/contract/register': {
+      id: '/_authenticated/sales/contract/register'
+      path: '/sales/contract/register'
+      fullPath: '/sales/contract/register'
+      preLoaderRoute: typeof AuthenticatedSalesContractRegisterRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/sales/contract/performance': {
+      id: '/_authenticated/sales/contract/performance'
+      path: '/sales/contract/performance'
+      fullPath: '/sales/contract/performance'
+      preLoaderRoute: typeof AuthenticatedSalesContractPerformanceRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/sales/contract/items': {
+      id: '/_authenticated/sales/contract/items'
+      path: '/sales/contract/items'
+      fullPath: '/sales/contract/items'
+      preLoaderRoute: typeof AuthenticatedSalesContractItemsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/pm/activity/view': {
+      id: '/_authenticated/pm/activity/view'
+      path: '/pm/activity/view'
+      fullPath: '/pm/activity/view'
+      preLoaderRoute: typeof AuthenticatedPmActivityViewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/pm/activity/register': {
+      id: '/_authenticated/pm/activity/register'
+      path: '/pm/activity/register'
+      fullPath: '/pm/activity/register'
+      preLoaderRoute: typeof AuthenticatedPmActivityRegisterRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -596,6 +736,13 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
   AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
   AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
+  AuthenticatedPmActivityRegisterRoute: typeof AuthenticatedPmActivityRegisterRoute
+  AuthenticatedPmActivityViewRoute: typeof AuthenticatedPmActivityViewRoute
+  AuthenticatedSalesContractItemsRoute: typeof AuthenticatedSalesContractItemsRoute
+  AuthenticatedSalesContractPerformanceRoute: typeof AuthenticatedSalesContractPerformanceRoute
+  AuthenticatedSalesContractRegisterRoute: typeof AuthenticatedSalesContractRegisterRoute
+  AuthenticatedSalesTaxInvoiceIssueRoute: typeof AuthenticatedSalesTaxInvoiceIssueRoute
+  AuthenticatedSalesTaxInvoiceStatusRoute: typeof AuthenticatedSalesTaxInvoiceStatusRoute
   AuthenticatedHrDepartmentsIndexRoute: typeof AuthenticatedHrDepartmentsIndexRoute
   AuthenticatedHrEmployeesIndexRoute: typeof AuthenticatedHrEmployeesIndexRoute
 }
@@ -610,6 +757,17 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
   AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
   AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
+  AuthenticatedPmActivityRegisterRoute: AuthenticatedPmActivityRegisterRoute,
+  AuthenticatedPmActivityViewRoute: AuthenticatedPmActivityViewRoute,
+  AuthenticatedSalesContractItemsRoute: AuthenticatedSalesContractItemsRoute,
+  AuthenticatedSalesContractPerformanceRoute:
+    AuthenticatedSalesContractPerformanceRoute,
+  AuthenticatedSalesContractRegisterRoute:
+    AuthenticatedSalesContractRegisterRoute,
+  AuthenticatedSalesTaxInvoiceIssueRoute:
+    AuthenticatedSalesTaxInvoiceIssueRoute,
+  AuthenticatedSalesTaxInvoiceStatusRoute:
+    AuthenticatedSalesTaxInvoiceStatusRoute,
   AuthenticatedHrDepartmentsIndexRoute: AuthenticatedHrDepartmentsIndexRoute,
   AuthenticatedHrEmployeesIndexRoute: AuthenticatedHrEmployeesIndexRoute,
 }

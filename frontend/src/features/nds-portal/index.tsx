@@ -63,11 +63,31 @@ const schedule = [
 ]
 
 const notices = [
-  { no: 7, title: '연말정산 자료입력 안내 매뉴얼', writer: '정한균', date: '2023-02-02' },
-  { no: 6, title: '직무성과급인사제도(PMS) 매뉴얼 V1.0', writer: '남택윤', date: '2022-11-29' },
-  { no: 5, title: '크롬/엣지브라우저 외부 로그인 비정상 해결', writer: '김남호', date: '2022-08-11' },
+  {
+    no: 7,
+    title: '연말정산 자료입력 안내 매뉴얼',
+    writer: '정한균',
+    date: '2023-02-02',
+  },
+  {
+    no: 6,
+    title: '직무성과급인사제도(PMS) 매뉴얼 V1.0',
+    writer: '남택윤',
+    date: '2022-11-29',
+  },
+  {
+    no: 5,
+    title: '크롬/엣지브라우저 외부 로그인 비정상 해결',
+    writer: '김남호',
+    date: '2022-08-11',
+  },
   { no: 3, title: 'NDS PC 셋팅 안내', writer: '김남호', date: '2022-05-24' },
-  { no: 2, title: 'NEBIS 시스템 안내 (경영지원본부, 서무직 해당)', writer: '김남호', date: '2022-05-24' },
+  {
+    no: 2,
+    title: 'NEBIS 시스템 안내 (경영지원본부, 서무직 해당)',
+    writer: '김남호',
+    date: '2022-05-24',
+  },
   { no: 1, title: 'NDSERP 시스템 오픈', writer: '김남호', date: '2022-05-24' },
 ]
 
@@ -242,7 +262,9 @@ export function NdsPortal() {
             <CardContent className='space-y-2.5'>
               {notices.map((n) => (
                 <div key={n.no} className='flex items-center gap-2 text-sm'>
-                  <span className='w-4 shrink-0 text-muted-foreground'>{n.no}</span>
+                  <span className='w-4 shrink-0 text-muted-foreground'>
+                    {n.no}
+                  </span>
                   <span className='flex-1 truncate'>{n.title}</span>
                   <span className='shrink-0 text-xs text-muted-foreground'>
                     {n.writer}
@@ -257,7 +279,8 @@ export function NdsPortal() {
         </div>
 
         <p className='text-center text-xs text-muted-foreground'>
-          거래처 {custCount}건 · NDS ERP 메인 (React 이관) — 퀵메뉴 [거래처등록]에서 실제 화면으로 이동합니다.
+          거래처 {custCount}건 · NDS ERP 메인 (React 이관) — 퀵메뉴
+          [거래처등록]에서 실제 화면으로 이동합니다.
         </p>
       </Main>
     </>
