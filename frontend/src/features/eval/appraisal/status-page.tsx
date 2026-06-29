@@ -17,11 +17,7 @@ import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { SelectDropdown } from '@/components/select-dropdown'
 import { ThemeSwitch } from '@/components/theme-switch'
-import {
-  useAppraisals,
-  APPRAISAL_STATUS,
-  type AppraisalStatus,
-} from './api'
+import { useAppraisals, APPRAISAL_STATUS, type AppraisalStatus } from './api'
 
 const STATUS_ITEMS = (
   Object.entries(APPRAISAL_STATUS) as [AppraisalStatus, string][]
@@ -82,7 +78,9 @@ export function EvalStatusPage() {
     groups.push({ ...row, avgSecond: avg })
   }
   groups.sort((a, b) =>
-    a.period === b.period ? a.status.localeCompare(b.status) : b.period.localeCompare(a.period)
+    a.period === b.period
+      ? a.status.localeCompare(b.status)
+      : b.period.localeCompare(a.period)
   )
 
   const totalCount = groups.reduce((s, g) => s + g.count, 0)

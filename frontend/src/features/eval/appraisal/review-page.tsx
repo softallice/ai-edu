@@ -38,7 +38,10 @@ import {
   type AppraisalStatus,
 } from './api'
 
-const GRADE_ITEMS = ['S', 'A', 'B', 'C', 'D'].map((g) => ({ label: g, value: g }))
+const GRADE_ITEMS = ['S', 'A', 'B', 'C', 'D'].map((g) => ({
+  label: g,
+  value: g,
+}))
 
 const EMPTY: AppraisalInput = {
   employeeId: 0,
@@ -58,7 +61,9 @@ const STATUS_ITEMS = (
 
 export function ReviewAppraisalPage() {
   const [keyword, setKeyword] = useState('')
-  const { data: rows, isLoading } = useAppraisals({ keyword: keyword || undefined })
+  const { data: rows, isLoading } = useAppraisals({
+    keyword: keyword || undefined,
+  })
   const { data: employees } = useEmployees()
   const save = useSaveAppraisal()
   const remove = useDeleteAppraisal()
@@ -133,7 +138,9 @@ export function ReviewAppraisalPage() {
       <Main className='flex flex-1 flex-col gap-4'>
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>업적평가(1차/2차)</h2>
+            <h2 className='text-2xl font-bold tracking-tight'>
+              업적평가(1차/2차)
+            </h2>
             <p className='text-muted-foreground'>
               06.평가 / 업적평가 — 1차/2차 평가
             </p>
@@ -185,9 +192,15 @@ export function ReviewAppraisalPage() {
                     <TableCell className='font-medium'>{a.code}</TableCell>
                     <TableCell>{a.employeeName}</TableCell>
                     <TableCell>{a.period}</TableCell>
-                    <TableCell className='text-end'>{a.selfScore ?? '-'}</TableCell>
-                    <TableCell className='text-end'>{a.firstScore ?? '-'}</TableCell>
-                    <TableCell className='text-end'>{a.secondScore ?? '-'}</TableCell>
+                    <TableCell className='text-end'>
+                      {a.selfScore ?? '-'}
+                    </TableCell>
+                    <TableCell className='text-end'>
+                      {a.firstScore ?? '-'}
+                    </TableCell>
+                    <TableCell className='text-end'>
+                      {a.secondScore ?? '-'}
+                    </TableCell>
                     <TableCell>{a.grade ?? '-'}</TableCell>
                     <TableCell>
                       <Badge variant='outline'>
@@ -246,7 +259,10 @@ export function ReviewAppraisalPage() {
                 type='number'
                 value={form.firstScore ?? ''}
                 onChange={(e) =>
-                  set('firstScore', e.target.value ? Number(e.target.value) : null)
+                  set(
+                    'firstScore',
+                    e.target.value ? Number(e.target.value) : null
+                  )
                 }
                 placeholder='1차 점수 (선택)'
               />
@@ -256,7 +272,10 @@ export function ReviewAppraisalPage() {
                 type='number'
                 value={form.secondScore ?? ''}
                 onChange={(e) =>
-                  set('secondScore', e.target.value ? Number(e.target.value) : null)
+                  set(
+                    'secondScore',
+                    e.target.value ? Number(e.target.value) : null
+                  )
                 }
                 placeholder='2차 점수 (선택)'
               />

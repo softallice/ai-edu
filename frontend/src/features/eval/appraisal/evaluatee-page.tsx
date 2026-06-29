@@ -111,7 +111,9 @@ export function EvaluateePage() {
               ) : (
                 evaluatees.map((e) => (
                   <TableRow key={e.employeeId}>
-                    <TableCell className='font-medium'>{e.employeeName}</TableCell>
+                    <TableCell className='font-medium'>
+                      {e.employeeName}
+                    </TableCell>
                     <TableCell>{e.departmentName ?? '-'}</TableCell>
                     <TableCell className='text-end'>
                       {e.latest.selfScore ?? '-'}

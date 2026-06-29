@@ -56,7 +56,9 @@ const STATUS_ITEMS = (
 
 export function SelfAppraisalPage() {
   const [keyword, setKeyword] = useState('')
-  const { data: rows, isLoading } = useAppraisals({ keyword: keyword || undefined })
+  const { data: rows, isLoading } = useAppraisals({
+    keyword: keyword || undefined,
+  })
   const { data: employees } = useEmployees()
   const save = useSaveAppraisal()
   const remove = useDeleteAppraisal()
@@ -215,7 +217,9 @@ export function SelfAppraisalPage() {
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent className='flex flex-col'>
           <SheetHeader>
-            <SheetTitle>{editId ? '본인평가 수정' : '본인평가 등록'}</SheetTitle>
+            <SheetTitle>
+              {editId ? '본인평가 수정' : '본인평가 등록'}
+            </SheetTitle>
           </SheetHeader>
           <div className='flex-1 space-y-4 overflow-y-auto px-4'>
             <Field label='피평가자'>
@@ -238,7 +242,10 @@ export function SelfAppraisalPage() {
                 type='number'
                 value={form.selfScore ?? ''}
                 onChange={(e) =>
-                  set('selfScore', e.target.value ? Number(e.target.value) : null)
+                  set(
+                    'selfScore',
+                    e.target.value ? Number(e.target.value) : null
+                  )
                 }
                 placeholder='점수 입력 (선택)'
               />
