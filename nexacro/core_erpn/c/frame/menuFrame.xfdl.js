@@ -38,8 +38,14 @@
             };
             this.grd_Menu_oncellclick = function(obj, e)
             {
+                var lvl = this.ds_Menu.getColumn(e.row, "MENU_LEVL");
                 var path = this.ds_Menu.getColumn(e.row, "PROG_PATH");
-                if (path != null && path != "") { nexacro.getApplication().gfn_openWork(path); }
+                if (lvl == "0") { return; }
+                if (path != null && path != "") {
+                    nexacro.getApplication().gfn_openWork(path);
+                } else {
+                    alert("준비중인 화면입니다. (이관 예정 프로그램)");
+                }
             };
         });
         this.on_initEvent = function()

@@ -56,10 +56,10 @@
             hmain.addChild(menu.name, menu);
             menu.set_formurl("frame::menuFrame.xfdl");
 
-            var work = new ChildFrame("WORKFRAME", null, null, null, null, null, null, "po::POVM0001.xfdl", hmain);
+            var work = new ChildFrame("WORKFRAME", null, null, null, null, null, null, "common::comMain.xfdl", hmain);
             work.set_showtitlebar("false");
             hmain.addChild(work.name, work);
-            work.set_formurl("po::POVM0001.xfdl");
+            work.set_formurl("common::comMain.xfdl");
 
             // 초기: 로그인 프레임만 표시
             vset.set_separatesize("*,0,0");
@@ -76,7 +76,7 @@
             // 숨겨져 있던 메인 프레임을 표시한 뒤 formurl 을 재설정해 폼 로드(+onload 트랜잭션)를 강제
             vf.TOPFRAME.set_formurl("frame::topFrame.xfdl");
             vf.HMAIN.MENUFRAME.set_formurl("frame::menuFrame.xfdl");
-            vf.HMAIN.WORKFRAME.set_formurl("po::POVM0001.xfdl");
+            vf.HMAIN.WORKFRAME.set_formurl("common::comMain.xfdl");
         };
 
         // 메뉴 클릭 → 작업영역 폼 교체 (this = application)
