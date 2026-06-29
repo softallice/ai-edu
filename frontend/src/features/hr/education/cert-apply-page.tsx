@@ -28,60 +28,57 @@ import { Search } from '@/components/search'
 import { SelectDropdown } from '@/components/select-dropdown'
 import { ThemeSwitch } from '@/components/theme-switch'
 import {
-  useLeaveRequests,
-  useSaveLeaveRequest,
+  useEducationRequests,
+  useSaveEducationRequest,
+  useDeleteEducationRequest,
   useEmployees,
-  LEAVE_TYPE,
-  LEAVE_STATUS,
-  LEAVE_TYPES,
-  type LeaveRequest,
-  type LeaveRequestInput,
-  type LeaveRequestType,
-  type LeaveRequestStatus,
+  EDU_STATUS,
+  won,
+  type EducationRequest,
+  type EducationRequestInput,
+  type EducationStatus,
 } from './api'
 
-const EMPTY: LeaveRequestInput = {
+const EMPTY: EducationRequestInput = {
   employeeId: 0,
-  requestType: 'ANNUAL',
+  eduType: 'CERT',
+  title: '',
+  institution: '',
   startDate: '',
   endDate: '',
-  days: null,
-  hours: null,
-  reason: '',
+  cost: 0,
   status: 'REQUESTED',
+  result: '',
   note: '',
 }
 
-const TYPE_ITEMS = LEAVE_TYPES.map((v) => ({ label: LEAVE_TYPE[v], value: v }))
-
 const STATUS_ITEMS = (
-  Object.entries(LEAVE_STATUS) as [LeaveRequestStatus, string][]
+  Object.entries(EDU_STATUS) as [EducationStatus, string][]
 ).map(([value, label]) => ({ label, value }))
 
-export function LeaveApplyPage() {
+export function CertApplyPage() {
   const [filterEmpId, setFilterEmpId] = useState<number | undefined>(undefined)
 
-  const { data: allRows, isLoading } = useLeaveRequests({
+  const { data: allRows, isLoading } = useEducationRequests({
+    eduType: 'CERT',
     employeeId: filterEmpId,
   })
   const { data: employees } = useEmployees()
-  const save = useSaveLeaveRequest()
+  const save = useSaveEducationRequest()
+  const del = useDeleteEducationRequest()
 
-  // 휴가류만 필터
-  const rows = (allRows ?? []).filter((r) =>
-    LEAVE_TYPES.includes(r.requestType as LeaveRequestType)
-  )
+  const rows = allRows ?? []
 
   const [open, setOpen] = useState(false)
   const [editId, setEditId] = useState<number | undefined>(undefined)
-  const [form, setForm] = useState<LeaveRequestInput>(EMPTY)
+  const [form, setForm] = useState<EducationRequestInput>(EMPTY)
 
   const empItems = (employees ?? []).map((e) => ({
     label: `${e.name} (${e.employeeNo})`,
     value: String(e.id),
   }))
 
-  const set = (k: keyof LeaveRequestInput, v: unknown) =>
+  const set = (k: keyof EducationRequestInput, v: unknown) =>
     setForm((f) => ({ ...f, [k]: v }))
 
   const openCreate = () => {
@@ -93,52 +90,43 @@ export function LeaveApplyPage() {
     setOpen(true)
   }
 
-  const openEdit = (lr: LeaveRequest) => {
-    setEditId(lr.id)
+  const openEdit = (er: EducationRequest) => {
+    setEditId(er.id)
     setForm({
-      employeeId: lr.employeeId,
-      requestType: lr.requestType,
-      startDate: lr.startDate,
-      endDate: lr.endDate,
-      days: lr.days,
-      hours: lr.hours,
-      reason: lr.reason ?? '',
-      status: lr.status,
-      note: lr.note ?? '',
+      employeeId: er.employeeId,
+      eduType: 'CERT',
+      title: er.title,
+      institution: er.institution ?? '',
+      startDate: er.startDate ?? '',
+      endDate: er.endDate ?? '',
+      cost: er.cost,
+      status: er.status,
+      result: er.result ?? '',
+      note: er.note ?? '',
     })
     setOpen(true)
   }
 
-  const onCancel = (lr: LeaveRequest) => {
-    if (!confirm(`[${lr.code}] 신청을 취소하시겠습니까?`)) return
-    const body: LeaveRequestInput = {
-      employeeId: lr.employeeId,
-      requestType: lr.requestType,
-      startDate: lr.startDate,
-      endDate: lr.endDate,
-      days: lr.days,
-      hours: lr.hours,
-      reason: lr.reason ?? null,
-      status: 'CANCELED',
-      note: lr.note ?? null,
-    }
-    save.mutate(
-      { id: lr.id, body },
-      {
-        onSuccess: () => toast.success('신청을 취소했습니다.'),
-        onError: () => toast.error('취소에 실패했습니다.'),
-      }
-    )
+  const onDelete = (er: EducationRequest) => {
+    if (!confirm(`[${er.code}] 신청을 삭제하시겠습니까?`)) return
+    del.mutate(er.id, {
+      onSuccess: () => toast.success('삭제했습니다.'),
+      onError: () => toast.error('삭제에 실패했습니다.'),
+    })
   }
 
   const submit = () => {
-    if (!form.employeeId || !form.startDate || !form.endDate) {
-      toast.error('직원, 시작일, 종료일은 필수입니다.')
+    if (!form.employeeId || !form.title) {
+      toast.error('직원과 자격명은 필수입니다.')
       return
     }
-    const body: LeaveRequestInput = {
+    const body: EducationRequestInput = {
       ...form,
-      reason: form.reason || null,
+      eduType: 'CERT',
+      institution: form.institution || null,
+      startDate: form.startDate || null,
+      endDate: form.endDate || null,
+      result: form.result || null,
       note: form.note || null,
     }
     save.mutate(
@@ -164,8 +152,12 @@ export function LeaveApplyPage() {
       <Main className='flex flex-1 flex-col gap-4'>
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>휴가계신청</h2>
-            <p className='text-muted-foreground'>05.인사 / 근태 — 휴가신청</p>
+            <h2 className='text-2xl font-bold tracking-tight'>
+              비즈니스자격신청
+            </h2>
+            <p className='text-muted-foreground'>
+              05.인사 / 교육관리 — 비즈니스자격신청
+            </p>
           </div>
           <div className='flex items-end gap-2'>
             <SelectDropdown
@@ -189,65 +181,63 @@ export function LeaveApplyPage() {
               <TableRow>
                 <TableHead className='w-36'>신청번호</TableHead>
                 <TableHead>직원</TableHead>
-                <TableHead className='w-20'>종류</TableHead>
+                <TableHead>자격명</TableHead>
+                <TableHead className='w-40'>주관기관</TableHead>
                 <TableHead className='w-52'>기간</TableHead>
-                <TableHead className='w-20 text-end'>일수</TableHead>
+                <TableHead className='w-28 text-end'>응시비(원)</TableHead>
                 <TableHead className='w-20'>상태</TableHead>
+                <TableHead className='w-40'>결과</TableHead>
                 <TableHead className='w-28 text-end'>관리</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {isLoading ? (
                 <TableRow>
-                  <TableCell colSpan={7} className='h-24 text-center'>
+                  <TableCell colSpan={9} className='h-24 text-center'>
                     불러오는 중…
                   </TableCell>
                 </TableRow>
               ) : rows.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={7} className='h-24 text-center'>
+                  <TableCell colSpan={9} className='h-24 text-center'>
                     결과가 없습니다.
                   </TableCell>
                 </TableRow>
               ) : (
-                rows.map((lr) => (
-                  <TableRow key={lr.id}>
-                    <TableCell className='font-medium'>{lr.code}</TableCell>
+                rows.map((er) => (
+                  <TableRow key={er.id}>
+                    <TableCell className='font-medium'>{er.code}</TableCell>
                     <TableCell>
-                      {lr.employeeName}
-                      {lr.departmentName && (
+                      {er.employeeName}
+                      {er.departmentName && (
                         <span className='ml-1 text-xs text-muted-foreground'>
-                          ({lr.departmentName})
+                          ({er.departmentName})
                         </span>
                       )}
                     </TableCell>
+                    <TableCell>{er.title}</TableCell>
+                    <TableCell>{er.institution ?? '-'}</TableCell>
                     <TableCell>
-                      <Badge variant='outline'>
-                        {LEAVE_TYPE[lr.requestType]}
-                      </Badge>
+                      {er.startDate ?? '-'}
+                      {er.endDate ? ` ~ ${er.endDate}` : ''}
                     </TableCell>
+                    <TableCell className='text-end'>{won(er.cost)}</TableCell>
                     <TableCell>
-                      {lr.startDate} ~ {lr.endDate}
+                      <Badge variant='outline'>{EDU_STATUS[er.status]}</Badge>
                     </TableCell>
-                    <TableCell className='text-end'>
-                      {lr.days != null ? `${lr.days}일` : '-'}
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant='outline'>{LEAVE_STATUS[lr.status]}</Badge>
-                    </TableCell>
+                    <TableCell>{er.result ?? '-'}</TableCell>
                     <TableCell className='text-end'>
                       <Button
                         variant='ghost'
                         size='icon'
-                        onClick={() => openEdit(lr)}
+                        onClick={() => openEdit(er)}
                       >
                         <Pencil size={15} />
                       </Button>
                       <Button
                         variant='ghost'
                         size='icon'
-                        onClick={() => onCancel(lr)}
-                        disabled={lr.status === 'CANCELED'}
+                        onClick={() => onDelete(er)}
                       >
                         <Trash2 size={15} />
                       </Button>
@@ -263,7 +253,7 @@ export function LeaveApplyPage() {
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent className='flex flex-col'>
           <SheetHeader>
-            <SheetTitle>{editId ? '휴가 수정' : '휴가 신청'}</SheetTitle>
+            <SheetTitle>{editId ? '자격 수정' : '자격 신청'}</SheetTitle>
           </SheetHeader>
           <div className='flex-1 space-y-4 overflow-y-auto px-4'>
             <Field label='직원'>
@@ -274,45 +264,43 @@ export function LeaveApplyPage() {
                 items={empItems}
               />
             </Field>
-            <Field label='휴가 종류'>
-              <SelectDropdown
-                defaultValue={form.requestType}
-                onValueChange={(v) => set('requestType', v)}
-                placeholder='종류 선택'
-                items={TYPE_ITEMS}
+            <Field label='자격명'>
+              <Input
+                value={form.title}
+                onChange={(e) => set('title', e.target.value)}
+                maxLength={200}
+                placeholder='자격증명을 입력하세요'
               />
             </Field>
-            <Field label='시작일'>
+            <Field label='주관기관'>
+              <Input
+                value={form.institution ?? ''}
+                onChange={(e) => set('institution', e.target.value)}
+                maxLength={200}
+              />
+            </Field>
+            <Field label='시험일'>
               <Input
                 type='date'
-                value={form.startDate}
+                value={form.startDate ?? ''}
                 onChange={(e) => set('startDate', e.target.value)}
               />
             </Field>
-            <Field label='종료일'>
+            <Field label='결과발표일'>
               <Input
                 type='date'
-                value={form.endDate}
+                value={form.endDate ?? ''}
                 onChange={(e) => set('endDate', e.target.value)}
               />
             </Field>
-            <Field label='일수'>
+            <Field label='응시비(원)'>
               <Input
                 type='number'
-                step='0.5'
-                min='0.5'
-                value={form.days ?? ''}
+                min='0'
+                value={form.cost ?? 0}
                 onChange={(e) =>
-                  set('days', e.target.value ? Number(e.target.value) : null)
+                  set('cost', e.target.value ? Number(e.target.value) : 0)
                 }
-                placeholder='예: 1, 0.5'
-              />
-            </Field>
-            <Field label='사유'>
-              <Input
-                value={form.reason ?? ''}
-                onChange={(e) => set('reason', e.target.value)}
-                maxLength={300}
               />
             </Field>
             <Field label='상태'>
@@ -321,6 +309,14 @@ export function LeaveApplyPage() {
                 onValueChange={(v) => set('status', v)}
                 placeholder='상태'
                 items={STATUS_ITEMS}
+              />
+            </Field>
+            <Field label='결과'>
+              <Input
+                value={form.result ?? ''}
+                onChange={(e) => set('result', e.target.value)}
+                maxLength={200}
+                placeholder='예: 합격, 불합격'
               />
             </Field>
             <Field label='비고'>

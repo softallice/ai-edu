@@ -28,117 +28,94 @@ import { Search } from '@/components/search'
 import { SelectDropdown } from '@/components/select-dropdown'
 import { ThemeSwitch } from '@/components/theme-switch'
 import {
-  useLeaveRequests,
-  useSaveLeaveRequest,
+  usePayslips,
+  useSavePayslip,
+  useDeletePayslip,
   useEmployees,
-  LEAVE_TYPE,
-  LEAVE_STATUS,
-  LEAVE_TYPES,
-  type LeaveRequest,
-  type LeaveRequestInput,
-  type LeaveRequestType,
-  type LeaveRequestStatus,
+  PAYSLIP_STATUS,
+  won,
+  type Payslip,
+  type PayslipInput,
+  type PayslipStatus,
 } from './api'
 
-const EMPTY: LeaveRequestInput = {
+const EMPTY: PayslipInput = {
   employeeId: 0,
-  requestType: 'ANNUAL',
-  startDate: '',
-  endDate: '',
-  days: null,
-  hours: null,
-  reason: '',
-  status: 'REQUESTED',
+  payMonth: '',
+  baseSalary: null,
+  allowance: null,
+  bonus: null,
+  deduction: null,
+  status: 'DRAFT',
   note: '',
 }
 
-const TYPE_ITEMS = LEAVE_TYPES.map((v) => ({ label: LEAVE_TYPE[v], value: v }))
-
 const STATUS_ITEMS = (
-  Object.entries(LEAVE_STATUS) as [LeaveRequestStatus, string][]
+  Object.entries(PAYSLIP_STATUS) as [PayslipStatus, string][]
 ).map(([value, label]) => ({ label, value }))
 
-export function LeaveApplyPage() {
+export function PayslipPage() {
   const [filterEmpId, setFilterEmpId] = useState<number | undefined>(undefined)
 
-  const { data: allRows, isLoading } = useLeaveRequests({
-    employeeId: filterEmpId,
-  })
+  const { data: rows, isLoading } = usePayslips({ employeeId: filterEmpId })
   const { data: employees } = useEmployees()
-  const save = useSaveLeaveRequest()
-
-  // 휴가류만 필터
-  const rows = (allRows ?? []).filter((r) =>
-    LEAVE_TYPES.includes(r.requestType as LeaveRequestType)
-  )
+  const save = useSavePayslip()
+  const del = useDeletePayslip()
 
   const [open, setOpen] = useState(false)
   const [editId, setEditId] = useState<number | undefined>(undefined)
-  const [form, setForm] = useState<LeaveRequestInput>(EMPTY)
+  const [form, setForm] = useState<PayslipInput>(EMPTY)
 
   const empItems = (employees ?? []).map((e) => ({
     label: `${e.name} (${e.employeeNo})`,
     value: String(e.id),
   }))
 
-  const set = (k: keyof LeaveRequestInput, v: unknown) =>
+  const set = (k: keyof PayslipInput, v: unknown) =>
     setForm((f) => ({ ...f, [k]: v }))
 
   const openCreate = () => {
     setEditId(undefined)
+    setForm({ ...EMPTY, employeeId: employees?.[0]?.id ?? 0 })
+    setOpen(true)
+  }
+
+  const openEdit = (p: Payslip) => {
+    setEditId(p.id)
     setForm({
-      ...EMPTY,
-      employeeId: employees?.[0]?.id ?? 0,
+      employeeId: p.employeeId,
+      payMonth: p.payMonth,
+      baseSalary: p.baseSalary,
+      allowance: p.allowance,
+      bonus: p.bonus,
+      deduction: p.deduction,
+      status: p.status,
+      note: p.note ?? '',
     })
     setOpen(true)
   }
 
-  const openEdit = (lr: LeaveRequest) => {
-    setEditId(lr.id)
-    setForm({
-      employeeId: lr.employeeId,
-      requestType: lr.requestType,
-      startDate: lr.startDate,
-      endDate: lr.endDate,
-      days: lr.days,
-      hours: lr.hours,
-      reason: lr.reason ?? '',
-      status: lr.status,
-      note: lr.note ?? '',
+  const onDelete = (p: Payslip) => {
+    if (!confirm(`[${p.code}] 급여명세를 삭제하시겠습니까?`)) return
+    del.mutate(p.id, {
+      onSuccess: () => toast.success('삭제했습니다.'),
+      onError: () => toast.error('삭제에 실패했습니다.'),
     })
-    setOpen(true)
   }
 
-  const onCancel = (lr: LeaveRequest) => {
-    if (!confirm(`[${lr.code}] 신청을 취소하시겠습니까?`)) return
-    const body: LeaveRequestInput = {
-      employeeId: lr.employeeId,
-      requestType: lr.requestType,
-      startDate: lr.startDate,
-      endDate: lr.endDate,
-      days: lr.days,
-      hours: lr.hours,
-      reason: lr.reason ?? null,
-      status: 'CANCELED',
-      note: lr.note ?? null,
-    }
-    save.mutate(
-      { id: lr.id, body },
-      {
-        onSuccess: () => toast.success('신청을 취소했습니다.'),
-        onError: () => toast.error('취소에 실패했습니다.'),
-      }
-    )
-  }
+  const netPreview =
+    (form.baseSalary ?? 0) +
+    (form.allowance ?? 0) +
+    (form.bonus ?? 0) -
+    (form.deduction ?? 0)
 
   const submit = () => {
-    if (!form.employeeId || !form.startDate || !form.endDate) {
-      toast.error('직원, 시작일, 종료일은 필수입니다.')
+    if (!form.employeeId || !form.payMonth) {
+      toast.error('직원과 귀속월은 필수입니다.')
       return
     }
-    const body: LeaveRequestInput = {
+    const body: PayslipInput = {
       ...form,
-      reason: form.reason || null,
       note: form.note || null,
     }
     save.mutate(
@@ -164,8 +141,10 @@ export function LeaveApplyPage() {
       <Main className='flex flex-1 flex-col gap-4'>
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>휴가계신청</h2>
-            <p className='text-muted-foreground'>05.인사 / 근태 — 휴가신청</p>
+            <h2 className='text-2xl font-bold tracking-tight'>급여명세표</h2>
+            <p className='text-muted-foreground'>
+              05.인사 / 급여 — 급여명세 관리
+            </p>
           </div>
           <div className='flex items-end gap-2'>
             <SelectDropdown
@@ -178,7 +157,7 @@ export function LeaveApplyPage() {
               className='w-44'
             />
             <Button onClick={openCreate}>
-              <Plus size={16} /> 신청 등록
+              <Plus size={16} /> 명세 등록
             </Button>
           </div>
         </div>
@@ -187,67 +166,74 @@ export function LeaveApplyPage() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className='w-36'>신청번호</TableHead>
+                <TableHead className='w-36'>코드</TableHead>
                 <TableHead>직원</TableHead>
-                <TableHead className='w-20'>종류</TableHead>
-                <TableHead className='w-52'>기간</TableHead>
-                <TableHead className='w-20 text-end'>일수</TableHead>
+                <TableHead className='w-24'>귀속월</TableHead>
+                <TableHead className='w-28 text-end'>기본급</TableHead>
+                <TableHead className='w-24 text-end'>수당</TableHead>
+                <TableHead className='w-24 text-end'>상여</TableHead>
+                <TableHead className='w-24 text-end'>공제</TableHead>
+                <TableHead className='w-28 text-end'>실지급액</TableHead>
                 <TableHead className='w-20'>상태</TableHead>
-                <TableHead className='w-28 text-end'>관리</TableHead>
+                <TableHead className='w-24 text-end'>관리</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {isLoading ? (
                 <TableRow>
-                  <TableCell colSpan={7} className='h-24 text-center'>
+                  <TableCell colSpan={10} className='h-24 text-center'>
                     불러오는 중…
                   </TableCell>
                 </TableRow>
-              ) : rows.length === 0 ? (
+              ) : (rows ?? []).length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={7} className='h-24 text-center'>
+                  <TableCell colSpan={10} className='h-24 text-center'>
                     결과가 없습니다.
                   </TableCell>
                 </TableRow>
               ) : (
-                rows.map((lr) => (
-                  <TableRow key={lr.id}>
-                    <TableCell className='font-medium'>{lr.code}</TableCell>
+                (rows ?? []).map((p) => (
+                  <TableRow key={p.id}>
+                    <TableCell className='font-medium'>{p.code}</TableCell>
                     <TableCell>
-                      {lr.employeeName}
-                      {lr.departmentName && (
+                      {p.employeeName}
+                      {p.departmentName && (
                         <span className='ml-1 text-xs text-muted-foreground'>
-                          ({lr.departmentName})
+                          ({p.departmentName})
                         </span>
                       )}
                     </TableCell>
-                    <TableCell>
-                      <Badge variant='outline'>
-                        {LEAVE_TYPE[lr.requestType]}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      {lr.startDate} ~ {lr.endDate}
+                    <TableCell>{p.payMonth}</TableCell>
+                    <TableCell className='text-end'>
+                      {won(p.baseSalary)}
                     </TableCell>
                     <TableCell className='text-end'>
-                      {lr.days != null ? `${lr.days}일` : '-'}
+                      {won(p.allowance)}
+                    </TableCell>
+                    <TableCell className='text-end'>{won(p.bonus)}</TableCell>
+                    <TableCell className='text-end'>
+                      {won(p.deduction)}
+                    </TableCell>
+                    <TableCell className='text-end font-semibold'>
+                      {won(p.netPay)}
                     </TableCell>
                     <TableCell>
-                      <Badge variant='outline'>{LEAVE_STATUS[lr.status]}</Badge>
+                      <Badge variant='outline'>
+                        {PAYSLIP_STATUS[p.status]}
+                      </Badge>
                     </TableCell>
                     <TableCell className='text-end'>
                       <Button
                         variant='ghost'
                         size='icon'
-                        onClick={() => openEdit(lr)}
+                        onClick={() => openEdit(p)}
                       >
                         <Pencil size={15} />
                       </Button>
                       <Button
                         variant='ghost'
                         size='icon'
-                        onClick={() => onCancel(lr)}
-                        disabled={lr.status === 'CANCELED'}
+                        onClick={() => onDelete(p)}
                       >
                         <Trash2 size={15} />
                       </Button>
@@ -263,10 +249,12 @@ export function LeaveApplyPage() {
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent className='flex flex-col'>
           <SheetHeader>
-            <SheetTitle>{editId ? '휴가 수정' : '휴가 신청'}</SheetTitle>
+            <SheetTitle>
+              {editId ? '급여명세 수정' : '급여명세 등록'}
+            </SheetTitle>
           </SheetHeader>
           <div className='flex-1 space-y-4 overflow-y-auto px-4'>
-            <Field label='직원'>
+            <Field label='직원 *'>
               <SelectDropdown
                 defaultValue={form.employeeId ? String(form.employeeId) : ''}
                 onValueChange={(v) => set('employeeId', v ? Number(v) : 0)}
@@ -274,47 +262,74 @@ export function LeaveApplyPage() {
                 items={empItems}
               />
             </Field>
-            <Field label='휴가 종류'>
-              <SelectDropdown
-                defaultValue={form.requestType}
-                onValueChange={(v) => set('requestType', v)}
-                placeholder='종류 선택'
-                items={TYPE_ITEMS}
-              />
-            </Field>
-            <Field label='시작일'>
+            <Field label='귀속월 * (YYYY-MM)'>
               <Input
-                type='date'
-                value={form.startDate}
-                onChange={(e) => set('startDate', e.target.value)}
+                type='month'
+                value={form.payMonth}
+                onChange={(e) => set('payMonth', e.target.value)}
               />
             </Field>
-            <Field label='종료일'>
-              <Input
-                type='date'
-                value={form.endDate}
-                onChange={(e) => set('endDate', e.target.value)}
-              />
-            </Field>
-            <Field label='일수'>
+            <Field label='기본급'>
               <Input
                 type='number'
-                step='0.5'
-                min='0.5'
-                value={form.days ?? ''}
+                min='0'
+                step='1000'
+                value={form.baseSalary ?? ''}
                 onChange={(e) =>
-                  set('days', e.target.value ? Number(e.target.value) : null)
+                  set(
+                    'baseSalary',
+                    e.target.value ? Number(e.target.value) : null
+                  )
                 }
-                placeholder='예: 1, 0.5'
+                placeholder='예: 3000000'
               />
             </Field>
-            <Field label='사유'>
+            <Field label='수당'>
               <Input
-                value={form.reason ?? ''}
-                onChange={(e) => set('reason', e.target.value)}
-                maxLength={300}
+                type='number'
+                min='0'
+                step='1000'
+                value={form.allowance ?? ''}
+                onChange={(e) =>
+                  set(
+                    'allowance',
+                    e.target.value ? Number(e.target.value) : null
+                  )
+                }
+                placeholder='예: 200000'
               />
             </Field>
+            <Field label='상여/성과금'>
+              <Input
+                type='number'
+                min='0'
+                step='1000'
+                value={form.bonus ?? ''}
+                onChange={(e) =>
+                  set('bonus', e.target.value ? Number(e.target.value) : null)
+                }
+                placeholder='예: 500000'
+              />
+            </Field>
+            <Field label='공제'>
+              <Input
+                type='number'
+                min='0'
+                step='1000'
+                value={form.deduction ?? ''}
+                onChange={(e) =>
+                  set(
+                    'deduction',
+                    e.target.value ? Number(e.target.value) : null
+                  )
+                }
+                placeholder='예: 400000'
+              />
+            </Field>
+            <div className='rounded-md border bg-muted/40 px-4 py-2 text-sm'>
+              실지급액 미리보기:{' '}
+              <span className='font-semibold'>{won(netPreview)}</span> 원
+            </div>
             <Field label='상태'>
               <SelectDropdown
                 defaultValue={form.status}

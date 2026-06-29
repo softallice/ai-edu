@@ -58,6 +58,14 @@ import { Route as AuthenticatedPmBudgetTeamActualRouteImport } from './routes/_a
 import { Route as AuthenticatedPmBudgetProjectActualRouteImport } from './routes/_authenticated/pm/budget/project-actual'
 import { Route as AuthenticatedPmActivityViewRouteImport } from './routes/_authenticated/pm/activity/view'
 import { Route as AuthenticatedPmActivityRegisterRouteImport } from './routes/_authenticated/pm/activity/register'
+import { Route as AuthenticatedHrPersonalHistoryRouteImport } from './routes/_authenticated/hr/personal/history'
+import { Route as AuthenticatedHrPersonalEducationRouteImport } from './routes/_authenticated/hr/personal/education'
+import { Route as AuthenticatedHrPayrollPayslipRouteImport } from './routes/_authenticated/hr/payroll/payslip'
+import { Route as AuthenticatedHrPayrollIncentiveStatusRouteImport } from './routes/_authenticated/hr/payroll/incentive-status'
+import { Route as AuthenticatedHrPayrollExpenseStatementRouteImport } from './routes/_authenticated/hr/payroll/expense-statement'
+import { Route as AuthenticatedHrEducationHistoryRouteImport } from './routes/_authenticated/hr/education/history'
+import { Route as AuthenticatedHrEducationExternalApplyRouteImport } from './routes/_authenticated/hr/education/external-apply'
+import { Route as AuthenticatedHrEducationCertApplyRouteImport } from './routes/_authenticated/hr/education/cert-apply'
 import { Route as AuthenticatedHrAttendanceViewRouteImport } from './routes/_authenticated/hr/attendance/view'
 import { Route as AuthenticatedHrAttendanceRegisterRouteImport } from './routes/_authenticated/hr/attendance/register'
 import { Route as AuthenticatedHrAttendanceOvertimeApplyRouteImport } from './routes/_authenticated/hr/attendance/overtime-apply'
@@ -348,6 +356,54 @@ const AuthenticatedPmActivityRegisterRoute =
     path: '/pm/activity/register',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedHrPersonalHistoryRoute =
+  AuthenticatedHrPersonalHistoryRouteImport.update({
+    id: '/hr/personal/history',
+    path: '/hr/personal/history',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedHrPersonalEducationRoute =
+  AuthenticatedHrPersonalEducationRouteImport.update({
+    id: '/hr/personal/education',
+    path: '/hr/personal/education',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedHrPayrollPayslipRoute =
+  AuthenticatedHrPayrollPayslipRouteImport.update({
+    id: '/hr/payroll/payslip',
+    path: '/hr/payroll/payslip',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedHrPayrollIncentiveStatusRoute =
+  AuthenticatedHrPayrollIncentiveStatusRouteImport.update({
+    id: '/hr/payroll/incentive-status',
+    path: '/hr/payroll/incentive-status',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedHrPayrollExpenseStatementRoute =
+  AuthenticatedHrPayrollExpenseStatementRouteImport.update({
+    id: '/hr/payroll/expense-statement',
+    path: '/hr/payroll/expense-statement',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedHrEducationHistoryRoute =
+  AuthenticatedHrEducationHistoryRouteImport.update({
+    id: '/hr/education/history',
+    path: '/hr/education/history',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedHrEducationExternalApplyRoute =
+  AuthenticatedHrEducationExternalApplyRouteImport.update({
+    id: '/hr/education/external-apply',
+    path: '/hr/education/external-apply',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedHrEducationCertApplyRoute =
+  AuthenticatedHrEducationCertApplyRouteImport.update({
+    id: '/hr/education/cert-apply',
+    path: '/hr/education/cert-apply',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedHrAttendanceViewRoute =
   AuthenticatedHrAttendanceViewRouteImport.update({
     id: '/hr/attendance/view',
@@ -463,6 +519,14 @@ export interface FileRoutesByFullPath {
   '/hr/attendance/overtime-apply': typeof AuthenticatedHrAttendanceOvertimeApplyRoute
   '/hr/attendance/register': typeof AuthenticatedHrAttendanceRegisterRoute
   '/hr/attendance/view': typeof AuthenticatedHrAttendanceViewRoute
+  '/hr/education/cert-apply': typeof AuthenticatedHrEducationCertApplyRoute
+  '/hr/education/external-apply': typeof AuthenticatedHrEducationExternalApplyRoute
+  '/hr/education/history': typeof AuthenticatedHrEducationHistoryRoute
+  '/hr/payroll/expense-statement': typeof AuthenticatedHrPayrollExpenseStatementRoute
+  '/hr/payroll/incentive-status': typeof AuthenticatedHrPayrollIncentiveStatusRoute
+  '/hr/payroll/payslip': typeof AuthenticatedHrPayrollPayslipRoute
+  '/hr/personal/education': typeof AuthenticatedHrPersonalEducationRoute
+  '/hr/personal/history': typeof AuthenticatedHrPersonalHistoryRoute
   '/pm/activity/register': typeof AuthenticatedPmActivityRegisterRoute
   '/pm/activity/view': typeof AuthenticatedPmActivityViewRoute
   '/pm/budget/project-actual': typeof AuthenticatedPmBudgetProjectActualRoute
@@ -524,6 +588,14 @@ export interface FileRoutesByTo {
   '/hr/attendance/overtime-apply': typeof AuthenticatedHrAttendanceOvertimeApplyRoute
   '/hr/attendance/register': typeof AuthenticatedHrAttendanceRegisterRoute
   '/hr/attendance/view': typeof AuthenticatedHrAttendanceViewRoute
+  '/hr/education/cert-apply': typeof AuthenticatedHrEducationCertApplyRoute
+  '/hr/education/external-apply': typeof AuthenticatedHrEducationExternalApplyRoute
+  '/hr/education/history': typeof AuthenticatedHrEducationHistoryRoute
+  '/hr/payroll/expense-statement': typeof AuthenticatedHrPayrollExpenseStatementRoute
+  '/hr/payroll/incentive-status': typeof AuthenticatedHrPayrollIncentiveStatusRoute
+  '/hr/payroll/payslip': typeof AuthenticatedHrPayrollPayslipRoute
+  '/hr/personal/education': typeof AuthenticatedHrPersonalEducationRoute
+  '/hr/personal/history': typeof AuthenticatedHrPersonalHistoryRoute
   '/pm/activity/register': typeof AuthenticatedPmActivityRegisterRoute
   '/pm/activity/view': typeof AuthenticatedPmActivityViewRoute
   '/pm/budget/project-actual': typeof AuthenticatedPmBudgetProjectActualRoute
@@ -588,6 +660,14 @@ export interface FileRoutesById {
   '/_authenticated/hr/attendance/overtime-apply': typeof AuthenticatedHrAttendanceOvertimeApplyRoute
   '/_authenticated/hr/attendance/register': typeof AuthenticatedHrAttendanceRegisterRoute
   '/_authenticated/hr/attendance/view': typeof AuthenticatedHrAttendanceViewRoute
+  '/_authenticated/hr/education/cert-apply': typeof AuthenticatedHrEducationCertApplyRoute
+  '/_authenticated/hr/education/external-apply': typeof AuthenticatedHrEducationExternalApplyRoute
+  '/_authenticated/hr/education/history': typeof AuthenticatedHrEducationHistoryRoute
+  '/_authenticated/hr/payroll/expense-statement': typeof AuthenticatedHrPayrollExpenseStatementRoute
+  '/_authenticated/hr/payroll/incentive-status': typeof AuthenticatedHrPayrollIncentiveStatusRoute
+  '/_authenticated/hr/payroll/payslip': typeof AuthenticatedHrPayrollPayslipRoute
+  '/_authenticated/hr/personal/education': typeof AuthenticatedHrPersonalEducationRoute
+  '/_authenticated/hr/personal/history': typeof AuthenticatedHrPersonalHistoryRoute
   '/_authenticated/pm/activity/register': typeof AuthenticatedPmActivityRegisterRoute
   '/_authenticated/pm/activity/view': typeof AuthenticatedPmActivityViewRoute
   '/_authenticated/pm/budget/project-actual': typeof AuthenticatedPmBudgetProjectActualRoute
@@ -652,6 +732,14 @@ export interface FileRouteTypes {
     | '/hr/attendance/overtime-apply'
     | '/hr/attendance/register'
     | '/hr/attendance/view'
+    | '/hr/education/cert-apply'
+    | '/hr/education/external-apply'
+    | '/hr/education/history'
+    | '/hr/payroll/expense-statement'
+    | '/hr/payroll/incentive-status'
+    | '/hr/payroll/payslip'
+    | '/hr/personal/education'
+    | '/hr/personal/history'
     | '/pm/activity/register'
     | '/pm/activity/view'
     | '/pm/budget/project-actual'
@@ -713,6 +801,14 @@ export interface FileRouteTypes {
     | '/hr/attendance/overtime-apply'
     | '/hr/attendance/register'
     | '/hr/attendance/view'
+    | '/hr/education/cert-apply'
+    | '/hr/education/external-apply'
+    | '/hr/education/history'
+    | '/hr/payroll/expense-statement'
+    | '/hr/payroll/incentive-status'
+    | '/hr/payroll/payslip'
+    | '/hr/personal/education'
+    | '/hr/personal/history'
     | '/pm/activity/register'
     | '/pm/activity/view'
     | '/pm/budget/project-actual'
@@ -776,6 +872,14 @@ export interface FileRouteTypes {
     | '/_authenticated/hr/attendance/overtime-apply'
     | '/_authenticated/hr/attendance/register'
     | '/_authenticated/hr/attendance/view'
+    | '/_authenticated/hr/education/cert-apply'
+    | '/_authenticated/hr/education/external-apply'
+    | '/_authenticated/hr/education/history'
+    | '/_authenticated/hr/payroll/expense-statement'
+    | '/_authenticated/hr/payroll/incentive-status'
+    | '/_authenticated/hr/payroll/payslip'
+    | '/_authenticated/hr/personal/education'
+    | '/_authenticated/hr/personal/history'
     | '/_authenticated/pm/activity/register'
     | '/_authenticated/pm/activity/view'
     | '/_authenticated/pm/budget/project-actual'
@@ -1156,6 +1260,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPmActivityRegisterRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/hr/personal/history': {
+      id: '/_authenticated/hr/personal/history'
+      path: '/hr/personal/history'
+      fullPath: '/hr/personal/history'
+      preLoaderRoute: typeof AuthenticatedHrPersonalHistoryRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/hr/personal/education': {
+      id: '/_authenticated/hr/personal/education'
+      path: '/hr/personal/education'
+      fullPath: '/hr/personal/education'
+      preLoaderRoute: typeof AuthenticatedHrPersonalEducationRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/hr/payroll/payslip': {
+      id: '/_authenticated/hr/payroll/payslip'
+      path: '/hr/payroll/payslip'
+      fullPath: '/hr/payroll/payslip'
+      preLoaderRoute: typeof AuthenticatedHrPayrollPayslipRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/hr/payroll/incentive-status': {
+      id: '/_authenticated/hr/payroll/incentive-status'
+      path: '/hr/payroll/incentive-status'
+      fullPath: '/hr/payroll/incentive-status'
+      preLoaderRoute: typeof AuthenticatedHrPayrollIncentiveStatusRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/hr/payroll/expense-statement': {
+      id: '/_authenticated/hr/payroll/expense-statement'
+      path: '/hr/payroll/expense-statement'
+      fullPath: '/hr/payroll/expense-statement'
+      preLoaderRoute: typeof AuthenticatedHrPayrollExpenseStatementRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/hr/education/history': {
+      id: '/_authenticated/hr/education/history'
+      path: '/hr/education/history'
+      fullPath: '/hr/education/history'
+      preLoaderRoute: typeof AuthenticatedHrEducationHistoryRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/hr/education/external-apply': {
+      id: '/_authenticated/hr/education/external-apply'
+      path: '/hr/education/external-apply'
+      fullPath: '/hr/education/external-apply'
+      preLoaderRoute: typeof AuthenticatedHrEducationExternalApplyRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/hr/education/cert-apply': {
+      id: '/_authenticated/hr/education/cert-apply'
+      path: '/hr/education/cert-apply'
+      fullPath: '/hr/education/cert-apply'
+      preLoaderRoute: typeof AuthenticatedHrEducationCertApplyRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/hr/attendance/view': {
       id: '/_authenticated/hr/attendance/view'
       path: '/hr/attendance/view'
@@ -1293,6 +1453,14 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedHrAttendanceOvertimeApplyRoute: typeof AuthenticatedHrAttendanceOvertimeApplyRoute
   AuthenticatedHrAttendanceRegisterRoute: typeof AuthenticatedHrAttendanceRegisterRoute
   AuthenticatedHrAttendanceViewRoute: typeof AuthenticatedHrAttendanceViewRoute
+  AuthenticatedHrEducationCertApplyRoute: typeof AuthenticatedHrEducationCertApplyRoute
+  AuthenticatedHrEducationExternalApplyRoute: typeof AuthenticatedHrEducationExternalApplyRoute
+  AuthenticatedHrEducationHistoryRoute: typeof AuthenticatedHrEducationHistoryRoute
+  AuthenticatedHrPayrollExpenseStatementRoute: typeof AuthenticatedHrPayrollExpenseStatementRoute
+  AuthenticatedHrPayrollIncentiveStatusRoute: typeof AuthenticatedHrPayrollIncentiveStatusRoute
+  AuthenticatedHrPayrollPayslipRoute: typeof AuthenticatedHrPayrollPayslipRoute
+  AuthenticatedHrPersonalEducationRoute: typeof AuthenticatedHrPersonalEducationRoute
+  AuthenticatedHrPersonalHistoryRoute: typeof AuthenticatedHrPersonalHistoryRoute
   AuthenticatedPmActivityRegisterRoute: typeof AuthenticatedPmActivityRegisterRoute
   AuthenticatedPmActivityViewRoute: typeof AuthenticatedPmActivityViewRoute
   AuthenticatedPmBudgetProjectActualRoute: typeof AuthenticatedPmBudgetProjectActualRoute
@@ -1349,6 +1517,18 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedHrAttendanceRegisterRoute:
     AuthenticatedHrAttendanceRegisterRoute,
   AuthenticatedHrAttendanceViewRoute: AuthenticatedHrAttendanceViewRoute,
+  AuthenticatedHrEducationCertApplyRoute:
+    AuthenticatedHrEducationCertApplyRoute,
+  AuthenticatedHrEducationExternalApplyRoute:
+    AuthenticatedHrEducationExternalApplyRoute,
+  AuthenticatedHrEducationHistoryRoute: AuthenticatedHrEducationHistoryRoute,
+  AuthenticatedHrPayrollExpenseStatementRoute:
+    AuthenticatedHrPayrollExpenseStatementRoute,
+  AuthenticatedHrPayrollIncentiveStatusRoute:
+    AuthenticatedHrPayrollIncentiveStatusRoute,
+  AuthenticatedHrPayrollPayslipRoute: AuthenticatedHrPayrollPayslipRoute,
+  AuthenticatedHrPersonalEducationRoute: AuthenticatedHrPersonalEducationRoute,
+  AuthenticatedHrPersonalHistoryRoute: AuthenticatedHrPersonalHistoryRoute,
   AuthenticatedPmActivityRegisterRoute: AuthenticatedPmActivityRegisterRoute,
   AuthenticatedPmActivityViewRoute: AuthenticatedPmActivityViewRoute,
   AuthenticatedPmBudgetProjectActualRoute:

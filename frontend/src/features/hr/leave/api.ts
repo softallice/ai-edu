@@ -9,7 +9,11 @@ export type LeaveRequestType =
   | 'OVERTIME'
   | 'HOLIDAY_WORK'
 
-export type LeaveRequestStatus = 'REQUESTED' | 'APPROVED' | 'REJECTED' | 'CANCELED'
+export type LeaveRequestStatus =
+  | 'REQUESTED'
+  | 'APPROVED'
+  | 'REJECTED'
+  | 'CANCELED'
 
 export type LeaveRequest = {
   id: number
@@ -72,7 +76,12 @@ export const LEAVE_STATUS: Record<LeaveRequestStatus, string> = {
 }
 
 /** 휴가류 유형 */
-export const LEAVE_TYPES: LeaveRequestType[] = ['ANNUAL', 'HALF_DAY', 'SICK', 'SPECIAL']
+export const LEAVE_TYPES: LeaveRequestType[] = [
+  'ANNUAL',
+  'HALF_DAY',
+  'SICK',
+  'SPECIAL',
+]
 /** 근로류 유형 */
 export const WORK_TYPES: LeaveRequestType[] = ['OVERTIME', 'HOLIDAY_WORK']
 
@@ -100,7 +109,13 @@ export function useLeaveRequests(query: LeaveRequestQuery) {
 export function useSaveLeaveRequest() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: async ({ id, body }: { id?: number; body: LeaveRequestInput }) =>
+    mutationFn: async ({
+      id,
+      body,
+    }: {
+      id?: number
+      body: LeaveRequestInput
+    }) =>
       id
         ? (await apiClient.put<LeaveRequest>(`${BASE}/${id}`, body)).data
         : (await apiClient.post<LeaveRequest>(BASE, body)).data,

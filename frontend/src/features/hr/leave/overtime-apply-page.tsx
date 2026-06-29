@@ -164,7 +164,9 @@ export function OvertimeApplyPage() {
       <Main className='flex flex-1 flex-col gap-4'>
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>연장/휴일근로신청</h2>
+            <h2 className='text-2xl font-bold tracking-tight'>
+              연장/휴일근로신청
+            </h2>
             <p className='text-muted-foreground'>
               05.인사 / 근태 — 연장·휴일근로
             </p>
@@ -224,7 +226,9 @@ export function OvertimeApplyPage() {
                       )}
                     </TableCell>
                     <TableCell>
-                      <Badge variant='outline'>{LEAVE_TYPE[lr.requestType]}</Badge>
+                      <Badge variant='outline'>
+                        {LEAVE_TYPE[lr.requestType]}
+                      </Badge>
                     </TableCell>
                     <TableCell>{lr.startDate}</TableCell>
                     <TableCell className='text-end'>

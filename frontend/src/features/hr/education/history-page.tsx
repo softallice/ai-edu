@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import {
   Table,
@@ -17,10 +18,10 @@ import { Search } from '@/components/search'
 import { SelectDropdown } from '@/components/select-dropdown'
 import { ThemeSwitch } from '@/components/theme-switch'
 import {
-  useLeaveRequests,
-  LEAVE_TYPE,
-  WORK_TYPES,
-  type LeaveRequestType,
+  useEducationRequests,
+  EDU_TYPE,
+  won,
+  type EducationType,
 } from './api'
 
 const pad = (n: number) => String(n).padStart(2, '0')
@@ -28,7 +29,7 @@ const ymd = (d: Date) =>
   `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
 
 const TYPE_ITEMS = (
-  Object.entries(LEAVE_TYPE) as [LeaveRequestType, string][]
+  Object.entries(EDU_TYPE) as [EducationType, string][]
 ).map(([value, label]) => ({ label, value }))
 
 type EmpStat = {
@@ -36,22 +37,19 @@ type EmpStat = {
   employeeName: string
   departmentName: string | null
   count: number
-  approvedDays: number
-  overtimeHours: number
+  totalCost: number
 }
 
-export function LeaveStatusPage() {
+export function EduHistoryPage() {
   const now = new Date()
-  const [requestType, setRequestType] = useState<LeaveRequestType | undefined>(
-    undefined
-  )
+  const [eduType, setEduType] = useState<EducationType | undefined>(undefined)
   const [dateFrom, setDateFrom] = useState(
     ymd(new Date(now.getFullYear(), 0, 1))
   )
   const [dateTo, setDateTo] = useState(ymd(new Date(now.getFullYear(), 11, 31)))
 
-  const { data: rows, isLoading } = useLeaveRequests({
-    requestType,
+  const { data: rows, isLoading } = useEducationRequests({
+    eduType,
     dateFrom: dateFrom || undefined,
     dateTo: dateTo || undefined,
   })
@@ -68,30 +66,19 @@ export function LeaveStatusPage() {
         employeeName: r.employeeName,
         departmentName: r.departmentName,
         count: 0,
-        approvedDays: 0,
-        overtimeHours: 0,
+        totalCost: 0,
       }
       statMap.set(r.employeeId, stat)
     }
     stat.count += 1
-    if (r.status === 'APPROVED' && r.days != null) {
-      stat.approvedDays += Number(r.days)
-    }
-    if (
-      r.status === 'APPROVED' &&
-      WORK_TYPES.includes(r.requestType as LeaveRequestType) &&
-      r.hours != null
-    ) {
-      stat.overtimeHours += Number(r.hours)
-    }
+    stat.totalCost += r.cost
   }
   const stats = Array.from(statMap.values()).sort((a, b) =>
     a.employeeName.localeCompare(b.employeeName)
   )
 
   const totalCount = stats.reduce((s, r) => s + r.count, 0)
-  const totalDays = stats.reduce((s, r) => s + r.approvedDays, 0)
-  const totalHours = stats.reduce((s, r) => s + r.overtimeHours, 0)
+  const totalCost = stats.reduce((s, r) => s + r.totalCost, 0)
 
   return (
     <>
@@ -104,24 +91,20 @@ export function LeaveStatusPage() {
       <Main className='flex flex-1 flex-col gap-4'>
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>
-              휴가·근로 현황
-            </h2>
+            <h2 className='text-2xl font-bold tracking-tight'>교육이력</h2>
             <p className='text-muted-foreground'>
-              05.인사 / 근태 — 기간·종류별 집계
+              05.인사 / 교육관리 — 기간·유형별 직원 교육이력 집계
             </p>
           </div>
           <div className='flex flex-wrap items-end gap-2'>
             <SelectDropdown
               defaultValue='ALL'
               onValueChange={(v) =>
-                setRequestType(
-                  v === 'ALL' ? undefined : (v as LeaveRequestType)
-                )
+                setEduType(v === 'ALL' ? undefined : (v as EducationType))
               }
               placeholder='유형'
               items={[{ label: '전체', value: 'ALL' }, ...TYPE_ITEMS]}
-              className='w-32'
+              className='w-36'
             />
             <Input
               type='date'
@@ -146,10 +129,7 @@ export function LeaveStatusPage() {
             직원수 <b>{stats.length}</b>
           </span>
           <span>
-            승인일수 합계 <b>{totalDays.toFixed(1)}</b>일
-          </span>
-          <span>
-            연장근로 합계 <b>{totalHours.toFixed(1)}</b>h
+            교육비 합계 <b>{won(totalCost)}</b> 원
           </span>
         </div>
 
@@ -159,9 +139,9 @@ export function LeaveStatusPage() {
               <TableRow>
                 <TableHead>직원</TableHead>
                 <TableHead>부서</TableHead>
-                <TableHead className='w-24 text-end'>신청건수</TableHead>
-                <TableHead className='w-28 text-end'>승인일수</TableHead>
-                <TableHead className='w-28 text-end'>연장근로시간</TableHead>
+                <TableHead className='w-24 text-end'>교육건수</TableHead>
+                <TableHead className='w-36 text-end'>교육비 합계(원)</TableHead>
+                <TableHead>유형</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -178,23 +158,31 @@ export function LeaveStatusPage() {
                   </TableCell>
                 </TableRow>
               ) : (
-                stats.map((s) => (
-                  <TableRow key={s.employeeId}>
-                    <TableCell className='font-medium'>
-                      {s.employeeName}
-                    </TableCell>
-                    <TableCell className='text-muted-foreground'>
-                      {s.departmentName ?? '-'}
-                    </TableCell>
-                    <TableCell className='text-end'>{s.count}</TableCell>
-                    <TableCell className='text-end'>
-                      {s.approvedDays.toFixed(1)}일
-                    </TableCell>
-                    <TableCell className='text-end'>
-                      {s.overtimeHours.toFixed(1)}h
-                    </TableCell>
-                  </TableRow>
-                ))
+                stats.map((s) => {
+                  const empRows = list.filter((r) => r.employeeId === s.employeeId)
+                  const types = [...new Set(empRows.map((r) => r.eduType))]
+                  return (
+                    <TableRow key={s.employeeId}>
+                      <TableCell className='font-medium'>
+                        {s.employeeName}
+                      </TableCell>
+                      <TableCell className='text-muted-foreground'>
+                        {s.departmentName ?? '-'}
+                      </TableCell>
+                      <TableCell className='text-end'>{s.count}</TableCell>
+                      <TableCell className='text-end'>{won(s.totalCost)}</TableCell>
+                      <TableCell>
+                        <div className='flex flex-wrap gap-1'>
+                          {types.map((t) => (
+                            <Badge key={t} variant='outline'>
+                              {EDU_TYPE[t]}
+                            </Badge>
+                          ))}
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  )
+                })
               )}
             </TableBody>
             {stats.length > 0 && (
@@ -205,11 +193,9 @@ export function LeaveStatusPage() {
                     {totalCount}
                   </TableCell>
                   <TableCell className='text-end font-semibold'>
-                    {totalDays.toFixed(1)}일
+                    {won(totalCost)}
                   </TableCell>
-                  <TableCell className='text-end font-semibold'>
-                    {totalHours.toFixed(1)}h
-                  </TableCell>
+                  <TableCell />
                 </TableRow>
               </TableFooter>
             )}
