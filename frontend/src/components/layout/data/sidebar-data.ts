@@ -459,6 +459,7 @@ export const sidebarData: SidebarData = {
           icon: Megaphone,
           items: [
             { title: '시스템안내', url: '/common/notice' },
+            { title: '공통코드관리', url: '/common/code' },
             { title: '사용자', url: '/users' },
           ],
         },

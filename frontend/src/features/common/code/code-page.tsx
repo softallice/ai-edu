@@ -28,100 +28,79 @@ import { Search } from '@/components/search'
 import { SelectDropdown } from '@/components/select-dropdown'
 import { ThemeSwitch } from '@/components/theme-switch'
 import {
-  useSealRequests,
-  useSaveSealRequest,
-  useDeleteSealRequest,
-  useEmployees,
-  SEAL_STATUS,
-  type SealRequest,
-  type SealRequestInput,
-  type SealType,
-  type SealStatus,
+  useCommonCodes,
+  useSaveCommonCode,
+  useDeleteCommonCode,
+  type CommonCode,
+  type CommonCodeInput,
 } from './api'
 
-type Props = {
-  fixedType: SealType
-  title: string
-  subtitle: string
+const EMPTY: CommonCodeInput = {
+  codeGroup: '',
+  code: '',
+  name: '',
+  sortOrder: 0,
+  useYn: true,
+  description: '',
 }
 
-const STATUS_ITEMS = (
-  Object.entries(SEAL_STATUS) as [SealStatus, string][]
-).map(([value, label]) => ({ label, value }))
+const USE_YN_ITEMS = [
+  { label: '사용', value: 'true' },
+  { label: '미사용', value: 'false' },
+]
 
-function emptyForm(
-  fixedType: SealType,
-  defaultEmployeeId = 0
-): SealRequestInput {
-  return {
-    employeeId: defaultEmployeeId,
-    sealType: fixedType,
-    title: '',
-    purpose: '',
-    useDate: '',
-    status: 'REQUESTED',
-  }
-}
-
-export function SealTypePage({ fixedType, title, subtitle }: Props) {
+export function CommonCodePage() {
   const [keyword, setKeyword] = useState('')
-  const { data: rows, isLoading } = useSealRequests({
-    sealType: fixedType,
+  const { data: rows, isLoading } = useCommonCodes({
     keyword: keyword || undefined,
   })
-  const { data: employees } = useEmployees()
-  const save = useSaveSealRequest()
-  const remove = useDeleteSealRequest()
+  const save = useSaveCommonCode()
+  const remove = useDeleteCommonCode()
 
   const [open, setOpen] = useState(false)
   const [editId, setEditId] = useState<number | undefined>(undefined)
-  const [form, setForm] = useState<SealRequestInput>(emptyForm(fixedType))
+  const [form, setForm] = useState<CommonCodeInput>(EMPTY)
 
-  const empItems = (employees ?? []).map((e) => ({
-    label: `${e.name} (${e.employeeNo})`,
-    value: String(e.id),
-  }))
-
-  const set = (k: keyof SealRequestInput, v: unknown) =>
+  const set = (k: keyof CommonCodeInput, v: unknown) =>
     setForm((f) => ({ ...f, [k]: v }))
 
   const openCreate = () => {
     setEditId(undefined)
-    setForm(emptyForm(fixedType, employees?.[0]?.id ?? 0))
+    setForm(EMPTY)
     setOpen(true)
   }
 
-  const openEdit = (r: SealRequest) => {
-    setEditId(r.id)
+  const openEdit = (c: CommonCode) => {
+    setEditId(c.id)
     setForm({
-      employeeId: r.employeeId,
-      sealType: fixedType,
-      title: r.title,
-      purpose: r.purpose ?? '',
-      useDate: r.useDate ?? '',
-      status: r.status,
+      codeGroup: c.codeGroup,
+      code: c.code,
+      name: c.name,
+      sortOrder: c.sortOrder,
+      useYn: c.useYn,
+      description: c.description ?? '',
     })
     setOpen(true)
   }
 
   const submit = () => {
-    if (!form.employeeId || !form.title.trim()) {
-      toast.error('신청자, 제목은 필수입니다.')
+    if (!form.codeGroup.trim()) {
+      toast.error('코드그룹은 필수입니다.')
+      return
+    }
+    if (!form.code.trim()) {
+      toast.error('코드는 필수입니다.')
+      return
+    }
+    if (!form.name.trim()) {
+      toast.error('코드명은 필수입니다.')
       return
     }
     save.mutate(
-      {
-        id: editId,
-        body: {
-          ...form,
-          sealType: fixedType,
-          useDate: form.useDate || null,
-          purpose: form.purpose || null,
-        },
-      },
+      { id: editId, body: { ...form, description: form.description || null } },
       {
         onSuccess: () => {
-          toast.success(editId ? '수정했습니다.' : '등록했습니다.')
+          toast.success(editId ? '공통코드를 수정했습니다.' : '공통코드를 등록했습니다.')
           setOpen(false)
         },
         onError: () => toast.error('저장에 실패했습니다.'),
@@ -129,9 +108,9 @@ export function SealTypePage({ fixedType, title, subtitle }: Props) {
     )
   }
 
-  const onDelete = (r: SealRequest) => {
-    if (!confirm(`[${r.code}]을(를) 삭제하시겠습니까?`)) return
-    remove.mutate(r.id, {
+  const onDelete = (c: CommonCode) => {
+    if (!confirm(`코드 [${c.codeGroup}/${c.code}]을(를) 삭제하시겠습니까?`)) return
+    remove.mutate(c.id, {
       onSuccess: () => toast.success('삭제했습니다.'),
       onError: () => toast.error('삭제에 실패했습니다.'),
     })
@@ -148,18 +127,18 @@ export function SealTypePage({ fixedType, title, subtitle }: Props) {
       <Main className='flex flex-1 flex-col gap-4'>
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>{title}</h2>
-            <p className='text-muted-foreground'>{subtitle}</p>
+            <h2 className='text-2xl font-bold tracking-tight'>공통코드관리</h2>
+            <p className='text-muted-foreground'>08.공통 / 공통운영 / 공통코드관리</p>
           </div>
           <div className='flex items-end gap-2'>
             <Input
-              placeholder='번호·제목 검색'
+              placeholder='코드·코드명 검색'
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
               className='w-48'
             />
             <Button onClick={openCreate}>
-              <Plus size={16} /> {title} 등록
+              <Plus size={16} /> 코드 등록
             </Button>
           </div>
         </div>
@@ -168,49 +147,55 @@ export function SealTypePage({ fixedType, title, subtitle }: Props) {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className='w-36'>번호</TableHead>
-                <TableHead className='w-32'>신청자</TableHead>
-                <TableHead>제목</TableHead>
-                <TableHead className='w-28'>사용예정일</TableHead>
-                <TableHead className='w-20'>상태</TableHead>
+                <TableHead className='w-36'>코드그룹</TableHead>
+                <TableHead className='w-32'>코드</TableHead>
+                <TableHead>코드명</TableHead>
+                <TableHead className='w-16 text-center'>정렬</TableHead>
+                <TableHead className='w-24 text-center'>사용여부</TableHead>
+                <TableHead>설명</TableHead>
                 <TableHead className='w-24 text-end'>관리</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {isLoading ? (
                 <TableRow>
-                  <TableCell colSpan={6} className='h-24 text-center'>
+                  <TableCell colSpan={7} className='h-24 text-center'>
                     불러오는 중…
                   </TableCell>
                 </TableRow>
               ) : (rows ?? []).length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={6} className='h-24 text-center'>
+                  <TableCell colSpan={7} className='h-24 text-center'>
                     결과가 없습니다.
                   </TableCell>
                 </TableRow>
               ) : (
-                (rows ?? []).map((r) => (
-                  <TableRow key={r.id}>
-                    <TableCell className='font-medium'>{r.code}</TableCell>
-                    <TableCell>{r.employeeName}</TableCell>
-                    <TableCell>{r.title}</TableCell>
-                    <TableCell>{r.useDate ?? '-'}</TableCell>
-                    <TableCell>
-                      <Badge variant='outline'>{SEAL_STATUS[r.status]}</Badge>
+                (rows ?? []).map((c) => (
+                  <TableRow key={c.id}>
+                    <TableCell className='font-medium'>{c.codeGroup}</TableCell>
+                    <TableCell>{c.code}</TableCell>
+                    <TableCell>{c.name}</TableCell>
+                    <TableCell className='text-center'>{c.sortOrder}</TableCell>
+                    <TableCell className='text-center'>
+                      <Badge variant={c.useYn ? 'default' : 'outline'}>
+                        {c.useYn ? '사용' : '미사용'}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className='text-muted-foreground'>
+                      {c.description ?? '-'}
                     </TableCell>
                     <TableCell className='text-end'>
                       <Button
                         variant='ghost'
                         size='icon'
-                        onClick={() => openEdit(r)}
+                        onClick={() => openEdit(c)}
                       >
                         <Pencil size={15} />
                       </Button>
                       <Button
                         variant='ghost'
                         size='icon'
-                        onClick={() => onDelete(r)}
+                        onClick={() => onDelete(c)}
                       >
                         <Trash2 size={15} />
                       </Button>
@@ -226,46 +211,52 @@ export function SealTypePage({ fixedType, title, subtitle }: Props) {
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent className='flex flex-col'>
           <SheetHeader>
-            <SheetTitle>
-              {editId ? `${title} 수정` : `${title} 등록`}
-            </SheetTitle>
+            <SheetTitle>{editId ? '공통코드 수정' : '공통코드 등록'}</SheetTitle>
           </SheetHeader>
           <div className='flex-1 space-y-4 overflow-y-auto px-4'>
-            <Field label='신청자'>
+            <Field label='코드그룹'>
+              <Input
+                value={form.codeGroup}
+                onChange={(e) => set('codeGroup', e.target.value)}
+                placeholder='예: EXPENSE_TYPE'
+                disabled={!!editId}
+              />
+            </Field>
+            <Field label='코드'>
+              <Input
+                value={form.code}
+                onChange={(e) => set('code', e.target.value)}
+                placeholder='예: MEAL'
+                disabled={!!editId}
+              />
+            </Field>
+            <Field label='코드명'>
+              <Input
+                value={form.name}
+                onChange={(e) => set('name', e.target.value)}
+                placeholder='코드 표시 이름'
+              />
+            </Field>
+            <Field label='정렬순서'>
+              <Input
+                type='number'
+                value={form.sortOrder}
+                onChange={(e) => set('sortOrder', Number(e.target.value))}
+              />
+            </Field>
+            <Field label='사용여부'>
               <SelectDropdown
-                defaultValue={form.employeeId ? String(form.employeeId) : ''}
-                onValueChange={(v) => set('employeeId', v ? Number(v) : 0)}
-                placeholder='직원 선택'
-                items={empItems}
+                defaultValue={String(form.useYn)}
+                onValueChange={(v) => set('useYn', v === 'true')}
+                placeholder='사용여부 선택'
+                items={USE_YN_ITEMS}
               />
             </Field>
-            <Field label='제목'>
+            <Field label='설명'>
               <Input
-                value={form.title}
-                onChange={(e) => set('title', e.target.value)}
-                placeholder='제목을 입력하세요'
-              />
-            </Field>
-            <Field label='사용목적/반출처'>
-              <Input
-                value={form.purpose ?? ''}
-                onChange={(e) => set('purpose', e.target.value)}
-                placeholder='사용목적 또는 반출처를 입력하세요'
-              />
-            </Field>
-            <Field label='사용예정일'>
-              <Input
-                type='date'
-                value={form.useDate ?? ''}
-                onChange={(e) => set('useDate', e.target.value)}
-              />
-            </Field>
-            <Field label='상태'>
-              <SelectDropdown
-                defaultValue={form.status}
-                onValueChange={(v) => set('status', v as SealStatus)}
-                placeholder='상태'
-                items={STATUS_ITEMS}
+                value={form.description ?? ''}
+                onChange={(e) => set('description', e.target.value)}
+                placeholder='코드 설명 (선택)'
               />
             </Field>
           </div>

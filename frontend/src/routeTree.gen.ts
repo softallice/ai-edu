@@ -39,6 +39,7 @@ import { Route as AuthenticatedPurchaseOrderRouteImport } from './routes/_authen
 import { Route as AuthenticatedPurchaseCollectionRouteImport } from './routes/_authenticated/purchase/collection'
 import { Route as AuthenticatedErrorsErrorRouteImport } from './routes/_authenticated/errors/$error'
 import { Route as AuthenticatedCommonNoticeRouteImport } from './routes/_authenticated/common/notice'
+import { Route as AuthenticatedCommonCodeRouteImport } from './routes/_authenticated/common/code'
 import { Route as AuthenticatedHrEmployeesIndexRouteImport } from './routes/_authenticated/hr/employees/index'
 import { Route as AuthenticatedHrDepartmentsIndexRouteImport } from './routes/_authenticated/hr/departments/index'
 import { Route as AuthenticatedSalesTaxInvoiceStatusRouteImport } from './routes/_authenticated/sales/tax-invoice/status'
@@ -256,6 +257,11 @@ const AuthenticatedCommonNoticeRoute =
     path: '/common/notice',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedCommonCodeRoute = AuthenticatedCommonCodeRouteImport.update({
+  id: '/common/code',
+  path: '/common/code',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedHrEmployeesIndexRoute =
   AuthenticatedHrEmployeesIndexRouteImport.update({
     id: '/hr/employees/',
@@ -589,6 +595,7 @@ export interface FileRoutesByFullPath {
   '/500': typeof errors500Route
   '/503': typeof errors503Route
   '/$': typeof AuthenticatedSplatRoute
+  '/common/code': typeof AuthenticatedCommonCodeRoute
   '/common/notice': typeof AuthenticatedCommonNoticeRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/purchase/collection': typeof AuthenticatedPurchaseCollectionRoute
@@ -672,6 +679,7 @@ export interface FileRoutesByTo {
   '/503': typeof errors503Route
   '/$': typeof AuthenticatedSplatRoute
   '/': typeof AuthenticatedIndexRoute
+  '/common/code': typeof AuthenticatedCommonCodeRoute
   '/common/notice': typeof AuthenticatedCommonNoticeRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/purchase/collection': typeof AuthenticatedPurchaseCollectionRoute
@@ -758,6 +766,7 @@ export interface FileRoutesById {
   '/(errors)/503': typeof errors503Route
   '/_authenticated/$': typeof AuthenticatedSplatRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/common/code': typeof AuthenticatedCommonCodeRoute
   '/_authenticated/common/notice': typeof AuthenticatedCommonNoticeRoute
   '/_authenticated/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/_authenticated/purchase/collection': typeof AuthenticatedPurchaseCollectionRoute
@@ -844,6 +853,7 @@ export interface FileRouteTypes {
     | '/500'
     | '/503'
     | '/$'
+    | '/common/code'
     | '/common/notice'
     | '/errors/$error'
     | '/purchase/collection'
@@ -927,6 +937,7 @@ export interface FileRouteTypes {
     | '/503'
     | '/$'
     | '/'
+    | '/common/code'
     | '/common/notice'
     | '/errors/$error'
     | '/purchase/collection'
@@ -1012,6 +1023,7 @@ export interface FileRouteTypes {
     | '/(errors)/503'
     | '/_authenticated/$'
     | '/_authenticated/'
+    | '/_authenticated/common/code'
     | '/_authenticated/common/notice'
     | '/_authenticated/errors/$error'
     | '/_authenticated/purchase/collection'
@@ -1307,6 +1319,13 @@ declare module '@tanstack/react-router' {
       path: '/common/notice'
       fullPath: '/common/notice'
       preLoaderRoute: typeof AuthenticatedCommonNoticeRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/common/code': {
+      id: '/_authenticated/common/code'
+      path: '/common/code'
+      fullPath: '/common/code'
+      preLoaderRoute: typeof AuthenticatedCommonCodeRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/hr/employees/': {
@@ -1710,6 +1729,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedSettingsRouteRoute: typeof AuthenticatedSettingsRouteRouteWithChildren
   AuthenticatedSplatRoute: typeof AuthenticatedSplatRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedCommonCodeRoute: typeof AuthenticatedCommonCodeRoute
   AuthenticatedCommonNoticeRoute: typeof AuthenticatedCommonNoticeRoute
   AuthenticatedErrorsErrorRoute: typeof AuthenticatedErrorsErrorRoute
   AuthenticatedPurchaseCollectionRoute: typeof AuthenticatedPurchaseCollectionRoute
@@ -1780,6 +1800,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedSettingsRouteRoute: AuthenticatedSettingsRouteRouteWithChildren,
   AuthenticatedSplatRoute: AuthenticatedSplatRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedCommonCodeRoute: AuthenticatedCommonCodeRoute,
   AuthenticatedCommonNoticeRoute: AuthenticatedCommonNoticeRoute,
   AuthenticatedErrorsErrorRoute: AuthenticatedErrorsErrorRoute,
   AuthenticatedPurchaseCollectionRoute: AuthenticatedPurchaseCollectionRoute,
