@@ -63,6 +63,9 @@ import { Route as AuthenticatedHrAttendanceRegisterRouteImport } from './routes/
 import { Route as AuthenticatedGaExpenseDisbursementRouteImport } from './routes/_authenticated/ga/expense/disbursement'
 import { Route as AuthenticatedFinanceVoucherByDateRouteImport } from './routes/_authenticated/finance/voucher/by-date'
 import { Route as AuthenticatedFinanceVoucherByAccountRouteImport } from './routes/_authenticated/finance/voucher/by-account'
+import { Route as AuthenticatedFinanceCardUsageRouteImport } from './routes/_authenticated/finance/card/usage'
+import { Route as AuthenticatedFinanceCardStatusRouteImport } from './routes/_authenticated/finance/card/status'
+import { Route as AuthenticatedFinanceCardBillingRouteImport } from './routes/_authenticated/finance/card/billing'
 import { Route as AuthenticatedEvalGoalRegisterRouteImport } from './routes/_authenticated/eval/goal/register'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -372,6 +375,24 @@ const AuthenticatedFinanceVoucherByAccountRoute =
     path: '/finance/voucher/by-account',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedFinanceCardUsageRoute =
+  AuthenticatedFinanceCardUsageRouteImport.update({
+    id: '/finance/card/usage',
+    path: '/finance/card/usage',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFinanceCardStatusRoute =
+  AuthenticatedFinanceCardStatusRouteImport.update({
+    id: '/finance/card/status',
+    path: '/finance/card/status',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFinanceCardBillingRoute =
+  AuthenticatedFinanceCardBillingRouteImport.update({
+    id: '/finance/card/billing',
+    path: '/finance/card/billing',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedEvalGoalRegisterRoute =
   AuthenticatedEvalGoalRegisterRouteImport.update({
     id: '/eval/goal/register',
@@ -410,6 +431,9 @@ export interface FileRoutesByFullPath {
   '/tasks/': typeof AuthenticatedTasksIndexRoute
   '/users/': typeof AuthenticatedUsersIndexRoute
   '/eval/goal/register': typeof AuthenticatedEvalGoalRegisterRoute
+  '/finance/card/billing': typeof AuthenticatedFinanceCardBillingRoute
+  '/finance/card/status': typeof AuthenticatedFinanceCardStatusRoute
+  '/finance/card/usage': typeof AuthenticatedFinanceCardUsageRoute
   '/finance/voucher/by-account': typeof AuthenticatedFinanceVoucherByAccountRoute
   '/finance/voucher/by-date': typeof AuthenticatedFinanceVoucherByDateRoute
   '/ga/expense/disbursement': typeof AuthenticatedGaExpenseDisbursementRoute
@@ -465,6 +489,9 @@ export interface FileRoutesByTo {
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
   '/eval/goal/register': typeof AuthenticatedEvalGoalRegisterRoute
+  '/finance/card/billing': typeof AuthenticatedFinanceCardBillingRoute
+  '/finance/card/status': typeof AuthenticatedFinanceCardStatusRoute
+  '/finance/card/usage': typeof AuthenticatedFinanceCardUsageRoute
   '/finance/voucher/by-account': typeof AuthenticatedFinanceVoucherByAccountRoute
   '/finance/voucher/by-date': typeof AuthenticatedFinanceVoucherByDateRoute
   '/ga/expense/disbursement': typeof AuthenticatedGaExpenseDisbursementRoute
@@ -523,6 +550,9 @@ export interface FileRoutesById {
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
   '/_authenticated/eval/goal/register': typeof AuthenticatedEvalGoalRegisterRoute
+  '/_authenticated/finance/card/billing': typeof AuthenticatedFinanceCardBillingRoute
+  '/_authenticated/finance/card/status': typeof AuthenticatedFinanceCardStatusRoute
+  '/_authenticated/finance/card/usage': typeof AuthenticatedFinanceCardUsageRoute
   '/_authenticated/finance/voucher/by-account': typeof AuthenticatedFinanceVoucherByAccountRoute
   '/_authenticated/finance/voucher/by-date': typeof AuthenticatedFinanceVoucherByDateRoute
   '/_authenticated/ga/expense/disbursement': typeof AuthenticatedGaExpenseDisbursementRoute
@@ -581,6 +611,9 @@ export interface FileRouteTypes {
     | '/tasks/'
     | '/users/'
     | '/eval/goal/register'
+    | '/finance/card/billing'
+    | '/finance/card/status'
+    | '/finance/card/usage'
     | '/finance/voucher/by-account'
     | '/finance/voucher/by-date'
     | '/ga/expense/disbursement'
@@ -636,6 +669,9 @@ export interface FileRouteTypes {
     | '/tasks'
     | '/users'
     | '/eval/goal/register'
+    | '/finance/card/billing'
+    | '/finance/card/status'
+    | '/finance/card/usage'
     | '/finance/voucher/by-account'
     | '/finance/voucher/by-date'
     | '/ga/expense/disbursement'
@@ -693,6 +729,9 @@ export interface FileRouteTypes {
     | '/_authenticated/tasks/'
     | '/_authenticated/users/'
     | '/_authenticated/eval/goal/register'
+    | '/_authenticated/finance/card/billing'
+    | '/_authenticated/finance/card/status'
+    | '/_authenticated/finance/card/usage'
     | '/_authenticated/finance/voucher/by-account'
     | '/_authenticated/finance/voucher/by-date'
     | '/_authenticated/ga/expense/disbursement'
@@ -1113,6 +1152,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFinanceVoucherByAccountRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/finance/card/usage': {
+      id: '/_authenticated/finance/card/usage'
+      path: '/finance/card/usage'
+      fullPath: '/finance/card/usage'
+      preLoaderRoute: typeof AuthenticatedFinanceCardUsageRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/finance/card/status': {
+      id: '/_authenticated/finance/card/status'
+      path: '/finance/card/status'
+      fullPath: '/finance/card/status'
+      preLoaderRoute: typeof AuthenticatedFinanceCardStatusRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/finance/card/billing': {
+      id: '/_authenticated/finance/card/billing'
+      path: '/finance/card/billing'
+      fullPath: '/finance/card/billing'
+      preLoaderRoute: typeof AuthenticatedFinanceCardBillingRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/eval/goal/register': {
       id: '/_authenticated/eval/goal/register'
       path: '/eval/goal/register'
@@ -1162,6 +1222,9 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
   AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
   AuthenticatedEvalGoalRegisterRoute: typeof AuthenticatedEvalGoalRegisterRoute
+  AuthenticatedFinanceCardBillingRoute: typeof AuthenticatedFinanceCardBillingRoute
+  AuthenticatedFinanceCardStatusRoute: typeof AuthenticatedFinanceCardStatusRoute
+  AuthenticatedFinanceCardUsageRoute: typeof AuthenticatedFinanceCardUsageRoute
   AuthenticatedFinanceVoucherByAccountRoute: typeof AuthenticatedFinanceVoucherByAccountRoute
   AuthenticatedFinanceVoucherByDateRoute: typeof AuthenticatedFinanceVoucherByDateRoute
   AuthenticatedGaExpenseDisbursementRoute: typeof AuthenticatedGaExpenseDisbursementRoute
@@ -1205,6 +1268,9 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
   AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
   AuthenticatedEvalGoalRegisterRoute: AuthenticatedEvalGoalRegisterRoute,
+  AuthenticatedFinanceCardBillingRoute: AuthenticatedFinanceCardBillingRoute,
+  AuthenticatedFinanceCardStatusRoute: AuthenticatedFinanceCardStatusRoute,
+  AuthenticatedFinanceCardUsageRoute: AuthenticatedFinanceCardUsageRoute,
   AuthenticatedFinanceVoucherByAccountRoute:
     AuthenticatedFinanceVoucherByAccountRoute,
   AuthenticatedFinanceVoucherByDateRoute:
