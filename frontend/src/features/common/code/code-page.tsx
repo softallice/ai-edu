@@ -100,7 +100,9 @@ export function CommonCodePage() {
       { id: editId, body: { ...form, description: form.description || null } },
       {
         onSuccess: () => {
-          toast.success(editId ? '공통코드를 수정했습니다.' : '공통코드를 등록했습니다.')
+          toast.success(
+            editId ? '공통코드를 수정했습니다.' : '공통코드를 등록했습니다.'
+          )
           setOpen(false)
         },
         onError: () => toast.error('저장에 실패했습니다.'),
@@ -109,7 +111,8 @@ export function CommonCodePage() {
   }
 
   const onDelete = (c: CommonCode) => {
-    if (!confirm(`코드 [${c.codeGroup}/${c.code}]을(를) 삭제하시겠습니까?`)) return
+    if (!confirm(`코드 [${c.codeGroup}/${c.code}]을(를) 삭제하시겠습니까?`))
+      return
     remove.mutate(c.id, {
       onSuccess: () => toast.success('삭제했습니다.'),
       onError: () => toast.error('삭제에 실패했습니다.'),
@@ -128,7 +131,9 @@ export function CommonCodePage() {
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
             <h2 className='text-2xl font-bold tracking-tight'>공통코드관리</h2>
-            <p className='text-muted-foreground'>08.공통 / 공통운영 / 공통코드관리</p>
+            <p className='text-muted-foreground'>
+              08.공통 / 공통운영 / 공통코드관리
+            </p>
           </div>
           <div className='flex items-end gap-2'>
             <Input
@@ -211,7 +216,9 @@ export function CommonCodePage() {
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent className='flex flex-col'>
           <SheetHeader>
-            <SheetTitle>{editId ? '공통코드 수정' : '공통코드 등록'}</SheetTitle>
+            <SheetTitle>
+              {editId ? '공통코드 수정' : '공통코드 등록'}
+            </SheetTitle>
           </SheetHeader>
           <div className='flex-1 space-y-4 overflow-y-auto px-4'>
             <Field label='코드그룹'>
