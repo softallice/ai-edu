@@ -1,0 +1,17 @@
+{
+  "name": "harness-codex",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Codex-only harness extracted from ECC — AGENTS.md, .codex config, Codex skills, plugin manifest, MCP configs, and the sync tooling for OpenAI Codex CLI.",
+  "license": "MIT",
+  "scripts": {
+    "sync": "bash scripts/sync-ecc-to-codex.sh",
+    "sync:dry-run": "bash scripts/sync-ecc-to-codex.sh --dry-run",
+    "sync:update-mcp": "bash scripts/sync-ecc-to-codex.sh --update-mcp",
+    "check:plugin-cache": "node scripts/codex/check-plugin-cache.js",
+    "check:global-state": "bash scripts/codex/check-codex-global-state.sh"
+  },
+  "dependencies": {
+    "@iarna/toml": "^2.2.5"
+  }
+}
