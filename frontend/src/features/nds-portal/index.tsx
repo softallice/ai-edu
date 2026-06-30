@@ -34,8 +34,13 @@ import { cn } from '@/lib/utils'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Skeleton } from '@/components/ui/skeleton'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 import {
   ChartContainer,
   ChartLegend,
@@ -45,6 +50,7 @@ import {
   type ChartConfig,
 } from '@/components/ui/chart'
 import { Separator } from '@/components/ui/separator'
+import { Skeleton } from '@/components/ui/skeleton'
 import { ConfigDrawer } from '@/components/config-drawer'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
@@ -101,11 +107,11 @@ const trendChartConfig: ChartConfig = {
 }
 
 const statusChartConfig: ChartConfig = {
-  planned:    { label: '계획',   color: 'hsl(210 20% 65%)' },
-  in_progress:{ label: '진행중', color: 'hsl(35 90% 45%)' },
-  on_hold:    { label: '보류',   color: 'hsl(38 90% 65%)' },
-  done:       { label: '완료',   color: 'hsl(174 60% 35%)' },
-  cancelled:  { label: '취소',   color: 'hsl(0 55% 60%)' },
+  planned: { label: '계획', color: 'hsl(210 20% 65%)' },
+  in_progress: { label: '진행중', color: 'hsl(35 90% 45%)' },
+  on_hold: { label: '보류', color: 'hsl(38 90% 65%)' },
+  done: { label: '완료', color: 'hsl(174 60% 35%)' },
+  cancelled: { label: '취소', color: 'hsl(0 55% 60%)' },
 }
 
 const deptChartConfig: ChartConfig = {
@@ -126,14 +132,21 @@ type KpiCardProps = {
   isLoading: boolean
 }
 
-function KpiCard({ title, value, sub, icon: Icon, accent, isLoading }: KpiCardProps) {
+function KpiCard({
+  title,
+  value,
+  sub,
+  icon: Icon,
+  accent,
+  isLoading,
+}: KpiCardProps) {
   return (
     <Card className='relative overflow-hidden'>
       <CardHeader className='pb-2'>
         <CardDescription className='text-xs font-medium tracking-wide uppercase'>
           {title}
         </CardDescription>
-        <CardTitle className='text-3xl font-bold tabular-nums tracking-tight'>
+        <CardTitle className='text-3xl font-bold tracking-tight tabular-nums'>
           {isLoading ? <Skeleton className='h-8 w-24' /> : value}
         </CardTitle>
       </CardHeader>
@@ -159,11 +172,11 @@ function KpiCard({ title, value, sub, icon: Icon, accent, isLoading }: KpiCardPr
 // ─── Status color map (matches chartConfig keys) ──────────────────────────────
 
 const STATUS_KEY_MAP: Record<string, string> = {
-  PLANNED:    'planned',
-  IN_PROGRESS:'in_progress',
-  ON_HOLD:    'on_hold',
-  DONE:       'done',
-  CANCELLED:  'cancelled',
+  PLANNED: 'planned',
+  IN_PROGRESS: 'in_progress',
+  ON_HOLD: 'on_hold',
+  DONE: 'done',
+  CANCELLED: 'cancelled',
 }
 
 function pieColorFor(s: ProjectStatusDist) {
@@ -205,7 +218,6 @@ export function NdsPortal() {
       </Header>
 
       <Main className='flex flex-col gap-5'>
-
         {/* ── 프로필 + 웰컴 배너 ─────────────────────────────────── */}
         <div className='grid gap-4 lg:grid-cols-3'>
           <Card className='border-amber-200/60 dark:border-amber-800/30'>
@@ -217,9 +229,14 @@ export function NdsPortal() {
                   </AvatarFallback>
                 </Avatar>
                 <div className='space-y-1'>
-                  <p className='text-base font-semibold leading-tight'>{userName}님</p>
+                  <p className='text-base leading-tight font-semibold'>
+                    {userName}님
+                  </p>
                   <p className='text-xs text-muted-foreground'>플랫폼개발실</p>
-                  <Badge variant='outline' className='text-[10px] border-amber-300 text-amber-700 dark:border-amber-700 dark:text-amber-400'>
+                  <Badge
+                    variant='outline'
+                    className='border-amber-300 text-[10px] text-amber-700 dark:border-amber-700 dark:text-amber-400'
+                  >
                     휴가현황 보기
                   </Badge>
                 </div>
@@ -228,14 +245,28 @@ export function NdsPortal() {
               <div className='grid grid-cols-2 gap-3 text-sm'>
                 <div className='rounded-md bg-muted/50 px-3 py-2'>
                   <p className='text-[10px] text-muted-foreground'>연차휴가</p>
-                  <p className='mt-0.5 font-semibold tabular-nums'>2 <span className='text-xs font-normal text-muted-foreground'>/ 22일</span></p>
+                  <p className='mt-0.5 font-semibold tabular-nums'>
+                    2{' '}
+                    <span className='text-xs font-normal text-muted-foreground'>
+                      / 22일
+                    </span>
+                  </p>
                 </div>
                 <div className='rounded-md bg-muted/50 px-3 py-2'>
                   <p className='text-[10px] text-muted-foreground'>보상휴가</p>
-                  <p className='mt-0.5 font-semibold tabular-nums'>0 <span className='text-xs font-normal text-muted-foreground'>/ 0일</span></p>
+                  <p className='mt-0.5 font-semibold tabular-nums'>
+                    0{' '}
+                    <span className='text-xs font-normal text-muted-foreground'>
+                      / 0일
+                    </span>
+                  </p>
                 </div>
               </div>
-              <Button size='sm' variant='outline' className='w-full border-amber-300 text-amber-700 hover:bg-amber-50 dark:border-amber-700 dark:text-amber-400 dark:hover:bg-amber-950/30'>
+              <Button
+                size='sm'
+                variant='outline'
+                className='w-full border-amber-300 text-amber-700 hover:bg-amber-50 dark:border-amber-700 dark:text-amber-400 dark:hover:bg-amber-950/30'
+              >
                 개인정보 상세보기
               </Button>
             </CardContent>
@@ -246,7 +277,10 @@ export function NdsPortal() {
               <p className='text-[11px] font-bold tracking-widest text-amber-600 uppercase dark:text-amber-500'>
                 NDS VISION
               </p>
-              <h2 className='max-w-xl text-xl font-bold tracking-tight sm:text-2xl' style={{ textWrap: 'balance' } as React.CSSProperties}>
+              <h2
+                className='max-w-xl text-xl font-bold tracking-tight sm:text-2xl'
+                style={{ textWrap: 'balance' } as React.CSSProperties}
+              >
                 Cloud 혁신으로 Data가 지배하는 미래를 함께 연다.
               </h2>
               <p className='text-sm text-muted-foreground'>
@@ -280,7 +314,9 @@ export function NdsPortal() {
           />
           <KpiCard
             title='이번 달 총 공수'
-            value={isLoading ? '—' : `${kpi.monthlyHours.toLocaleString('ko-KR')}h`}
+            value={
+              isLoading ? '—' : `${kpi.monthlyHours.toLocaleString('ko-KR')}h`
+            }
             sub='이번 달 타임시트 합계'
             icon={Briefcase}
             accent='hsl(210 70% 50%)'
@@ -298,27 +334,62 @@ export function NdsPortal() {
 
         {/* ── 메인 차트 그리드 (7col) ────────────────────────────── */}
         <div className='grid gap-4 lg:grid-cols-7'>
-
           {/* 월별 공수·계약 추이 Area 차트 */}
           <Card className='lg:col-span-4'>
             <CardHeader>
-              <CardTitle className='text-sm font-semibold'>월별 공수 · 계약금액 추이</CardTitle>
+              <CardTitle className='text-sm font-semibold'>
+                월별 공수 · 계약금액 추이
+              </CardTitle>
               <CardDescription className='text-xs'>최근 6개월</CardDescription>
             </CardHeader>
             <CardContent>
               {isLoading ? (
                 <Skeleton className='h-[240px] w-full' />
               ) : (
-                <ChartContainer config={trendChartConfig} className='h-[240px] w-full'>
-                  <AreaChart data={monthlyTrend} margin={{ top: 4, right: 4, left: 0, bottom: 0 }}>
+                <ChartContainer
+                  config={trendChartConfig}
+                  className='h-[240px] w-full'
+                >
+                  <AreaChart
+                    data={monthlyTrend}
+                    margin={{ top: 4, right: 4, left: 0, bottom: 0 }}
+                  >
                     <defs>
-                      <linearGradient id='grad-hours' x1='0' y1='0' x2='0' y2='1'>
-                        <stop offset='5%' stopColor='hsl(35 90% 45%)' stopOpacity={0.25} />
-                        <stop offset='95%' stopColor='hsl(35 90% 45%)' stopOpacity={0.02} />
+                      <linearGradient
+                        id='grad-hours'
+                        x1='0'
+                        y1='0'
+                        x2='0'
+                        y2='1'
+                      >
+                        <stop
+                          offset='5%'
+                          stopColor='hsl(35 90% 45%)'
+                          stopOpacity={0.25}
+                        />
+                        <stop
+                          offset='95%'
+                          stopColor='hsl(35 90% 45%)'
+                          stopOpacity={0.02}
+                        />
                       </linearGradient>
-                      <linearGradient id='grad-amount' x1='0' y1='0' x2='0' y2='1'>
-                        <stop offset='5%' stopColor='hsl(174 60% 35%)' stopOpacity={0.2} />
-                        <stop offset='95%' stopColor='hsl(174 60% 35%)' stopOpacity={0.02} />
+                      <linearGradient
+                        id='grad-amount'
+                        x1='0'
+                        y1='0'
+                        x2='0'
+                        y2='1'
+                      >
+                        <stop
+                          offset='5%'
+                          stopColor='hsl(174 60% 35%)'
+                          stopOpacity={0.2}
+                        />
+                        <stop
+                          offset='95%'
+                          stopColor='hsl(174 60% 35%)'
+                          stopOpacity={0.02}
+                        />
                       </linearGradient>
                     </defs>
                     <CartesianGrid vertical={false} strokeDasharray='3 3' />
@@ -343,9 +414,13 @@ export function NdsPortal() {
                       axisLine={false}
                       tick={{ fontSize: 10 }}
                       width={40}
-                      tickFormatter={(v: number) => v >= 1_0000 ? `${(v / 1_0000).toFixed(0)}만` : String(v)}
+                      tickFormatter={(v: number) =>
+                        v >= 1_0000 ? `${(v / 1_0000).toFixed(0)}만` : String(v)
+                      }
                     />
-                    <ChartTooltip content={<ChartTooltipContent indicator='line' />} />
+                    <ChartTooltip
+                      content={<ChartTooltipContent indicator='line' />}
+                    />
                     <ChartLegend content={<ChartLegendContent />} />
                     <Area
                       yAxisId='hours'
@@ -376,8 +451,12 @@ export function NdsPortal() {
           {/* 프로젝트 상태 Donut */}
           <Card className='lg:col-span-3'>
             <CardHeader>
-              <CardTitle className='text-sm font-semibold'>프로젝트 상태 분포</CardTitle>
-              <CardDescription className='text-xs'>전체 {totalProjects}건</CardDescription>
+              <CardTitle className='text-sm font-semibold'>
+                프로젝트 상태 분포
+              </CardTitle>
+              <CardDescription className='text-xs'>
+                전체 {totalProjects}건
+              </CardDescription>
             </CardHeader>
             <CardContent className='flex flex-col items-center'>
               {isLoading ? (
@@ -387,7 +466,10 @@ export function NdsPortal() {
                   데이터 없음
                 </div>
               ) : (
-                <ChartContainer config={statusChartConfig} className='h-[220px] w-full'>
+                <ChartContainer
+                  config={statusChartConfig}
+                  className='h-[220px] w-full'
+                >
                   <PieChart>
                     <ChartTooltip content={<ChartTooltipContent hideLabel />} />
                     <Pie
@@ -414,13 +496,18 @@ export function NdsPortal() {
               {!isLoading && projectStatus.length > 0 && (
                 <div className='mt-2 flex flex-wrap justify-center gap-2'>
                   {projectStatus.map((s) => (
-                    <div key={s.status} className='flex items-center gap-1 text-[11px]'>
+                    <div
+                      key={s.status}
+                      className='flex items-center gap-1 text-[11px]'
+                    >
                       <span
                         className='inline-block size-2 rounded-sm'
                         style={{ backgroundColor: pieColorFor(s) }}
                       />
                       <span className='text-muted-foreground'>{s.label}</span>
-                      <span className='font-semibold tabular-nums'>{s.count}</span>
+                      <span className='font-semibold tabular-nums'>
+                        {s.count}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -431,12 +518,15 @@ export function NdsPortal() {
 
         {/* ── 하단 그리드 (7col) ─────────────────────────────────── */}
         <div className='grid gap-4 lg:grid-cols-7'>
-
           {/* 부서별 인원 Bar 차트 */}
           <Card className='lg:col-span-4'>
             <CardHeader>
-              <CardTitle className='text-sm font-semibold'>부서별 재직 인원</CardTitle>
-              <CardDescription className='text-xs'>상위 6개 부서 (active 직원)</CardDescription>
+              <CardTitle className='text-sm font-semibold'>
+                부서별 재직 인원
+              </CardTitle>
+              <CardDescription className='text-xs'>
+                상위 6개 부서 (active 직원)
+              </CardDescription>
             </CardHeader>
             <CardContent>
               {isLoading ? (
@@ -446,7 +536,10 @@ export function NdsPortal() {
                   데이터 없음
                 </div>
               ) : (
-                <ChartContainer config={deptChartConfig} className='h-[200px] w-full'>
+                <ChartContainer
+                  config={deptChartConfig}
+                  className='h-[200px] w-full'
+                >
                   <BarChart
                     data={deptHeadcount}
                     layout='vertical'
@@ -461,7 +554,9 @@ export function NdsPortal() {
                       tick={{ fontSize: 11 }}
                       width={72}
                     />
-                    <ChartTooltip content={<ChartTooltipContent indicator='dot' />} />
+                    <ChartTooltip
+                      content={<ChartTooltipContent indicator='dot' />}
+                    />
                     <Bar
                       dataKey='count'
                       fill='hsl(35 90% 45%)'
@@ -476,11 +571,12 @@ export function NdsPortal() {
 
           {/* 최근 계약 + 퀵메뉴 + 일정 */}
           <div className='flex flex-col gap-4 lg:col-span-3'>
-
             {/* 최근 계약 목록 */}
             <Card className='flex-1'>
               <CardHeader>
-                <CardTitle className='text-sm font-semibold'>최근 계약</CardTitle>
+                <CardTitle className='text-sm font-semibold'>
+                  최근 계약
+                </CardTitle>
               </CardHeader>
               <CardContent className='space-y-2.5'>
                 {isLoading ? (
@@ -488,24 +584,39 @@ export function NdsPortal() {
                     <Skeleton key={i} className='h-5 w-full' />
                   ))
                 ) : recentContracts.length === 0 ? (
-                  <p className='text-xs text-muted-foreground'>계약 데이터 없음</p>
+                  <p className='text-xs text-muted-foreground'>
+                    계약 데이터 없음
+                  </p>
                 ) : (
                   recentContracts.map((c) => (
                     <div key={c.id} className='flex items-center gap-2 text-xs'>
                       <Badge
                         variant='outline'
                         className={cn(
-                          'shrink-0 text-[10px] px-1.5 py-0',
-                          c.state === 'IN_PROGRESS' && 'border-amber-300 text-amber-700 dark:border-amber-700 dark:text-amber-400',
-                          c.state === 'SIGNED' && 'border-teal-300 text-teal-700 dark:border-teal-700 dark:text-teal-400',
-                          c.state === 'DONE' && 'border-slate-300 text-slate-500',
-                          c.state === 'DRAFT' && 'border-blue-200 text-blue-600',
+                          'shrink-0 px-1.5 py-0 text-[10px]',
+                          c.state === 'IN_PROGRESS' &&
+                            'border-amber-300 text-amber-700 dark:border-amber-700 dark:text-amber-400',
+                          c.state === 'SIGNED' &&
+                            'border-teal-300 text-teal-700 dark:border-teal-700 dark:text-teal-400',
+                          c.state === 'DONE' &&
+                            'border-slate-300 text-slate-500',
+                          c.state === 'DRAFT' && 'border-blue-200 text-blue-600'
                         )}
                       >
-                        {c.state === 'IN_PROGRESS' ? '진행' : c.state === 'SIGNED' ? '체결' : c.state === 'DONE' ? '완료' : c.state === 'DRAFT' ? '초안' : c.state}
+                        {c.state === 'IN_PROGRESS'
+                          ? '진행'
+                          : c.state === 'SIGNED'
+                            ? '체결'
+                            : c.state === 'DONE'
+                              ? '완료'
+                              : c.state === 'DRAFT'
+                                ? '초안'
+                                : c.state}
                       </Badge>
-                      <span className='flex-1 truncate text-foreground/90'>{c.name}</span>
-                      <span className='shrink-0 tabular-nums text-muted-foreground'>
+                      <span className='flex-1 truncate text-foreground/90'>
+                        {c.name}
+                      </span>
+                      <span className='shrink-0 text-muted-foreground tabular-nums'>
                         {c.totalAmount.toLocaleString('ko-KR')}
                       </span>
                     </div>
@@ -522,7 +633,9 @@ export function NdsPortal() {
               <CardContent className='space-y-2.5'>
                 {schedule.map((s) => (
                   <div key={s.date} className='flex gap-3 text-xs'>
-                    <span className='w-24 shrink-0 font-medium text-blue-600 dark:text-blue-400'>{s.date}</span>
+                    <span className='w-24 shrink-0 font-medium text-blue-600 dark:text-blue-400'>
+                      {s.date}
+                    </span>
                     <span className='text-foreground/90'>{s.name}</span>
                   </div>
                 ))}
@@ -534,7 +647,9 @@ export function NdsPortal() {
         {/* ── 퀵 메뉴 ───────────────────────────────────────────── */}
         <Card>
           <CardHeader className='pb-2'>
-            <CardTitle className='text-sm font-semibold text-muted-foreground'>퀵 메뉴</CardTitle>
+            <CardTitle className='text-sm font-semibold text-muted-foreground'>
+              퀵 메뉴
+            </CardTitle>
           </CardHeader>
           <CardContent className='grid grid-cols-5 gap-1 pb-4 sm:grid-cols-10'>
             {quickItems.map((item) => (
@@ -552,12 +667,13 @@ export function NdsPortal() {
                 <div className='flex size-9 items-center justify-center rounded-lg bg-muted/60 transition-colors group-hover:bg-amber-100 dark:group-hover:bg-amber-900/30'>
                   <item.icon className='size-4 text-amber-600 dark:text-amber-500' />
                 </div>
-                <span className='text-[11px] leading-tight text-foreground/70'>{item.label}</span>
+                <span className='text-[11px] leading-tight text-foreground/70'>
+                  {item.label}
+                </span>
               </button>
             ))}
           </CardContent>
         </Card>
-
       </Main>
     </>
   )

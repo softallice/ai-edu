@@ -30,19 +30,27 @@ export function useChart() {
 
 // ─── ChartStyle ──────────────────────────────────────────────────────────────
 
-export function ChartStyle({ id, config }: { id: string; config: ChartConfig }) {
-  const colorConfig = Object.entries(config).filter(([, cfg]) => cfg.color || cfg.theme)
+export function ChartStyle({
+  id,
+  config,
+}: {
+  id: string
+  config: ChartConfig
+}) {
+  const colorConfig = Object.entries(config).filter(
+    ([, cfg]) => cfg.color || cfg.theme
+  )
   if (!colorConfig.length) return null
 
   const css = colorConfig
     .map(([key, cfg]) => {
-      const color = cfg.theme
-        ? undefined
-        : cfg.color
+      const color = cfg.theme ? undefined : cfg.color
       const lightColor = cfg.theme?.light ?? color
       const darkColor = cfg.theme?.dark ?? color
       return [
-        lightColor ? `[data-chart=${id}] { --color-${key}: ${lightColor}; }` : '',
+        lightColor
+          ? `[data-chart=${id}] { --color-${key}: ${lightColor}; }`
+          : '',
         darkColor
           ? `.dark [data-chart=${id}] { --color-${key}: ${darkColor}; }`
           : '',
@@ -161,9 +169,10 @@ export function ChartTooltipContent({
     const item = payload[0]
     const key = `${labelKey ?? item?.dataKey ?? item?.name ?? 'value'}`
     const itemConfig = getPayloadConfigFromPayload(config, item, key)
-    const value = !labelKey && typeof label === 'string'
-      ? config[label as keyof typeof config]?.label ?? label
-      : itemConfig?.label
+    const value =
+      !labelKey && typeof label === 'string'
+        ? (config[label as keyof typeof config]?.label ?? label)
+        : itemConfig?.label
 
     if (labelFormatter) {
       return (
@@ -176,7 +185,15 @@ export function ChartTooltipContent({
     if (!value) return null
 
     return <div className={cn('font-medium', labelClassName)}>{value}</div>
-  }, [label, labelFormatter, payload, hideLabel, labelClassName, config, labelKey])
+  }, [
+    label,
+    labelFormatter,
+    payload,
+    hideLabel,
+    labelClassName,
+    config,
+    labelKey,
+  ])
 
   if (!active || !payload?.length) return null
 
@@ -206,7 +223,13 @@ export function ChartTooltipContent({
               )}
             >
               {formatter && item.value != null && item.name != null ? (
-                formatter(item.value, item.name, item as { payload: Record<string, unknown>; color?: string }, index, payload)
+                formatter(
+                  item.value,
+                  item.name,
+                  item as { payload: Record<string, unknown>; color?: string },
+                  index,
+                  payload
+                )
               ) : (
                 <>
                   {itemConfig?.icon ? (
@@ -214,16 +237,22 @@ export function ChartTooltipContent({
                   ) : (
                     !hideIndicator && (
                       <div
-                        className={cn('shrink-0 rounded-[2px] border-[--color-border] bg-[--color-bg]', {
-                          'h-2.5 w-2.5': indicator === 'dot',
-                          'w-1': indicator === 'line',
-                          'w-0 border-[1.5px] border-dashed bg-transparent': indicator === 'dashed',
-                          'my-0.5': nestLabel && indicator === 'dashed',
-                        })}
-                        style={{
-                          '--color-bg': indicatorColor,
-                          '--color-border': indicatorColor,
-                        } as React.CSSProperties}
+                        className={cn(
+                          'shrink-0 rounded-[2px] border-[--color-border] bg-[--color-bg]',
+                          {
+                            'h-2.5 w-2.5': indicator === 'dot',
+                            'w-1': indicator === 'line',
+                            'w-0 border-[1.5px] border-dashed bg-transparent':
+                              indicator === 'dashed',
+                            'my-0.5': nestLabel && indicator === 'dashed',
+                          }
+                        )}
+                        style={
+                          {
+                            '--color-bg': indicatorColor,
+                            '--color-border': indicatorColor,
+                          } as React.CSSProperties
+                        }
                       />
                     )
                   )}
@@ -240,7 +269,7 @@ export function ChartTooltipContent({
                       </span>
                     </div>
                     {item.value != null && (
-                      <span className='font-mono font-medium tabular-nums text-foreground'>
+                      <span className='font-mono font-medium text-foreground tabular-nums'>
                         {item.value.toLocaleString('ko-KR')}
                       </span>
                     )}
@@ -328,13 +357,13 @@ function getPayloadConfigFromPayload(
   if (typeof payload !== 'object' || payload === null) return undefined
 
   const payloadObj = payload as Record<string, unknown>
-  const payloadPayload = payloadObj.payload as Record<string, unknown> | undefined
+  const payloadPayload = payloadObj.payload as
+    | Record<string, unknown>
+    | undefined
 
   let configLabelKey = key
 
-  if (
-    key in config
-  ) {
+  if (key in config) {
     configLabelKey = key
   } else if (
     payloadPayload &&

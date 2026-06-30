@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import { useQueries } from '@tanstack/react-query'
 import { apiClient } from '@/lib/api-client'
-import type { Project, Timesheet } from '@/features/pm/activity/api'
 import type { Employee } from '@/features/hr/api'
+import type { Project, Timesheet } from '@/features/pm/activity/api'
 import type { ContractSummary } from '@/features/sales/contract/api'
 
 // ─── Raw fetch helpers (no mutation needed for dashboard reads) ───────────────
@@ -42,7 +42,7 @@ async function fetchContracts(): Promise<ContractSummary[]> {
 // ─── Derived types ───────────────────────────────────────────────────────────
 
 export type MonthlyTrend = {
-  month: string   // '1월' … '12월'
+  month: string // '1월' … '12월'
   hours: number
   amount: number
 }
@@ -78,11 +78,11 @@ const STATUS_LABEL: Record<string, string> = {
 }
 
 const STATUS_COLOR: Record<string, string> = {
-  PLANNED:    'var(--color-planned)',
-  IN_PROGRESS:'var(--color-in-progress)',
-  ON_HOLD:    'var(--color-on-hold)',
-  DONE:       'var(--color-done)',
-  CANCELLED:  'var(--color-cancelled)',
+  PLANNED: 'var(--color-planned)',
+  IN_PROGRESS: 'var(--color-in-progress)',
+  ON_HOLD: 'var(--color-on-hold)',
+  DONE: 'var(--color-done)',
+  CANCELLED: 'var(--color-cancelled)',
 }
 
 function buildKpi(
@@ -94,16 +94,27 @@ function buildKpi(
   const now = new Date()
   const ym = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`
 
-  const activeProjects = projects.filter((p) => p.status === 'IN_PROGRESS').length
+  const activeProjects = projects.filter(
+    (p) => p.status === 'IN_PROGRESS'
+  ).length
   const totalEmployees = employees.filter((e) => e.active).length
   const monthlyHours = timesheets
     .filter((t) => t.workDate.startsWith(ym))
     .reduce((sum, t) => sum + t.hours, 0)
   const activeContracts = contracts.filter((c) => c.active)
-  const contractTotal = activeContracts.reduce((sum, c) => sum + (c.totalAmount ?? 0), 0)
+  const contractTotal = activeContracts.reduce(
+    (sum, c) => sum + (c.totalAmount ?? 0),
+    0
+  )
   const contractCount = activeContracts.length
 
-  return { activeProjects, totalEmployees, monthlyHours, contractTotal, contractCount }
+  return {
+    activeProjects,
+    totalEmployees,
+    monthlyHours,
+    contractTotal,
+    contractCount,
+  }
 }
 
 function buildMonthlyTrend(
@@ -164,19 +175,35 @@ function buildDeptHeadcount(employees: Employee[]): DeptHeadcount[] {
 export function useDashboard() {
   const results = useQueries({
     queries: [
-      { queryKey: ['pm', 'projects'], queryFn: fetchProjects, staleTime: 60_000 },
-      { queryKey: ['pm', 'timesheets', 'dashboard'], queryFn: fetchTimesheets, staleTime: 60_000 },
-      { queryKey: ['hr', 'employees', 'dashboard'], queryFn: fetchEmployees, staleTime: 60_000 },
-      { queryKey: ['sales', 'contracts', 'dashboard'], queryFn: fetchContracts, staleTime: 60_000 },
+      {
+        queryKey: ['pm', 'projects'],
+        queryFn: fetchProjects,
+        staleTime: 60_000,
+      },
+      {
+        queryKey: ['pm', 'timesheets', 'dashboard'],
+        queryFn: fetchTimesheets,
+        staleTime: 60_000,
+      },
+      {
+        queryKey: ['hr', 'employees', 'dashboard'],
+        queryFn: fetchEmployees,
+        staleTime: 60_000,
+      },
+      {
+        queryKey: ['sales', 'contracts', 'dashboard'],
+        queryFn: fetchContracts,
+        staleTime: 60_000,
+      },
     ],
   })
 
   const isLoading = results.some((r) => r.isLoading)
 
-  const projects   = results[0].data ?? []
+  const projects = results[0].data ?? []
   const timesheets = results[1].data ?? []
-  const employees  = results[2].data ?? []
-  const contracts  = results[3].data ?? []
+  const employees = results[2].data ?? []
+  const contracts = results[3].data ?? []
 
   const kpi = useMemo(
     () => buildKpi(projects, timesheets, employees, contracts),
@@ -188,10 +215,7 @@ export function useDashboard() {
     [timesheets, contracts]
   )
 
-  const projectStatus = useMemo(
-    () => buildProjectStatus(projects),
-    [projects]
-  )
+  const projectStatus = useMemo(() => buildProjectStatus(projects), [projects])
 
   const deptHeadcount = useMemo(
     () => buildDeptHeadcount(employees),
@@ -201,7 +225,9 @@ export function useDashboard() {
   const recentContracts = useMemo(
     () =>
       [...contracts]
-        .sort((a, b) => (b.contractDate ?? '').localeCompare(a.contractDate ?? ''))
+        .sort((a, b) =>
+          (b.contractDate ?? '').localeCompare(a.contractDate ?? '')
+        )
         .slice(0, 5),
     [contracts]
   )
