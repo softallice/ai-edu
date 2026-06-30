@@ -1,3 +1,4 @@
+import { useFormContext } from 'react-hook-form'
 import { Loader } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { FormControl } from '@/components/ui/form'
@@ -33,13 +34,17 @@ export function SelectDropdown({
   const defaultState = isControlled
     ? { value: defaultValue, onValueChange }
     : { defaultValue, onValueChange }
+  // react-hook-form 컨텍스트 밖(useState 기반 화면)에서는 FormControl 이
+  // useFormContext() null 참조로 크래시하므로, 폼 컨텍스트가 있을 때만 감싼다.
+  const formContext = useFormContext()
+  const trigger = (
+    <SelectTrigger disabled={disabled} className={cn(className)}>
+      <SelectValue placeholder={placeholder ?? 'Select'} />
+    </SelectTrigger>
+  )
   return (
     <Select {...defaultState}>
-      <FormControl>
-        <SelectTrigger disabled={disabled} className={cn(className)}>
-          <SelectValue placeholder={placeholder ?? 'Select'} />
-        </SelectTrigger>
-      </FormControl>
+      {formContext ? <FormControl>{trigger}</FormControl> : trigger}
       <SelectContent>
         {isPending ? (
           <SelectItem disabled value='loading' className='h-14'>
