@@ -89,7 +89,9 @@ export function AccountsPage() {
       { id: editId, body: form },
       {
         onSuccess: () => {
-          toast.success(editId ? '계정과목을 수정했습니다.' : '계정과목을 등록했습니다.')
+          toast.success(
+            editId ? '계정과목을 수정했습니다.' : '계정과목을 등록했습니다.'
+          )
           setOpen(false)
         },
         onError: () => toast.error('저장에 실패했습니다.'),
@@ -98,7 +100,8 @@ export function AccountsPage() {
   }
 
   const onDelete = (a: Account) => {
-    if (!confirm(`계정과목 [${a.code} ${a.name}]을(를) 삭제하시겠습니까?`)) return
+    if (!confirm(`계정과목 [${a.code} ${a.name}]을(를) 삭제하시겠습니까?`))
+      return
     remove.mutate(a.id, {
       onSuccess: () => toast.success('삭제했습니다.'),
       onError: () => toast.error('삭제에 실패했습니다.'),
@@ -167,14 +170,24 @@ export function AccountsPage() {
                     <TableCell className='font-medium'>{a.code}</TableCell>
                     <TableCell>{a.name}</TableCell>
                     <TableCell>
-                      <Badge variant='secondary'>{ACCOUNT_TYPE_LABEL[a.type]}</Badge>
+                      <Badge variant='secondary'>
+                        {ACCOUNT_TYPE_LABEL[a.type]}
+                      </Badge>
                     </TableCell>
                     <TableCell>{a.active ? '사용' : '미사용'}</TableCell>
                     <TableCell className='text-end'>
-                      <Button variant='ghost' size='icon' onClick={() => openEdit(a)}>
+                      <Button
+                        variant='ghost'
+                        size='icon'
+                        onClick={() => openEdit(a)}
+                      >
                         <Pencil size={15} />
                       </Button>
-                      <Button variant='ghost' size='icon' onClick={() => onDelete(a)}>
+                      <Button
+                        variant='ghost'
+                        size='icon'
+                        onClick={() => onDelete(a)}
+                      >
                         <Trash2 size={15} />
                       </Button>
                     </TableCell>
@@ -189,7 +202,9 @@ export function AccountsPage() {
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent className='flex flex-col'>
           <SheetHeader>
-            <SheetTitle>{editId ? '계정과목 수정' : '계정과목 등록'}</SheetTitle>
+            <SheetTitle>
+              {editId ? '계정과목 수정' : '계정과목 등록'}
+            </SheetTitle>
           </SheetHeader>
           <div className='flex-1 space-y-4 overflow-y-auto px-4'>
             <Field label='계정코드'>
@@ -241,7 +256,13 @@ export function AccountsPage() {
   )
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({
+  label,
+  children,
+}: {
+  label: string
+  children: React.ReactNode
+}) {
   return (
     <div className='space-y-1'>
       <label className='text-sm font-medium'>{label}</label>

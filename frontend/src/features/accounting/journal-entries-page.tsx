@@ -240,8 +240,12 @@ export function JournalEntriesPage() {
                       <TableCell>{e.entryDate}</TableCell>
                       <TableCell>{e.journalCode ?? '-'}</TableCell>
                       <TableCell>{e.ref ?? '-'}</TableCell>
-                      <TableCell className='text-end'>{won(e.totalDebit)}</TableCell>
-                      <TableCell className='text-end'>{won(e.totalCredit)}</TableCell>
+                      <TableCell className='text-end'>
+                        {won(e.totalDebit)}
+                      </TableCell>
+                      <TableCell className='text-end'>
+                        {won(e.totalCredit)}
+                      </TableCell>
                       <TableCell className='text-center'>
                         <Badge variant={bal ? 'default' : 'destructive'}>
                           {bal ? '균형' : '불균형'}
@@ -377,10 +381,16 @@ export function JournalEntriesPage() {
               {/* Totals */}
               <div className='flex items-center justify-end gap-4 rounded-md border px-4 py-2'>
                 <span className='text-sm text-muted-foreground'>
-                  차변합: <span className='font-medium text-foreground'>{won(totalDebit)}</span>
+                  차변합:{' '}
+                  <span className='font-medium text-foreground'>
+                    {won(totalDebit)}
+                  </span>
                 </span>
                 <span className='text-sm text-muted-foreground'>
-                  대변합: <span className='font-medium text-foreground'>{won(totalCredit)}</span>
+                  대변합:{' '}
+                  <span className='font-medium text-foreground'>
+                    {won(totalCredit)}
+                  </span>
                 </span>
                 <Badge variant={balanced ? 'default' : 'destructive'}>
                   {balanced ? '균형' : '불균형'}
@@ -406,7 +416,13 @@ export function JournalEntriesPage() {
   )
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({
+  label,
+  children,
+}: {
+  label: string
+  children: React.ReactNode
+}) {
   return (
     <div className='space-y-1'>
       <label className='text-sm font-medium'>{label}</label>

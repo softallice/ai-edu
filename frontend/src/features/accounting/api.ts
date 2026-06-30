@@ -3,7 +3,12 @@ import { apiClient } from '@/lib/api-client'
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
-export type AccountType = 'ASSET' | 'LIABILITY' | 'EQUITY' | 'INCOME' | 'EXPENSE'
+export type AccountType =
+  | 'ASSET'
+  | 'LIABILITY'
+  | 'EQUITY'
+  | 'INCOME'
+  | 'EXPENSE'
 export type JournalType = 'SALE' | 'PURCHASE' | 'BANK' | 'CASH' | 'GENERAL'
 
 export const ACCOUNT_TYPE_LABEL: Record<AccountType, string> = {
@@ -98,7 +103,11 @@ export const won = (n: number) => (n ?? 0).toLocaleString('ko-KR')
 const ACCOUNT_BASE = '/api/accounting/accounts'
 const accountKey = ['accounting', 'accounts'] as const
 
-export function useAccounts(params?: { keyword?: string; type?: AccountType; active?: boolean }) {
+export function useAccounts(params?: {
+  keyword?: string
+  type?: AccountType
+  active?: boolean
+}) {
   return useQuery({
     queryKey: [...accountKey, params],
     queryFn: async () => {
@@ -163,7 +172,8 @@ export function useJournalEntries(params?: {
       if (params?.journalCode) p.journalCode = params.journalCode
       if (params?.dateFrom) p.dateFrom = params.dateFrom
       if (params?.dateTo) p.dateTo = params.dateTo
-      return (await apiClient.get<JournalEntry[]>(ENTRY_BASE, { params: p })).data
+      return (await apiClient.get<JournalEntry[]>(ENTRY_BASE, { params: p }))
+        .data
     },
   })
 }
